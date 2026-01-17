@@ -77,7 +77,7 @@ export default function Header({ mobileMenuOpen, setMobileMenuOpen }: { mobileMe
                             className="relative overflow-hidden rounded-full"
                         >
                             <Link
-                                to="/contact"
+                                to="/contact-us"
                                 className="relative z-10 flex items-center justify-center gap-2 bg-base-100 px-7 py-2.5 rounded-full hover:bg-primary hover:text-primary-foreground duration-200"
                             >
                                 {/* Icon Wrapper */}
@@ -199,7 +199,7 @@ export default function Header({ mobileMenuOpen, setMobileMenuOpen }: { mobileMe
                                     className="mt-10"
                                 >
                                     <Link
-                                        to="/contact"
+                                        to="/contact-us"
                                         className="px-10 py-4 border border-white rounded-full text-white hover:bg-primary hover:border-primary transition"
                                     >
                                         Contact Us

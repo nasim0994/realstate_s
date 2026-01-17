@@ -65,10 +65,10 @@ export default function MainFooter() {
                     <div className="w-full border-t border-white/10 pt-12 pb-12">
                         <div className="flex flex-wrap justify-center md:justify-between items-center gap-8">
                             <nav className="flex flex-wrap gap-8 justify-center md:gap-10">
-                                {["Home", "Projects", "Services", "About", "Contact"].map((item) => (
+                                {["Home", "Projects", "About", "Contact", "Blogs"].map((item) => (
                                     <a
                                         key={item}
-                                        href={`#${item.toLowerCase()}`}
+                                        href={`/${item.toLowerCase()}`}
                                         className="text-xs uppercase font-bold tracking-widest hover:text-primary transition-colors"
                                     >
                                         {item}

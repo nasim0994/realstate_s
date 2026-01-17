@@ -3,6 +3,8 @@ import { Target, Eye, Quote } from "lucide-react";
 import AboutCom from "../../components/modules/home/AboutCom";
 
 export default function AboutPage() {
+    window.scrollTo(0, 0);
+
     return (
         <main className="bg-white">
             {/* 1. Main About Component */}

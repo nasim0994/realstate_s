@@ -7,6 +7,8 @@ import HighlightProject from "../../components/modules/home/HighlightProject";
 
 
 export default function Home() {
+    window.scrollTo(0, 0);
+
     return (
         <>
             <Hero />

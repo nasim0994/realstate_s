@@ -11,6 +11,7 @@ const allProjects = [
 ];
 
 export default function Projects() {
+    window.scrollTo(0, 0);
     const [activeType, setActiveType] = useState("All");
     const [activeStatus, setActiveStatus] = useState("All");
 

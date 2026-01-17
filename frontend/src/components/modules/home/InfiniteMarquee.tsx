@@ -48,7 +48,7 @@ function ParallaxText({ baseVelocity = 100 }: MarqueeProps) {
     return (
         <div className="overflow-hidden tracking-[-2px] leading-[0.8] whitespace-nowrap flex flex-nowrap">
             <motion.div
-                className="font-bold uppercase text-[8vw] md:text-[10vw] flex flex-nowrap gap-10 whitespace-nowrap py-2"
+                className="font-bold uppercase text-[8vw] md:text-[10vw] flex flex-nowrap gap-10 whitespace-nowrap"
                 style={{ x }}
             >
                 <span className="text-outline">Luxury Living, Perfected Daily</span>
@@ -60,7 +60,7 @@ function ParallaxText({ baseVelocity = 100 }: MarqueeProps) {
 
 export default function InfiniteMarquee() {
     return (
-        <section className="py-20 bg-base-100 overflow-hidden">
+        <section className="pb-20 bg-base-100 overflow-hidden">
             <ParallaxText baseVelocity={-2} />
         </section>
     );

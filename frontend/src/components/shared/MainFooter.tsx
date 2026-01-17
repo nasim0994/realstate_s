@@ -15,7 +15,7 @@ export default function MainFooter() {
                 <div className="absolute inset-0 bg-linear-to-t from-black via-black/80 to-transparent" />
             </div>
 
-            <div className="container relative z-10 pt-24 pb-12">
+            <div className="container relative z-10 pt-16 pb-10">
                 <div className="flex flex-col items-center text-center">
 
                     {/* Large Phone Number */}
@@ -64,7 +64,7 @@ export default function MainFooter() {
                     {/* Quick Links Flex Container */}
                     <div className="w-full border-t border-white/10 pt-12 pb-12">
                         <div className="flex flex-wrap justify-center md:justify-between items-center gap-8">
-                            <nav className="flex gap-10">
+                            <nav className="flex flex-wrap gap-8 justify-center md:gap-10">
                                 {["Home", "Projects", "Services", "About", "Contact"].map((item) => (
                                     <a
                                         key={item}

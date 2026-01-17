@@ -3,27 +3,37 @@ import { CgMenuRight } from "react-icons/cg";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Phone, ChevronDown } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, } from "react-router-dom";
 
 const navLinks = [
-    { name: "Home", href: "#" },
-    { name: "Properties", href: "#", hasDropdown: true },
-    { name: "Agents", href: "#" },
-    { name: "About Us", href: "#" },
+    { name: "Home", href: "/" },
+    { name: "Projects", href: "/projects", hasDropdown: true },
+    { name: "Agents", href: "/agents" },
+    { name: "About Us", href: "/about-us" },
 ];
 
 export default function Header({ mobileMenuOpen, setMobileMenuOpen }: { mobileMenuOpen: boolean; setMobileMenuOpen: (open: boolean) => void; }) {
     const [scrolled, setScrolled] = useState(false);
+    const location = useLocation();
+    const isHomePage = location.pathname === "/";
+    const isProjectDetailsPage = location.pathname.startsWith("/project/");
 
-
-    // Scroll detection for changing header style
     useEffect(() => {
         const handleScroll = () => {
-            setScrolled(window.scrollY > 50);
+            if (!isHomePage && !isProjectDetailsPage) {
+                setScrolled(true);
+            } else {
+                setScrolled(window.scrollY > 50);
+            }
         };
+
+
+        handleScroll();
+
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+    }, [isHomePage, isProjectDetailsPage]);
+
 
     return (
         <motion.header
@@ -38,9 +48,9 @@ export default function Header({ mobileMenuOpen, setMobileMenuOpen }: { mobileMe
                 <div className="flex items-center justify-between">
 
                     {/* Left: Logo */}
-                    <div className="text-2xl font-bold text-white tracking-wider cursor-pointer">
+                    <Link to="/" className="text-2xl font-bold text-white tracking-wider cursor-pointer">
                         LUXE<span className="text-primary-500">ESTATE</span>
-                    </div>
+                    </Link>
 
                     {/* Middle: Menu (Desktop) */}
                     <nav className="hidden md:flex items-center gap-8">

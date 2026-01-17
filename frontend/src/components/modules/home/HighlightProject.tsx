@@ -44,7 +44,7 @@ export default function HighlightProject() {
                             A paradigm of luxury living in the heart of the city, where nature meets modern architecture.
                         </p>
 
-                        <AnimationButton text="Explore Project" link={`/projects/sky-garden`} borderColor="border-base-100" textColor="text-base-100" arrowColor="#ffffff" />
+                        <AnimationButton text="Explore Project" link={`/project/sky-garden`} borderColor="border-base-100" textColor="text-base-100" arrowColor="#ffffff" />
                     </div>
                 </motion.div>
             </div>

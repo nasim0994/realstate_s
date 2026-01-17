@@ -5,6 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import AnimationButton from "../../shared/AnimationButton";
+import { Link } from "react-router-dom";
 
 const projects = [
     {
@@ -101,48 +102,50 @@ export default function ProjectCom() {
                 >
                     {projects.map((project, index) => (
                         <SwiperSlide key={project.id}>
-                            <motion.div
-                                className="group cursor-pointer relative"
-                                onMouseEnter={() => setCursorVisible(true)}
-                                onMouseLeave={() => setCursorVisible(false)}
-                                onMouseMove={(e) => handleMouseMove(e, "right")}
-                                initial={{ opacity: 0, y: 50 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.6, delay: index * 0.2 }}
-                            >
-                                {/* Image Container */}
-                                <div className="relative aspect-4/5 overflow-hidden bg-gray-200">
-                                    <img
-                                        src={project.image}
-                                        alt={project.title}
-                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                    />
+                            <Link to={`/project/${project.id}`}>
+                                <motion.div
+                                    className="group cursor-pointer relative"
+                                    onMouseEnter={() => setCursorVisible(true)}
+                                    onMouseLeave={() => setCursorVisible(false)}
+                                    onMouseMove={(e) => handleMouseMove(e, "right")}
+                                    initial={{ opacity: 0, y: 50 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.6, delay: index * 0.2 }}
+                                >
+                                    {/* Image Container */}
+                                    <div className="relative aspect-4/5 overflow-hidden bg-gray-200">
+                                        <img
+                                            src={project.image}
+                                            alt={project.title}
+                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                        />
 
-                                    {/* Red Overlay on Hover */}
-                                    <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                        {/* Red Overlay on Hover */}
+                                        <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                                    {/* Category Badge */}
-                                    <div className="absolute top-6 left-6">
-                                        <span className="bg-white text-neutral text-[10px] font-bold uppercase tracking-widest px-4 py-2">
-                                            {project.category}
-                                        </span>
+                                        {/* Category Badge */}
+                                        <div className="absolute top-6 left-6">
+                                            <span className="bg-white text-neutral text-[10px] font-bold uppercase tracking-widest px-4 py-2">
+                                                {project.category}
+                                            </span>
+                                        </div>
                                     </div>
-                                </div>
 
-                                {/* Project Info */}
-                                <div className="mt-6 space-y-2 px-2">
-                                    <div className="flex items-center text-gray-500 gap-1">
-                                        <MapPin className="w-3.5 h-3.5 text-primary" />
-                                        <span className="text-xs font-medium uppercase tracking-wider">{project.location}</span>
+                                    {/* Project Info */}
+                                    <div className="mt-6 space-y-2 px-2">
+                                        <div className="flex items-center text-gray-500 gap-1">
+                                            <MapPin className="w-3.5 h-3.5 text-primary" />
+                                            <span className="text-xs font-medium uppercase tracking-wider">{project.location}</span>
+                                        </div>
+                                        <h3 className="text-2xl font-bold text-neutral group-hover:text-primary transition-colors duration-300">
+                                            {project.title}
+                                        </h3>
+
+                                        <div className="w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-500 mt-4" />
                                     </div>
-                                    <h3 className="text-2xl font-bold text-neutral group-hover:text-primary transition-colors duration-300">
-                                        {project.title}
-                                    </h3>
-
-                                    <div className="w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-500 mt-4" />
-                                </div>
-                            </motion.div>
+                                </motion.div>
+                            </Link>
                         </SwiperSlide>
                     ))}
                 </Swiper>

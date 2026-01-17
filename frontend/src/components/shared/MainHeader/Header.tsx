@@ -2,216 +2,154 @@ import { AiOutlineClose } from "react-icons/ai";
 import { CgMenuRight } from "react-icons/cg";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Phone, ChevronDown } from "lucide-react";
-import { Link, useLocation, } from "react-router-dom";
+import { ChevronDown } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 
 const navLinks = [
     { name: "Home", href: "/" },
-    { name: "Projects", href: "/projects", hasDropdown: true },
-    { name: "Agents", href: "/agents" },
+    {
+        name: "Projects",
+        href: "/projects",
+        hasDropdown: true,
+        dropdown: [
+            { name: "Upcoming Projects", href: "/projects?status=upcoming" },
+            { name: "Ongoing Projects", href: "/projects?status=ongoing" },
+            { name: "Completed Projects", href: "/projects?status=completed" },
+        ]
+    },
     { name: "About Us", href: "/about-us" },
+    { name: "Blogs", href: "/blogs" },
 ];
 
 export default function Header({ mobileMenuOpen, setMobileMenuOpen }: { mobileMenuOpen: boolean; setMobileMenuOpen: (open: boolean) => void; }) {
     const [scrolled, setScrolled] = useState(false);
+    const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
     const location = useLocation();
     const isHomePage = location.pathname === "/";
     const isProjectDetailsPage = location.pathname.startsWith("/project/");
 
     useEffect(() => {
         const handleScroll = () => {
-            if (!isHomePage && !isProjectDetailsPage) {
-                setScrolled(true);
-            } else {
-                setScrolled(window.scrollY > 50);
-            }
+            setScrolled(isHomePage || isProjectDetailsPage ? window.scrollY > 50 : true);
         };
-
-
         handleScroll();
-
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, [isHomePage, isProjectDetailsPage]);
 
-
     return (
         <motion.header
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-black/80 backdrop-blur-md py-4" : "bg-transparent py-6"
-                }`}
+            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-black/90 backdrop-blur-md py-4" : "bg-transparent py-6"}`}
             initial={{ y: -100 }}
             animate={{ y: 0 }}
-            transition={{ duration: 0.5 }}
         >
-            <motion.div className="container" animate={{ x: mobileMenuOpen ? "-30%" : "0%" }}
-                transition={{ duration: 0.6, ease: [0.77, 0, 0.18, 1] }}>
-                <div className="flex items-center justify-between">
+            <div className="container mx-auto px-6 flex items-center justify-between">
 
-                    {/* Left: Logo */}
-                    <Link to="/" className="text-2xl font-bold text-white tracking-wider cursor-pointer">
-                        LUXE<span className="text-primary-500">ESTATE</span>
-                    </Link>
+                {/* Logo */}
+                <Link to="/" >
+                    <img src="/logo.png" alt="Logo" className="w-20 sm:w-24" loading="lazy" />
+                </Link>
 
-                    {/* Middle: Menu (Desktop) */}
-                    <nav className="hidden md:flex items-center gap-8">
-                        {navLinks.map((link, index) => (
-                            <div key={index} className="relative group">
-                                <Link
-                                    to={link.href}
-                                    className="text-white/90 hover:text-white font-medium transition-colors flex items-center gap-1"
-                                >
-                                    {link.name}
-                                    {link.hasDropdown && <ChevronDown size={14} />}
-                                </Link>
-                                {/* Dropdown Animation Line */}
-                                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
-                            </div>
-                        ))}
-                    </nav>
-
-                    {/* Right: Contact Button */}
-                    <div className="hidden md:block">
-                        <motion.div
-                            whileHover="hover"
-                            whileTap={{ scale: 0.95 }}
-                            className="relative overflow-hidden rounded-full"
-                        >
-                            <Link
-                                to="/contact-us"
-                                className="relative z-10 flex items-center justify-center gap-2 bg-base-100 px-7 py-2.5 rounded-full hover:bg-primary hover:text-primary-foreground duration-200"
-                            >
-                                {/* Icon Wrapper */}
-                                <span className="relative w-4 h-4 overflow-hidden">
-                                    {/* Default Icon */}
-                                    <motion.span
-                                        variants={{
-                                            hover: { y: -24, opacity: 0 },
-                                        }}
-                                        transition={{ duration: 0.3 }}
-                                        className="absolute inset-0 flex items-center justify-center"
-                                    >
-                                        <Phone className="w-3.5 h-3.5" />
-                                    </motion.span>
-
-                                    {/* Hover Icon */}
-                                    <motion.span
-                                        initial={{ y: 24, opacity: 0 }}
-                                        variants={{
-                                            hover: { y: 0, opacity: 1 },
-                                        }}
-                                        transition={{ duration: 0.3 }}
-                                        className="absolute inset-0 flex items-center justify-center"
-                                    >
-                                        <Phone className="w-3.5 h-3.5" />
-                                    </motion.span>
-                                </span>
-
-                                <span className="font-medium text-sm">Contact Us</span>
+                {/* Desktop Nav */}
+                <nav className="hidden md:flex items-center gap-8">
+                    {navLinks.map((link, index) => (
+                        <div key={index} className="relative group py-2">
+                            <Link to={link.href} className="text-white/90 hover:text-white font-medium transition-colors flex items-center gap-1 uppercase text-xs tracking-widest">
+                                {link.name}
+                                {link.hasDropdown && <ChevronDown size={14} className="group-hover:rotate-180 transition-transform duration-300" />}
                             </Link>
-                        </motion.div>
-                    </div>
 
-                    {/* Mobile Menu Toggle */}
-                    <button className="md:hidden cursor-pointer w-10 h-10 bg-black/90 rounded-full flex items-center justify-center text-base-100" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-                        <CgMenuRight className="text-xl" />
-                    </button>
+                            {/* Desktop Dropdown */}
+                            {link.hasDropdown && (
+                                <div className="absolute top-full left-0 pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                                    <div className="bg-white p-6 w-56 shadow-xl border-t-2 border-primary]">
+                                        <div className="flex flex-col gap-4">
+                                            {link.dropdown?.map((sub, idx) => (
+                                                <Link key={idx} to={sub.href} className="text-black text-[10px] font-bold uppercase tracking-widest hover:text-primary] transition-colors">
+                                                    {sub.name}
+                                                </Link>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary] transition-all duration-300 group-hover:w-full"></span>
+                        </div>
+                    ))}
+                </nav>
+
+                {/* Contact Us (Desktop) */}
+                <div className="hidden md:block">
+                    <Link to="/contact-us" className="bg-primary] text-white px-8 py-3 rounded-none text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-300">
+                        Contact Us
+                    </Link>
                 </div>
-            </motion.div>
 
-            {/* Mobile Menu Dropdown (Simple version) */}
+                {/* Mobile Toggle */}
+                <button className="md:hidden text-white" onClick={() => setMobileMenuOpen(true)}>
+                    <CgMenuRight size={28} />
+                </button>
+            </div>
+
+            {/* Mobile Sidebar */}
             <AnimatePresence>
                 {mobileMenuOpen && (
-                    <>
-                        {/* Dark Overlay */}
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            onClick={() => setMobileMenuOpen(false)}
-                            className="fixed inset-0 bg-black/60 z-40"
-                        />
+                    <motion.aside
+                        initial={{ x: "100%" }}
+                        animate={{ x: 0 }}
+                        exit={{ x: "100%" }}
+                        transition={{ duration: 0.5, ease: [0.77, 0, 0.18, 1] }}
+                        className="fixed inset-0 bg-black z-60 flex flex-col p-10"
+                    >
+                        <button className="absolute top-8 right-8 text-white" onClick={() => setMobileMenuOpen(false)}>
+                            <AiOutlineClose size={32} />
+                        </button>
 
-                        {/* Sidebar */}
-                        <motion.aside
-                            initial={{ x: "100%" }}
-                            animate={{ x: 0 }}
-                            exit={{ x: "100%" }}
-                            transition={{ duration: 0.7, ease: [0.77, 0, 0.18, 1] }}
-                            className="fixed top-0 right-0 w-[95%] h-screen bg-black z-50 flex items-center justify-center"
-                        >
-
-                            <motion.div className="absolute top-0 right-0 p-4"
-                                initial={{ opacity: 0, y: -40 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -40 }}
-                                transition={{
-                                    duration: 0.6,
-                                    delay: 0.6,
-                                    ease: [0.77, 0, 0.18, 1],
-                                }}>
-                                <button>
-                                    <AiOutlineClose
-                                        className="text-4xl text-white absolute top-6 right-6"
-                                        onClick={() => setMobileMenuOpen(false)}
-                                    />
-                                </button>
-                            </motion.div>
-
-                            <motion.nav
-                                initial="hidden"
-                                animate="visible"
-                                variants={{
-                                    visible: {
-                                        transition: {
-                                            staggerChildren: 0.12,
-                                            delayChildren: 0.2,
-                                        },
-                                    },
-                                }}
-                                className="flex flex-col items-center gap-8"
-                            >
-                                {navLinks.map((link, i) => (
-                                    <motion.div
-                                        key={i}
-                                        variants={{
-                                            hidden: { opacity: 0, y: 40 },
-                                            visible: { opacity: 1, y: 0 },
-                                        }}
-                                        transition={{ duration: 0.6, ease: "easeOut" }}
-                                    >
-                                        <Link
-                                            to={link.href}
-                                            onClick={() => setMobileMenuOpen(false)}
-                                            className="text-white text-3xl font-semibold tracking-wide hover:text-primary transition"
-                                        >
+                        <div className="flex flex-col gap-8 mt-20">
+                            {navLinks.map((link, i) => (
+                                <div key={i} className="flex flex-col">
+                                    <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                                        <Link to={link.href} onClick={() => !link.hasDropdown && setMobileMenuOpen(false)} className="text-3xl font-bold text-white uppercase tracking-tighter">
                                             {link.name}
                                         </Link>
-                                    </motion.div>
-                                ))}
+                                        {link.hasDropdown && (
+                                            <button
+                                                onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)}
+                                                className={`p-2 bg-white/5 rounded-full text-white transition-transform ${mobileDropdownOpen ? 'rotate-180' : ''}`}
+                                            >
+                                                <ChevronDown size={20} />
+                                            </button>
+                                        )}
+                                    </div>
 
-                                {/* Contact CTA */}
-                                <motion.div
-                                    variants={{
-                                        hidden: { opacity: 0, y: 40 },
-                                        visible: { opacity: 1, y: 0 },
-                                    }}
-                                    transition={{ duration: 0.6 }}
-                                    className="mt-10"
-                                >
-                                    <Link
-                                        to="/contact-us"
-                                        className="px-10 py-4 border border-white rounded-full text-white hover:bg-primary hover:border-primary transition"
-                                    >
-                                        Contact Us
-                                    </Link>
-                                </motion.div>
-                            </motion.nav>
-                        </motion.aside>
-                    </>
+                                    {/* Mobile Dropdown Items */}
+                                    <AnimatePresence>
+                                        {link.hasDropdown && mobileDropdownOpen && (
+                                            <motion.div
+                                                initial={{ height: 0, opacity: 0 }}
+                                                animate={{ height: "auto", opacity: 1 }}
+                                                exit={{ height: 0, opacity: 0 }}
+                                                className="overflow-hidden bg-white/5 flex flex-col px-4"
+                                            >
+                                                {link.dropdown?.map((sub, idx) => (
+                                                    <Link
+                                                        key={idx}
+                                                        to={sub.href}
+                                                        onClick={() => setMobileMenuOpen(false)}
+                                                        className="py-4 text-white/60 text-sm font-bold uppercase tracking-widest border-b border-white/5 last:border-0"
+                                                    >
+                                                        {sub.name}
+                                                    </Link>
+                                                ))}
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </div>
+                            ))}
+                        </div>
+                    </motion.aside>
                 )}
             </AnimatePresence>
         </motion.header>
     );
-};
-
-
+}

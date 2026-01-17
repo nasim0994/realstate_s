@@ -51,11 +51,38 @@ const projectData = {
 
 export default function ProjectDetails() {
     window.scrollTo(0, 0);
+    const parseDescription = projectData?.description ? parser(projectData?.description) : "";
+    const convertPlainText = (htmlString: string) => {
+        const tempDiv = document.createElement("div");
+        tempDiv.innerHTML = htmlString;
+        return tempDiv.textContent || tempDiv.innerText || "";
+    }
+
+    const plainDescription = convertPlainText(projectData.description);
+    const metaDescription = plainDescription.length > 160
+        ? plainDescription.substring(0, 157) + "..."
+        : plainDescription;
 
     return (
         <div className="bg-white min-h-screen">
+
             <title>{projectData?.title}</title>
-            <meta name="description" content={projectData?.description} />
+            <meta name="description" content={metaDescription} />
+
+            {/* og */}
+            <meta property="og:title" content={projectData?.title} />
+            <meta property="og:description" content={metaDescription} />
+            <meta property="og:image" content={projectData?.image} />
+            <meta property="og:type" content="website" />
+            <meta property="og:url" content={window.location.href} />
+
+            {/* twitter */}
+            <meta name="twitter:title" content={projectData?.title} />
+            <meta name="twitter:description" content={metaDescription} />
+            <meta name="twitter:image" content={projectData?.image} />
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:url" content={window.location.href} />
+
 
             {/* Hero Section (Same as before) */}
             <section className="relative h-[65vh] w-full">
@@ -91,7 +118,7 @@ export default function ProjectDetails() {
                         {/* Project Perspective / Overview */}
                         <div className="space-y-6">
                             <h2 className="text-3xl font-bold border-l-4 border-primary pl-6 uppercase tracking-tight">Project Perspective</h2>
-                            <div>{projectData?.description && parser(projectData?.description)}</div>
+                            <div>{parseDescription}</div>
                         </div>
 
                         {/* Technical Specifications Grid */}

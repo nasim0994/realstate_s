@@ -1,19 +1,52 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, MapPin, X } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 const allProjects = [
-    { id: 1, title: "The Sky Garden", category: "Residential", status: "Ongoing", location: "Gulshan 2", image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=800", slug: "sky-garden" },
-    { id: 2, title: "Corporate Hub", category: "Commercial", status: "Ready", location: "Banani", image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800", slug: "corporate-hub" },
-    { id: 3, title: "Grand Residency", category: "Residential", status: "Upcoming", location: "Dhanmondi", image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800", slug: "grand-residency" },
-    { id: 4, title: "Elite Business Center", category: "Commercial", status: "Ongoing", location: "Uttara", image: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800", slug: "elite-business" },
+    { id: 1, title: "The Sky Garden", category: "Residential", status: "ongoing", location: "Gulshan 2", image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=800", slug: "sky-garden" },
+    { id: 2, title: "Corporate Hub", category: "Commercial", status: "completed", location: "Banani", image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800", slug: "corporate-hub" },
+    { id: 3, title: "Grand Residency", category: "Residential", status: "upcoming", location: "Dhanmondi", image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800", slug: "grand-residency" },
+    { id: 4, title: "Elite Business Center", category: "Commercial", status: "ongoing", location: "Uttara", image: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800", slug: "elite-business" },
 ];
 
 export default function Projects() {
     window.scrollTo(0, 0);
-    const [activeType, setActiveType] = useState("All");
-    const [activeStatus, setActiveStatus] = useState("All");
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    // URL থেকে মান পড়া (না থাকলে "All")
+    const typeFromUrl = searchParams.get("type") || "All";
+    const statusFromUrl = searchParams.get("status") || "All";
+
+    // State initialization (URL এর মান অনুযায়ী)
+    const [activeType, setActiveType] = useState(typeFromUrl);
+    const [activeStatus, setActiveStatus] = useState(statusFromUrl);
+
+    // ১. URL change হলে state আপডেট করার জন্য useEffect
+    useEffect(() => {
+        const t = searchParams.get("type") || "All";
+        const s = searchParams.get("status") || "All";
+
+        // Capitalize first letter to match our array values (e.g. upcoming -> Upcoming)
+        const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
+
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setActiveType(t === "All" ? "All" : capitalize(t));
+        setActiveStatus(s === "All" ? "All" : capitalize(s));
+    }, [searchParams, setActiveType, setActiveStatus]);
+
+
+    const handleFilterChange = (key: "type" | "status", value: string) => {
+        const newParams = new URLSearchParams(searchParams);
+
+        if (value === "All") {
+            newParams.delete(key);
+        } else {
+            newParams.set(key, value.toLowerCase());
+        }
+
+        setSearchParams(newParams);
+    };
 
     // Filtering Logic
     const filteredProjects = useMemo(() => {
@@ -25,8 +58,7 @@ export default function Projects() {
     }, [activeType, activeStatus]);
 
     const resetFilters = () => {
-        setActiveType("All");
-        setActiveStatus("All");
+        setSearchParams({});
     };
 
     return (
@@ -36,67 +68,61 @@ export default function Projects() {
                 <div className="max-w-4xl mb-6">
                     <motion.h4 initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-primary font-bold uppercase tracking-[0.4em] text-[10px] mb-4">Portfolio</motion.h4>
                     <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-5xl md:text-8xl font-bold tracking-tighter leading-none mb-10">
-                        Our <span className="text-outline">Landmarks</span>
+                        Our <span className="text-outline">Projects</span>
                     </motion.h1>
                 </div>
 
                 {/* --- Multi-Filter UI --- */}
-                <div className="flex flex-col md:flex-row gap-6 items-start md:items-center justify-between py-6 border-y border-gray-100">
+                <div className="flex flex-col md:flex-row gap-6 items-start md:items-center justify-between py-6 border-y border-gray-100 mb-12">
                     <div className="flex flex-wrap items-center gap-4 md:gap-8">
 
                         {/* Dropdown: Project Type */}
-                        <div className="relative group">
+                        <div className="relative">
                             <p className="text-[9px] uppercase font-bold tracking-[0.2em] text-gray-400 mb-2 ml-1">Select Type</p>
                             <div className="relative">
                                 <select
                                     value={activeType}
-                                    onChange={(e) => setActiveType(e.target.value)}
-                                    className="appearance-none bg-[#f9f9f9] border border-gray-200 text-neutral text-xs font-bold uppercase tracking-widest py-3 pl-6 pr-12 cursor-pointer focus:outline-none transition-all hover:bg-white"
+                                    onChange={(e) => handleFilterChange("type", e.target.value)}
+                                    className="appearance-none bg-[#f9f9f9] border border-gray-200 text-neutral text-xs font-bold uppercase tracking-widest py-3 pl-6 pr-12 cursor-pointer focus:outline-none hover:bg-white min-w-45"
                                 >
                                     {["All", "Residential", "Commercial"].map((type) => (
                                         <option key={type} value={type}>{type} Projects</option>
                                     ))}
                                 </select>
-                                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
-                                    <ChevronDown size={14} className="text-gray-400" />
-                                </div>
+                                <ChevronDown size={14} className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400" />
                             </div>
                         </div>
 
                         {/* Dropdown: Project Status */}
-                        <div className="relative group">
+                        <div className="relative">
                             <p className="text-[9px] uppercase font-bold tracking-[0.2em] text-gray-400 mb-2 ml-1">Project Status</p>
                             <div className="relative">
                                 <select
                                     value={activeStatus}
-                                    onChange={(e) => setActiveStatus(e.target.value)}
-                                    className="appearance-none bg-[#f9f9f9] border border-gray-200 text-neutral text-xs font-bold uppercase tracking-widest py-3 pl-6 pr-12 cursor-pointer focus:outline-none transition-all hover:bg-white"
+                                    onChange={(e) => handleFilterChange("status", e.target.value)}
+                                    className="appearance-none bg-[#f9f9f9] border border-gray-200 text-neutral text-xs font-bold uppercase tracking-widest py-3 pl-6 pr-12 cursor-pointer focus:outline-none hover:bg-white min-w-45"
                                 >
-                                    {["All", "Ongoing", "Ready", "Upcoming"].map((status) => (
+                                    {["All", "Ongoing", "Completed", "Upcoming"].map((status) => (
                                         <option key={status} value={status}>{status} Status</option>
                                     ))}
                                 </select>
-                                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
-                                    <ChevronDown size={14} className="text-gray-400" />
-                                </div>
+                                <ChevronDown size={14} className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400" />
                             </div>
                         </div>
                     </div>
 
-                    {/* Right Side: Found & Reset */}
-                    <div className="flex items-center gap-8 w-full md:w-auto justify-between md:justify-end border-t md:border-t-0 pt-4 md:pt-0 border-gray-100">
-                        {(activeType !== "All" || activeStatus !== "All") && (
-                            <button
-                                onClick={resetFilters}
-                                className="group flex items-center gap-2 text-[10px] uppercase font-bold tracking-widest hover:text-primary transition-colors"
-                            >
-                                <div className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center group-hover:border-primary">
-                                    <X size={12} />
-                                </div>
-                                Reset
-                            </button>
-                        )}
-                    </div>
+                    {/* Reset Button */}
+                    {(activeType !== "All" || activeStatus !== "All") && (
+                        <button
+                            onClick={resetFilters}
+                            className="group flex items-center gap-2 text-[10px] uppercase font-bold tracking-widest hover:text-primary transition-colors"
+                        >
+                            <div className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center group-hover:border-primary transition-all">
+                                <X size={12} />
+                            </div>
+                            Reset
+                        </button>
+                    )}
                 </div>
 
                 {/* --- Project Grid --- */}

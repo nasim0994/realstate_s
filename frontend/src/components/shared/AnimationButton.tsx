@@ -1,13 +1,13 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
-export default function AnimationButton({ text, link }: { text: string; link?: string }) {
+export default function AnimationButton({ text, link, borderColor, textColor, arrowColor }: { text: string; link?: string; borderColor?: string; textColor?: string; arrowColor?: string }) {
     return (
         <Link to={link || "/"}>
             <motion.div
                 initial="initial"
                 whileHover="hover"
-                className="group flex items-center gap-4 hover:bg-primary px-6 py-3 font-medium uppercase tracking-widest text-sm rounded-full duration-300 border border-neutral hover:border-primary bg-transparent text-neutral hover:text-primary-foreground"
+                className={`group flex items-center gap-4 hover:bg-primary px-6 py-3 font-medium uppercase tracking-widest text-sm rounded-full duration-300 border ${borderColor || "border-neutral"} hover:border-primary bg-transparent ${textColor || "text-neutral"} hover:text-primary-foreground`}
             >
                 {/* SVG Container for Arrow Animation */}
                 <div className="relative w-10 h-4 flex items-center justify-center">
@@ -24,10 +24,10 @@ export default function AnimationButton({ text, link }: { text: string; link?: s
                             d="M0 8H46"
                             strokeWidth="2"
                             strokeLinecap="round"
-                            initial={{ stroke: "#211e1f", scaleX: 0.5, originX: 0 }}
+                            initial={{ stroke: arrowColor || "#211e1f", scaleX: 0.5, originX: 0 }}
                             variants={{
                                 initial: {
-                                    stroke: "#211e1f",
+                                    stroke: arrowColor || "#211e1f",
                                     scaleX: 0.5
                                 },
                                 hover: {

@@ -52,7 +52,7 @@ export default function AboutCom() {
                                     viewport={{ once: true }}
                                     transition={{ delay: index * 0.2 }}
                                 >
-                                    <h3 className="text-3xl font-bold text-black">{item.value}</h3>
+                                    <h3 className="text-3xl font-bold text-neutral">{item.value}</h3>
                                     <p className="text-sm text-gray-500 font-medium">{item.label}</p>
                                 </motion.div>
                             ))}

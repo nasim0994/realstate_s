@@ -51,7 +51,7 @@ const projects = [
     },
 ];
 
-export default function ProjectSection() {
+export default function ProjectCom() {
     const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
     const [cursorVisible, setCursorVisible] = useState(false);
     const [cursorDirection, setCursorDirection] = useState<"left" | "right">("right");
@@ -62,7 +62,7 @@ export default function ProjectSection() {
     };
 
     return (
-        <section className="py-24 bg-[#f9f9f9] relative">
+        <section className="py-12 md:py-24 relative">
             <div className="container">
 
                 {/* Section Header */}
@@ -81,7 +81,7 @@ export default function ProjectSection() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: 0.1 }}
-                            className="text-4xl md:text-5xl font-bold text-black tracking-tight"
+                            className="text-4xl md:text-5xl font-bold text-neutral tracking-tight"
                         >
                             Explore Our Architectural <br /> Masterpieces
                         </motion.h2>
@@ -124,7 +124,7 @@ export default function ProjectSection() {
 
                                     {/* Category Badge */}
                                     <div className="absolute top-6 left-6">
-                                        <span className="bg-white text-black text-[10px] font-bold uppercase tracking-widest px-4 py-2">
+                                        <span className="bg-white text-neutral text-[10px] font-bold uppercase tracking-widest px-4 py-2">
                                             {project.category}
                                         </span>
                                     </div>
@@ -136,7 +136,7 @@ export default function ProjectSection() {
                                         <MapPin className="w-3.5 h-3.5 text-primary" />
                                         <span className="text-xs font-medium uppercase tracking-wider">{project.location}</span>
                                     </div>
-                                    <h3 className="text-2xl font-bold text-black group-hover:text-primary transition-colors duration-300">
+                                    <h3 className="text-2xl font-bold text-neutral group-hover:text-primary transition-colors duration-300">
                                         {project.title}
                                     </h3>
 

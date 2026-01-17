@@ -165,3 +165,13 @@ html.lenis {
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
 }
+
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px #e52329;
+}
+
+.text-outline-white {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.6);
+}

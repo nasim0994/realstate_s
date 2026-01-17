@@ -2,6 +2,7 @@ import Header from "../components/shared/MainHeader/Header";
 import { Outlet } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import MainFooter from "../components/shared/MainFooter";
 
 
 export default function MainLayout() {
@@ -19,6 +20,7 @@ export default function MainLayout() {
             >
                 <Outlet />
             </motion.main>
+            <MainFooter />
         </>
     )
 }

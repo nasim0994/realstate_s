@@ -112,7 +112,7 @@ export default function ProjectDetails() {
             </section>
 
             <section className="py-24">
-                <div className="container mx-auto px-6 flex flex-col lg:flex-row gap-16">
+                <div className="container flex flex-col lg:flex-row gap-16">
 
                     <div className="lg:w-2/3 space-y-16">
                         {/* Project Perspective / Overview */}

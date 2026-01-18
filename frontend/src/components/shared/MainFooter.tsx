@@ -1,7 +1,6 @@
-"use client";
-
 import { motion } from "framer-motion";
 import { Facebook, Instagram, Linkedin, Twitter, ArrowUpRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function MainFooter() {
     return (
@@ -86,9 +85,11 @@ export default function MainFooter() {
                     {/* Copyright Section */}
                     <div className="w-full flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/5 text-[10px] text-gray-500 uppercase tracking-widest">
                         <p>© 2024 Your Real Estate Firm. All Rights Reserved.</p>
-                        <p className="mt-4 md:mt-0">Design & Developed by <span className="text-white font-bold">Your Agency</span></p>
+                        <p className="mt-4 md:mt-0 flex items-center gap-2">
+                            Design & Developed by
+                            <Link to="https://devnasim.xyz" className="text-white font-bold">DevNasim</Link>
+                        </p>
                     </div>
-
                 </div>
             </div>
         </footer>

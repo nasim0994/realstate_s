@@ -148,6 +148,11 @@ export default function Header({ mobileMenuOpen, setMobileMenuOpen }: { mobileMe
                                     </AnimatePresence>
                                 </div>
                             ))}
+                            <div className="mt-8">
+                                <Link to="/contact-us" onClick={() => setMobileMenuOpen(false)} className="block bg-primary text-primary-foreground px-8 py-3 text-sm font-bold uppercase tracking-widest rounded-full text-center hover:bg-white hover:text-neutral transition-all duration-300">
+                                    Contact Us
+                                </Link>
+                            </div>
                         </div>
                     </motion.aside>
                 )}

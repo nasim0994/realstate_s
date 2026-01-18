@@ -88,7 +88,7 @@ export default function BlogDetails() {
                     {/* --- Author Card --- */}
                     <div className="mt-20 p-10 bg-gray-50 flex flex-col md:flex-row gap-8 items-center border-l-4 border-primary">
                         <div className="w-24 h-24 bg-gray-200 rounded-full overflow-hidden shrink-0">
-                            <img src="https://i.pravatar.cc/200?img=11" alt="Author" className="w-full h-full object-cover" />
+                            <img src="https://i.pravatar.cc/200?img=11" alt="Author" className="w-full h-full object-cover" loading="lazy" />
                         </div>
                         <div>
                             <h4 className="text-xl font-bold">{blogContent.author}</h4>

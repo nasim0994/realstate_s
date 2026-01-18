@@ -45,7 +45,7 @@ export default function AboutPage() {
                     {/* Chairman Message */}
                     <div className="flex flex-col md:flex-row items-center gap-16">
                         <div className="w-full md:w-1/3 aspect-3/4 bg-gray-100 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800" alt="Chairman" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
+                            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800" alt="Chairman" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" loading="lazy" />
                         </div>
                         <div className="w-full md:w-2/3 relative">
                             <Quote className="absolute -top-10 -left-10 w-20 h-20 text-gray-100 -z-10" />
@@ -62,7 +62,7 @@ export default function AboutPage() {
                     {/* MD Message (Reversed) */}
                     <div className="flex flex-col md:flex-row-reverse items-center gap-16">
                         <div className="w-full md:w-1/3 aspect-3/4 bg-gray-100 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=800" alt="MD" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=800" alt="MD" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" loading="lazy" />
                         </div>
                         <div className="w-full md:w-2/3 text-right">
                             <h4 className="text-primary font-bold uppercase tracking-widest text-xs mb-4">Managing Director's Message</h4>
@@ -88,7 +88,7 @@ export default function AboutPage() {
                         {[1, 2, 3, 4].map((i) => (
                             <div key={i} className="group cursor-pointer">
                                 <div className="relative overflow-hidden aspect-4/5 mb-4 bg-gray-200">
-                                    <img src={`https://i.pravatar.cc/400?img=${i + 10}`} className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500" alt="Team" />
+                                    <img src={`https://i.pravatar.cc/400?img=${i + 10}`} className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500" alt="Team" loading="lazy" />
                                 </div>
                                 <h4 className="font-bold text-lg uppercase tracking-tight">Johnathan Smith</h4>
                                 <p className="text-gray-400 text-xs uppercase tracking-widest mt-1">Chief Architect</p>

@@ -122,7 +122,7 @@ body {
   font-family: "Plus Jakarta Sans", sans-serif;
 }
 
-::-webkit-scrollbar {
+.hide_scrollbar::-webkit-scrollbar {
   display: none;
 }
 

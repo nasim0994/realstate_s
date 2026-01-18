@@ -86,7 +86,7 @@ export default function ProjectDetails() {
 
             {/* Hero Section (Same as before) */}
             <section className="relative h-[65vh] w-full">
-                <img src={projectData?.image} alt={projectData?.title} className="w-full h-full object-cover" />
+                <img src={projectData?.image} alt={projectData?.title} className="w-full h-full object-cover" loading="lazy" />
                 <div className="absolute inset-0 bg-black/50 flex items-end">
                     <div className="container pb-16">
                         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
@@ -137,7 +137,7 @@ export default function ProjectDetails() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 {projectData.gallery.map((img, i) => (
                                     <motion.div key={i} whileHover={{ scale: 0.98 }} className="overflow-hidden aspect-video bg-gray-100">
-                                        <img src={img} className="w-full h-full object-cover" alt="gallery" />
+                                        <img src={img} className="w-full h-full object-cover" alt="gallery" loading="lazy" />
                                     </motion.div>
                                 ))}
                             </div>

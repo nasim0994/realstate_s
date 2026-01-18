@@ -2,10 +2,7 @@ import { RouterProvider } from "react-router-dom"
 import { router } from "./routes"
 import SmoothScrollProvider from "./providers/SmoothScrollProvider"
 
-
-function App() {
-
-
+export default function App() {
   return (
     <SmoothScrollProvider>
       <RouterProvider router={router} />
@@ -13,4 +10,3 @@ function App() {
   )
 }
 
-export default App

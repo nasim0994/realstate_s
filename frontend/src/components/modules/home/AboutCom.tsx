@@ -21,7 +21,7 @@ export default function AboutCom() {
     return (
         <section ref={containerRef} className="py-10 md:py-24 bg-white overflow-hidden">
             <div className="container">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-16 items-center">
 
                     {/* Left Side: Content */}
                     <div className="space-y-8 order-2 lg:order-1">
@@ -67,7 +67,7 @@ export default function AboutCom() {
                     <div className="relative order-1 lg:order-2 flex justify-center lg:justify-end">
                         {/* Main Large Image */}
                         <motion.div
-                            className="relative w-full aspect-4/5 md:max-h-140 overflow-hidden"
+                            className="relative w-full sm:aspect-4/5 md:max-h-140 overflow-hidden"
                             initial={{ opacity: 0, scale: 0.9 }}
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}

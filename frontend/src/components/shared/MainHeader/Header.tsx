@@ -43,8 +43,7 @@ export default function Header({ mobileMenuOpen, setMobileMenuOpen }: { mobileMe
             initial={{ y: -100 }}
             animate={{ y: 0 }}
         >
-            <div className="container mx-auto px-6 flex items-center justify-between">
-
+            <div className="container flex items-center justify-between">
                 {/* Logo */}
                 <Link to="/" >
                     <img src="/logo.png" alt="Logo" className="w-20 sm:w-24" loading="lazy" />
@@ -80,7 +79,7 @@ export default function Header({ mobileMenuOpen, setMobileMenuOpen }: { mobileMe
 
                 {/* Contact Us (Desktop) */}
                 <div className="hidden md:block">
-                    <Link to="/contact-us" className="bg-primary] text-white px-8 py-3 rounded-none text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-300">
+                    <Link to="/contact-us" className="bg-primary text-white px-8 py-3 text-xs font-bold uppercase tracking-widest rounded-full hover:bg-white hover:text-neutral transition-all duration-300">
                         Contact Us
                     </Link>
                 </div>
@@ -99,7 +98,7 @@ export default function Header({ mobileMenuOpen, setMobileMenuOpen }: { mobileMe
                         animate={{ x: 0 }}
                         exit={{ x: "100%" }}
                         transition={{ duration: 0.5, ease: [0.77, 0, 0.18, 1] }}
-                        className="fixed inset-0 bg-black z-60 flex flex-col p-10"
+                        className="fixed inset-0 bg-black z-60 flex flex-col p-10 h-screen"
                     >
                         <button className="absolute top-8 right-8 text-white" onClick={() => setMobileMenuOpen(false)}>
                             <AiOutlineClose size={32} />
@@ -109,7 +108,10 @@ export default function Header({ mobileMenuOpen, setMobileMenuOpen }: { mobileMe
                             {navLinks.map((link, i) => (
                                 <div key={i} className="flex flex-col">
                                     <div className="flex items-center justify-between border-b border-white/10 pb-4">
-                                        <Link to={link.href} onClick={() => !link.hasDropdown && setMobileMenuOpen(false)} className="text-3xl font-bold text-white uppercase tracking-tighter">
+                                        <Link
+                                            to={link.href}
+                                            onClick={() => setMobileMenuOpen(false)}
+                                            className="text-xl sm:text-3xl font-bold text-white uppercase tracking-tighter">
                                             {link.name}
                                         </Link>
                                         {link.hasDropdown && (

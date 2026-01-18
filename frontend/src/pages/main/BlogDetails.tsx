@@ -29,7 +29,7 @@ export default function BlogDetails() {
 
     return (
         <div className="bg-white min-h-screen pt-32 pb-24">
-            <div className="container mx-auto px-6">
+            <div className="container">
 
                 {/* Back Button */}
                 <Link to="/blogs" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-black transition-colors mb-12 group">

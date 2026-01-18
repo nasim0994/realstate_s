@@ -23,7 +23,7 @@ function ParallaxText({ baseVelocity = 100 }: MarqueeProps) {
         stiffness: 400
     });
 
-    const velocityFactor = useTransform(smoothVelocity, [0, 1000], [0, 5], {
+    const velocityFactor = useTransform(smoothVelocity, [0, 1000], [3, 10], {
         clamp: false
     });
 
@@ -48,7 +48,7 @@ function ParallaxText({ baseVelocity = 100 }: MarqueeProps) {
     return (
         <div className="overflow-hidden tracking-[-2px] leading-[0.8] whitespace-nowrap flex flex-nowrap">
             <motion.div
-                className="font-bold uppercase text-[8vw] md:text-[10vw] flex flex-nowrap gap-10 whitespace-nowrap"
+                className="font-bold uppercase text-5xl md:text-[10vw] flex flex-nowrap gap-10 whitespace-nowrap"
                 style={{ x }}
             >
                 <span className="text-outline">Luxury Living, Perfected Daily</span>

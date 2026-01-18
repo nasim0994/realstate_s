@@ -28,7 +28,7 @@ export default function ContactCom() {
             <div className="container">
 
                 {/* Header Part */}
-                <div className="text-center max-w-4xl mx-auto mb-20">
+                <div className="text-center max-w-4xl mx-auto mb-6 sm:mb-20">
                     <motion.h4
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -37,16 +37,16 @@ export default function ContactCom() {
                     >
                         Connect with us
                     </motion.h4>
-                    <motion.h2
+                    <motion.h3
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.1 }}
-                        className="text-5xl md:text-7xl font-extrabold text-neutral"
+                        className="text-4xl md:text-7xl font-extrabold text-neutral"
                     >
                         Ready to build your <br />
                         <span className="text-outline">dream together?</span>
-                    </motion.h2>
+                    </motion.h3>
                 </div>
 
                 {/* Contact Links Grid */}

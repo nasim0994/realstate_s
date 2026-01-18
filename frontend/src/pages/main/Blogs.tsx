@@ -48,7 +48,7 @@ export default function Blogs() {
 
     return (
         <div className="bg-white min-h-screen pt-32 pb-24">
-            <div className="container mx-auto px-6">
+            <div className="container">
 
                 {/* Header Section */}
                 <div className="max-w-4xl mb-20">

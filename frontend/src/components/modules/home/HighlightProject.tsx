@@ -3,7 +3,7 @@ import AnimationButton from "../../shared/AnimationButton";
 
 export default function HighlightProject() {
     return (
-        <section className="relative h-[80vh] md:h-screen w-full overflow-hidden flex items-center justify-center">
+        <section className="relative py-20 md:h-[90vh] w-full overflow-hidden flex items-center justify-center">
             {/* Fixed Background Image */}
             <div
                 className="absolute inset-0 z-0"
@@ -44,7 +44,7 @@ export default function HighlightProject() {
                             A paradigm of luxury living in the heart of the city, where nature meets modern architecture.
                         </p>
 
-                        <AnimationButton text="Explore Project" link={`/project/sky-garden`} borderColor="border-base-100" textColor="text-base-100" arrowColor="#ffffff" />
+                        <AnimationButton text="Explore Project" link={`/project/sky-garden`} />
                     </div>
                 </motion.div>
             </div>

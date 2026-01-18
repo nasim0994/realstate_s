@@ -88,7 +88,7 @@ export default function ProjectDetails() {
             <section className="relative h-[65vh] w-full">
                 <img src={projectData?.image} alt={projectData?.title} className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-black/50 flex items-end">
-                    <div className="container mx-auto px-6 pb-16">
+                    <div className="container pb-16">
                         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
                             {/* Status & Category Badge */}
                             <div className="flex gap-3 mb-4">

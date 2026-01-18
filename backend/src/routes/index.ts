@@ -7,13 +7,15 @@ import { authRoute } from '../modules/auth/authRoute';
 import { seoRoute } from '../modules/seo/seoRoute';
 import { bannerRoute } from '../modules/banner/bannerRoute';
 import { contactRoute } from '../modules/contact/contactRoute';
-import { pagesRoute } from '../modules/page/pageRoute';
 import { popupNoticeRoute } from '../modules/popupNotification/popupNoticeRoute';
 import { blogRoute } from '../modules/blog/blogRoute';
 import { generalSettingRoute } from '../modules/generalSetting/generalSettingRoute';
 import { gtmRoute } from '../modules/gtm/gtmRoute';
 import { aboutRoute } from '../modules/about/aboutRoute';
-import { MessagesRoute } from '../modules/message/messageRoute';
+import { messagesRoute } from '../modules/message/messageRoute';
+import { managementRoute } from '../modules/management/managementRoute';
+import { teamRoute } from '../modules/team/teamRoute';
+import { moreAboutRoute } from '../modules/moreAbout/moreAboutRoute';
 
 const moduleRoutes = [
   {
@@ -39,18 +41,28 @@ const moduleRoutes = [
     permissionRoute: true,
   },
   {
+    path: '/more-about',
+    route: moreAboutRoute,
+    permissionRoute: true,
+  },
+  {
+    path: '/management',
+    route: managementRoute,
+    permissionRoute: true,
+  },
+  {
+    path: '/team',
+    route: teamRoute,
+    permissionRoute: true,
+  },
+  {
     path: '/contact',
     route: contactRoute,
     permissionRoute: true,
   },
   {
     path: '/message',
-    route: MessagesRoute,
-    permissionRoute: true,
-  },
-  {
-    path: '/pages',
-    route: pagesRoute,
+    route: messagesRoute,
     permissionRoute: true,
   },
   {

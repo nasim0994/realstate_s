@@ -37,4 +37,4 @@ Router.delete(
   deleteMessageController,
 );
 
-export const MessagesRoute = Router;
+export const messagesRoute = Router;

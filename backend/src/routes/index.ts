@@ -16,6 +16,8 @@ import { messagesRoute } from '../modules/message/messageRoute';
 import { managementRoute } from '../modules/management/managementRoute';
 import { teamRoute } from '../modules/team/teamRoute';
 import { moreAboutRoute } from '../modules/moreAbout/moreAboutRoute';
+import { projectTypesRoute } from '../modules/projectType/projectTypeRoute';
+import { projectRoute } from '../modules/project/projectRoute';
 
 const moduleRoutes = [
   {
@@ -31,6 +33,18 @@ const moduleRoutes = [
   {
     path: '/role',
     route: roleRoute,
+    permissionRoute: true,
+  },
+
+  // project route
+  {
+    path: '/project-type',
+    route: projectTypesRoute,
+    permissionRoute: true,
+  },
+  {
+    path: '/project',
+    route: projectRoute,
     permissionRoute: true,
   },
 

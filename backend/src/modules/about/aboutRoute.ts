@@ -24,7 +24,7 @@ Router.post(
   },
   addAboutController,
 );
-Router.get('/all', getAboutController);
+Router.get('/', getAboutController);
 Router.get('/:id', getSingleAboutController);
 Router.patch(
   '/update/:id',

@@ -41,5 +41,6 @@ export const baseApi = createApi({
     "generalSetting",
     "banner",
     "gtm",
+    "about",
   ],
 });

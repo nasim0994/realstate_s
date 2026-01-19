@@ -141,7 +141,7 @@ export default function GtmConfig() {
                             <button
                                 type="submit"
                                 disabled={isUpdating || isAdding}
-                                className="w-full sm:w-auto flex items-center justify-center gap-2 bg-primary text-white px-8 py-3.5 rounded-xl font-bold shadow-lg shadow-blue-100 hover:opacity-90 active:scale-95 transition-all disabled:opacity-70"
+                                className="admin_primary_btn"
                             >
                                 {isUpdating || isAdding ? <Loader2 className="animate-spin" size={18} /> : <Save size={18} />}
                                 {isUpdating || isAdding ? 'Saving Changes...' : 'Save Configuration'}

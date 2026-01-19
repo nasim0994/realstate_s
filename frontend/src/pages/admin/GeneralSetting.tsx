@@ -85,7 +85,7 @@ export default function GeneralSettings() {
                     <h1 className="text-2xl font-bold text-slate-800 tracking-tight">General Settings</h1>
                     <p className="text-slate-500 text-sm">Update site identity and branding assets.</p>
                 </div>
-                <button type="submit" className="flex items-center gap-2 bg-primary text-white px-8 py-3 rounded-xl font-bold shadow-lg shadow-blue-200 hover:opacity-90 active:scale-95 transition-all" disabled={isAdding || isUpdating}>
+                <button type="submit" className="admin_primary_btn" disabled={isAdding || isUpdating}>
                     <Save size={18} />
                     {isAdding || isUpdating ? <Loader2 /> : 'Save Changes'}
                 </button>

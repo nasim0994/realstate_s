@@ -16,8 +16,11 @@ export const addAboutController = catchAsync(async (req, res, next) => {
   const bigImage = files.bigImage?.[0]?.filename || null;
   const smallImage = files.smallImage?.[0]?.filename || null;
 
-  if (!bigImage || !smallImage)
+  if (!bigImage || !smallImage) {
+    if (bigImage) deleteFile(`./uploads/about/${bigImage}`);
+    if (smallImage) deleteFile(`./uploads/about/${smallImage}`);
     throw new AppError(httpStatus.BAD_REQUEST, 'Image is required !');
+  }
 
   try {
     const data = {

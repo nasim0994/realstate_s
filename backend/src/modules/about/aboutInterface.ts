@@ -4,4 +4,5 @@ export type IAbout = {
   title: string;
   subTitle: string;
   description: string;
+  ourConcerns?: string[];
 };

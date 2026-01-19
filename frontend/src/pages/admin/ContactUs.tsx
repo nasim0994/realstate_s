@@ -117,11 +117,11 @@ export default function ContactUsManagement() {
                 </div>
                 <button
                     type="submit"
-                    className="flex items-center gap-2 bg-primary text-white px-8 py-3 rounded-xl font-bold shadow-lg shadow-blue-200 hover:opacity-90 active:scale-95 transition-all"
+                    className="admin_primary_btn"
                     disabled={isLoading || uLoading}
                 >
-                    <Save size={18} />
-                    {isLoading ? <Loader2 className="animate-spin" size={20} /> : "Save Changes"}
+                    {uLoading || isLoading ? <Loader2 className="animate-spin" size={18} /> : <Save size={18} />}
+                    {uLoading || isLoading ? 'Saving...' : 'Save Changes'}
                 </button>
             </div>
 

@@ -155,10 +155,7 @@
   }
 
   label {
-    color: var(--neutral);
-    font-size: 11px;
-    display: block;
-    margin-bottom: 3px;
+    @apply text-sm font-semibold text-neutral flex items-center gap-2;
   }
 }
 

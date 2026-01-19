@@ -19,7 +19,7 @@ export default function AdminLayout() {
                 <AdminHeader setIsSidebarOpen={setIsSidebarOpen} />
 
                 {/* Dashboard Content */}
-                <main className="p-4 lg:p-8">
+                <main className="p-4">
                     <Outlet />
                 </main>
             </div>

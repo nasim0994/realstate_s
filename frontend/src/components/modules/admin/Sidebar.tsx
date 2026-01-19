@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import {
     LayoutDashboard, MessageSquare, Settings, X, Building2, ChevronDown,
     FileText, UserCog, ShieldCheck, Globe, Mail, Info, Search
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 interface SidebarProps {
     isOpen: boolean;
@@ -11,14 +11,12 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
+    const { pathname } = useLocation();
     const [openMenu, setOpenMenu] = useState<string | null>(null);
 
-    const toggleMenu = (label: string) => {
-        setOpenMenu(openMenu === label ? null : label);
-    };
 
-    const menuItems = [
-        { icon: LayoutDashboard, label: 'Dashboard', href: '/admin/dashboard', active: true },
+    const menuItems = useMemo(() => [
+        { icon: LayoutDashboard, label: 'Dashboard', href: '/admin/dashboard' },
         {
             icon: Building2,
             label: 'Projects',
@@ -28,7 +26,7 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                 { label: 'Type', href: '/admin/projects/type/all' },
             ]
         },
-        { icon: FileText, label: 'Blogs', href: '/admin/blogs', active: false },
+        { icon: FileText, label: 'Blogs', href: '/admin/blogs' },
         {
             icon: Info,
             label: 'About Us',
@@ -40,8 +38,8 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                 { label: 'Our Concern', href: '/admin/about/our-concern/all' },
             ]
         },
-        { icon: Globe, label: 'Contact Us', href: "/admin/contact-us", active: false },
-        { icon: Mail, label: 'Contact Message', href: "/admin/contact-message", active: false },
+        { icon: Globe, label: 'Contact Us', href: "/admin/contact-us" },
+        { icon: Mail, label: 'Contact Message', href: "/admin/contact-message" },
         {
             icon: Settings,
             label: 'Setting',
@@ -67,8 +65,26 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                 { label: 'Update Password', href: '/admin/profile/update-password' },
             ]
         },
-        { icon: Search, label: 'SEO', href: "/admin/seo", active: false },
-    ];
+        { icon: Search, label: 'SEO', href: "/admin/seo" },
+    ], []);
+
+    // 2. URL change hole auto-dropdown open korar logic
+    useEffect(() => {
+        menuItems?.forEach(item => {
+            if (item.children) {
+                const isActive = item.children.some(child => child.href === pathname);
+                if (isActive) {
+                    setOpenMenu(item.label);
+                }
+            }
+        });
+    }, [pathname, menuItems]);
+
+    const toggleMenu = (label: string) => {
+        setOpenMenu(openMenu === label ? null : label);
+    };
+
+
 
     return (
         <>
@@ -99,12 +115,17 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                     </button>
                 </div>
 
-                {/* 2. Navigation Area (Scrollable Section) */}
+                {/* 2. Navigation Area */}
                 <div className="flex-1 overflow-y-auto px-4 py-2">
                     <nav className="space-y-1 pb-4">
                         {menuItems.map((item, index) => {
                             const hasChildren = !!item.children;
                             const isMenuOpen = openMenu === item.label;
+
+                            // 3. Main item active check (child thakle child-er link check hobe)
+                            const isMainItemActive = hasChildren
+                                ? item.children?.some(child => child.href === pathname)
+                                : item.href === pathname;
 
                             return (
                                 <div key={index} className="space-y-1">
@@ -113,10 +134,10 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                                             onClick={() => toggleMenu(item.label)}
                                             className={`
                                                 w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all group text-[15px]
-                                                ${isMenuOpen ? 'bg-slate-50 text-slate-900' : 'text-slate-500 hover:bg-slate-50 hover:text-primary'}
+                                                ${isMainItemActive ? 'bg-slate-50 text-primary' : 'text-slate-500 hover:bg-slate-50 hover:text-primary'}
                                             `}
                                         >
-                                            <item.icon size={20} className={isMenuOpen ? 'text-primary' : 'text-slate-400 group-hover:text-primary'} />
+                                            <item.icon size={20} className={isMainItemActive ? 'text-primary' : 'text-slate-400 group-hover:text-primary'} />
                                             <span className="flex-1 text-left">{item.label}</span>
                                             <ChevronDown size={16} className={`transition-transform duration-300 ${isMenuOpen ? 'rotate-180' : ''}`} />
                                         </button>
@@ -126,12 +147,12 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                                             onClick={() => setIsOpen(false)}
                                             className={`
                                                 w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all group text-[15px]
-                                                ${item.active
+                                                ${isMainItemActive
                                                     ? 'bg-blue-50 text-primary'
                                                     : 'text-slate-500 hover:bg-slate-50 hover:text-primary'}
                                             `}
                                         >
-                                            <item.icon size={20} className={item.active ? 'text-primary' : 'text-slate-400 group-hover:text-primary'} />
+                                            <item.icon size={20} className={isMainItemActive ? 'text-primary' : 'text-slate-400 group-hover:text-primary'} />
                                             <span className="flex-1 text-left">{item.label}</span>
                                         </Link>
                                     )}
@@ -141,16 +162,22 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                                             ml-9 space-y-1 overflow-hidden transition-all duration-300
                                             ${isMenuOpen ? 'max-h-80 opacity-100 mt-1' : 'max-h-0 opacity-0'}
                                         `}>
-                                            {item.children?.map((child, idx) => (
-                                                <Link
-                                                    key={idx}
-                                                    to={child.href}
-                                                    onClick={() => setIsOpen(false)}
-                                                    className="block px-4 py-2 text-sm text-slate-500 hover:text-primary hover:bg-blue-50/50 rounded-lg transition-colors"
-                                                >
-                                                    {child.label}
-                                                </Link>
-                                            ))}
+                                            {item.children?.map((child, idx) => {
+                                                const isChildActive = pathname === child.href;
+                                                return (
+                                                    <Link
+                                                        key={idx}
+                                                        to={child.href}
+                                                        onClick={() => setIsOpen(false)}
+                                                        className={`block px-4 py-2 text-sm rounded-lg transition-colors ${isChildActive
+                                                            ? 'text-primary bg-blue-50/50'
+                                                            : 'text-slate-500 hover:text-primary hover:bg-blue-50/50'
+                                                            }`}
+                                                    >
+                                                        {child.label}
+                                                    </Link>
+                                                );
+                                            })}
                                         </div>
                                     )}
                                 </div>

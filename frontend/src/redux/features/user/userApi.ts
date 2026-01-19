@@ -50,17 +50,8 @@ export const userApi = baseApi.injectEndpoints({
       invalidatesTags: ["user"],
     }),
     updatePassword: builder.mutation({
-      query: ({ id, newData }) => ({
+      query: ({ id, data }) => ({
         url: `/user/update/password/${id}`,
-        method: "PUT",
-        body: newData,
-      }),
-      invalidatesTags: ["user"],
-    }),
-
-    bulkBackUser: builder.mutation({
-      query: ({ data }) => ({
-        url: "/user/bulk-back",
         method: "PUT",
         body: data,
       }),
@@ -77,5 +68,4 @@ export const {
   useDeleteUserMutation,
   useUpdateProfileMutation,
   useUpdatePasswordMutation,
-  useBulkBackUserMutation,
 } = userApi;

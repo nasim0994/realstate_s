@@ -40,18 +40,20 @@ export default function MyProfile() {
 
         formData.append('data', JSON.stringify(info));
         if (data.profileUrl?.[0] instanceof File) {
-            formData.append('profileUrl', data.profileUrl[0]);
+            formData.append('image', data.profileUrl[0]);
         }
 
         try {
-            const res = await updateProfile(formData) as TResponse;
+            const res = await updateProfile({ id: userId, data: formData }) as TResponse;
             if (res?.data?.success) {
                 toast.success("Profile updated successfully!");
             } else {
                 toast.error(res?.error?.data?.message || "Failed to update profile");
+                console.log(res);
+
             }
         } catch (error: any) {
-            toast.error(error?.data?.message || "Failed to add banner");
+            toast.error(error?.data?.message || "Failed to update profile!");
             console.log(error);
         }
     };

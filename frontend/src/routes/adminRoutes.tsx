@@ -1,4 +1,5 @@
 import { lazy, Suspense } from "react";
+import ContactUs from "../pages/admin/ContactUs";
 
 
 const AdminLayout = lazy(() => import("../layout/AdminLayout"));
@@ -16,6 +17,10 @@ export const adminRoutes = {
         {
             path: "dashboard",
             element: <Dashboard />
+        },
+        {
+            path: "contact-us",
+            element: <ContactUs />
         },
     ]
 }

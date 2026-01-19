@@ -6,6 +6,7 @@ export type IContact = {
   address: string;
   whatsappLink: string;
   messengerLink: string;
+  googleMapLink?: string;
   socials: {
     icon: string;
     url: string;

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import {
-    LayoutDashboard, Home, Users, MessageSquare,
-    BarChart3, Settings, X, Building2, ChevronDown,
+    LayoutDashboard, MessageSquare, Settings, X, Building2, ChevronDown,
+    FileText, UserCog, ShieldCheck, Globe, Mail, Info, Search
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -18,28 +18,56 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
     };
 
     const menuItems = [
-        { icon: LayoutDashboard, label: 'Dashboard', active: true },
+        { icon: LayoutDashboard, label: 'Dashboard', href: '/admin/dashboard', active: true },
         {
-            icon: Home,
-            label: 'Properties',
+            icon: Building2,
+            label: 'Projects',
             children: [
-                { label: 'All Properties', href: '/admin/properties' },
-                { label: 'Add Property', href: '/admin/properties/add' },
-                { label: 'Categories', href: '/admin/properties/categories' },
+                { label: 'All Projects', href: '/admin/projects/all' },
+                { label: 'Add Project', href: '/admin/projects/add' },
+                { label: 'Type', href: '/admin/projects/type/all' },
+            ]
+        },
+        { icon: FileText, label: 'Blogs', href: '/admin/blogs', active: false },
+        {
+            icon: Info,
+            label: 'About Us',
+            children: [
+                { label: 'About', href: '/admin/about' },
+                { label: 'More About', href: '/admin/about/more' },
+                { label: 'Management Message', href: '/admin/about/management-message' },
+                { label: 'Team Members', href: '/admin/about/team-member/all' },
+                { label: 'Our Concern', href: '/admin/about/our-concern/all' },
+            ]
+        },
+        { icon: Globe, label: 'Contact Us', href: "/admin/contact-us", active: false },
+        { icon: Mail, label: 'Contact Message', href: "/admin/contact-message", active: false },
+        {
+            icon: Settings,
+            label: 'Setting',
+            children: [
+                { label: 'General Setting', href: '/admin/setting/general' },
+                { label: 'Banner Setting', href: '/admin/setting/banner/all' },
+                { label: 'GTM Config', href: '/admin/setting/gtm-config' },
             ]
         },
         {
-            icon: Users,
-            label: 'Agents',
+            icon: ShieldCheck,
+            label: 'User & Role',
             children: [
-                { label: 'Agent List', href: '/admin/agents' },
-                { label: 'Performance', href: '/admin/agents/stats' },
+                { label: 'Role Management', href: '/admin/user-role/role-management' },
+                { label: 'User Management', href: '/admin/user-role/user-management' },
             ]
         },
-        { icon: MessageSquare, label: 'Inquiries', active: false, badge: 5 },
-        { icon: BarChart3, label: 'Analytics', active: false },
-        { icon: Building2, label: 'Reports', active: false },
-        { icon: Settings, label: 'Settings', active: false },
+        {
+            icon: UserCog,
+            label: 'Profile',
+            children: [
+                { label: 'My Profile', href: '/admin/profile/my-profile' },
+                { label: 'Update Password', href: '/admin/profile/update-password' },
+            ]
+        },
+        { icon: Search, label: 'SEO', href: "/admin/seo", active: false },
     ];
 
     return (
@@ -66,7 +94,7 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                             Estate<span className="text-primary">Flow</span>
                         </span>
                     </div>
-                    <button onClick={() => setIsOpen(false)} className="lg:hidden text-slate-500 hover:bg-slate-50 p-1 rounded-lg">
+                    <button onClick={() => setIsOpen(false)} className="lg:hidden text-slate-500 hover:bg-slate-50 p-1 rounded-lg transition-colors">
                         <X size={24} />
                     </button>
                 </div>
@@ -80,38 +108,46 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
 
                             return (
                                 <div key={index} className="space-y-1">
-                                    <button
-                                        onClick={() => hasChildren ? toggleMenu(item.label) : setOpenMenu(null)}
-                                        className={`
-                                            w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all group
-                                            ${item.active && !hasChildren
-                                                ? 'bg-blue-50 text-primary'
-                                                : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'}
-                                        `}
-                                    >
-                                        <item.icon size={20} className={item.active ? 'text-primary' : 'text-slate-400 group-hover:text-slate-900'} />
-                                        <span className="flex-1 text-left">{item.label}</span>
-                                        {hasChildren && (
+                                    {hasChildren ? (
+                                        <button
+                                            onClick={() => toggleMenu(item.label)}
+                                            className={`
+                                                w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all group text-[15px]
+                                                ${isMenuOpen ? 'bg-slate-50 text-slate-900' : 'text-slate-500 hover:bg-slate-50 hover:text-primary'}
+                                            `}
+                                        >
+                                            <item.icon size={20} className={isMenuOpen ? 'text-primary' : 'text-slate-400 group-hover:text-primary'} />
+                                            <span className="flex-1 text-left">{item.label}</span>
                                             <ChevronDown size={16} className={`transition-transform duration-300 ${isMenuOpen ? 'rotate-180' : ''}`} />
-                                        )}
-                                        {item.badge && !hasChildren && (
-                                            <span className="bg-primary text-white text-[10px] px-2 py-0.5 rounded-full">{item.badge}</span>
-                                        )}
-                                    </button>
+                                        </button>
+                                    ) : (
+                                        <Link
+                                            to={item.href || '#'}
+                                            className={`
+                                                w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all group text-[15px]
+                                                ${item.active
+                                                    ? 'bg-blue-50 text-primary'
+                                                    : 'text-slate-500 hover:bg-slate-50 hover:text-primary'}
+                                            `}
+                                        >
+                                            <item.icon size={20} className={item.active ? 'text-primary' : 'text-slate-400 group-hover:text-primary'} />
+                                            <span className="flex-1 text-left">{item.label}</span>
+                                        </Link>
+                                    )}
 
                                     {hasChildren && (
                                         <div className={`
                                             ml-9 space-y-1 overflow-hidden transition-all duration-300
-                                            ${isMenuOpen ? 'max-h-60 opacity-100 mt-1' : 'max-h-0 opacity-0'}
+                                            ${isMenuOpen ? 'max-h-80 opacity-100 mt-1' : 'max-h-0 opacity-0'}
                                         `}>
                                             {item.children?.map((child, idx) => (
-                                                <a
+                                                <Link
                                                     key={idx}
-                                                    href={child.href}
+                                                    to={child.href}
                                                     className="block px-4 py-2 text-sm text-slate-500 hover:text-primary hover:bg-blue-50/50 rounded-lg transition-colors"
                                                 >
                                                     {child.label}
-                                                </a>
+                                                </Link>
                                             ))}
                                         </div>
                                     )}
@@ -121,18 +157,14 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                     </nav>
                 </div>
 
-                {/* 3. Admin Inquiry Stats & Action (Fixed at Bottom) */}
+                {/* 3. Admin Inquiry Stats (Fixed at Bottom) */}
                 <div className="p-2 border-t border-slate-100 shrink-0 bg-white">
-                    {/* Message/Inquiry Status Widget */}
-                    <Link to="/admin/" className="block cursor-pointer group bg-slate-50 p-4 rounded-2xl border border-slate-100 relative overflow-hidden transition-all duration-300 hover:border-blue-200 hover:shadow-md hover:shadow-blue-50/50">
-
-                        {/* Background Decorative Icon with Hover Effect */}
+                    <Link to="/admin/contact-message" className="block cursor-pointer group bg-slate-50 p-4 rounded-2xl border border-slate-100 relative overflow-hidden transition-all duration-300 hover:border-blue-200 hover:shadow-md hover:shadow-blue-50/50">
                         <div className="absolute -right-2 -bottom-2 text-slate-200/50 transition-all duration-500 group-hover:text-blue-100 group-hover:scale-110 group-hover:-rotate-12 group-hover:-translate-y-1">
                             <MessageSquare size={56} />
                         </div>
 
                         <div className="relative z-10">
-                            {/* Header with Title and pulse dot */}
                             <div className="flex items-center justify-between mb-3">
                                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest group-hover:text-primary/80 transition-colors">
                                     Form Submissions
@@ -140,7 +172,6 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                                 <span className="flex h-1.5 w-1.5 rounded-full bg-primary animate-pulse"></span>
                             </div>
 
-                            {/* Stats Grid */}
                             <div className="flex items-end justify-between gap-2">
                                 <div className="flex-1">
                                     <div className="flex items-baseline gap-1">
@@ -149,10 +180,7 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                                     </div>
                                     <p className="text-[10px] text-slate-500 font-medium">Total Received</p>
                                 </div>
-
-                                {/* Divider */}
                                 <div className="h-8 w-px bg-slate-200 self-center"></div>
-
                                 <div className="flex-1 pl-2">
                                     <p className="text-2xl font-black text-primary tabular-nums">08</p>
                                     <p className="text-[10px] text-primary font-bold uppercase tracking-tighter">Unread</p>

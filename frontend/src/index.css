@@ -182,3 +182,9 @@ label {
   display: block;
   margin-bottom: 3px;
 }
+
+input::placeholder,
+textarea::placeholder {
+  color: #a3a3a3;
+  font-size: 14px;
+}

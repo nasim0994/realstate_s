@@ -9,6 +9,7 @@ const contactSchema = new Schema<IContact>({
   address: { type: String, required: true },
   whatsappLink: { type: String, required: true },
   messengerLink: { type: String, required: true },
+  googleMapLink: { type: String },
   socials: [
     {
       icon: { type: String, required: true },

@@ -42,5 +42,7 @@ export const baseApi = createApi({
     "banner",
     "gtm",
     "about",
+    "team",
+    "management",
   ],
 });

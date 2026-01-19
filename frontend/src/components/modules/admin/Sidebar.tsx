@@ -33,9 +33,8 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
             children: [
                 { label: 'About', href: '/admin/about' },
                 { label: 'More About', href: '/admin/about/more' },
-                { label: 'Management Message', href: '/admin/about/management-message' },
+                { label: 'Management Message', href: '/admin/about/management/all' },
                 { label: 'Team Members', href: '/admin/about/team-member/all' },
-                { label: 'Our Concern', href: '/admin/about/our-concern/all' },
             ]
         },
         { icon: Globe, label: 'Contact Us', href: "/admin/contact-us" },

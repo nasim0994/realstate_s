@@ -26,7 +26,7 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                 { label: 'Type', href: '/admin/projects/type/all' },
             ]
         },
-        { icon: FileText, label: 'Blogs', href: '/admin/blogs' },
+        { icon: FileText, label: 'Blogs', href: '/admin/blogs/all' },
         {
             icon: Info,
             label: 'About Us',

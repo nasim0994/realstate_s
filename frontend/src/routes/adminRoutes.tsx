@@ -1,6 +1,8 @@
 import { lazy, Suspense } from "react";
 import DashboardLayoutSkeleton from "../components/shared/Skeleton/DashboardLayoutSkeleton";
 import { PrivateRoute } from "./PrivateRoute";
+import AllBlogs from "@/pages/admin/blog/AllBlogs";
+import BlogForm from "@/pages/admin/blog/BlogsForm";
 
 
 const AdminLayout = lazy(() => import("../layout/AdminLayout"));
@@ -46,6 +48,20 @@ export const adminRoutes = {
             path: "dashboard",
             element: <Dashboard />
         },
+        // blogs
+        {
+            path: "blogs/all",
+            element: <AllBlogs />
+        },
+        {
+            path: "blogs/add",
+            element: <BlogForm />
+        },
+        {
+            path: "blogs/edit/:id",
+            element: <BlogForm />
+        },
+
         {
             path: "contact-us",
             element: <ContactUs />

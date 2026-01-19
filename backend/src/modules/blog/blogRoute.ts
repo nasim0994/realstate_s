@@ -15,8 +15,8 @@ const upload = fileUploader('blog').single('image');
 
 Router.post(
   '/add',
-  upload,
   verifyPermission('blogs', 'create'),
+  upload,
   (req: Request, res: Response, next: NextFunction) => {
     req.body = req.body.data && JSON.parse(req.body.data);
     next();

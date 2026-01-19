@@ -30,5 +30,6 @@ export const baseApi = createApi({
     "team",
     "management",
     "seo",
+    "blogs",
   ],
 });

@@ -4,9 +4,9 @@ export type IContact = {
   email: string;
   phone: string;
   address: string;
+  googleMapLink?: string;
   whatsappLink: string;
   messengerLink?: string;
-  googleMapLink?: string;
   socials: {
     icon: string;
     url: string;

@@ -12,7 +12,6 @@ export default function AdminHeader({ setIsSidebarOpen }: AdminHeaderProps) {
     const { loggedUser } = useAppSelector((state) => state.auth);
     const [isProfileOpen, setIsProfileOpen] = useState(false);
 
-    console.log(loggedUser);
 
 
     return (

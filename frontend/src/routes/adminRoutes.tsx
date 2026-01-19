@@ -1,11 +1,12 @@
 import { lazy, Suspense } from "react";
-import ContactUs from "../pages/admin/ContactUs";
 import DashboardLayoutSkeleton from "../components/shared/Skeleton/DashboardLayoutSkeleton";
 import { PrivateRoute } from "./PrivateRoute";
 
 
 const AdminLayout = lazy(() => import("../layout/AdminLayout"));
 const Dashboard = lazy(() => import("../pages/admin/Dashboard"));
+const GeneralSetting = lazy(() => import("../pages/admin/GeneralSetting"));
+const ContactUs = lazy(() => import("../pages/admin/ContactUs"));
 
 
 export const adminRoutes = {
@@ -25,6 +26,10 @@ export const adminRoutes = {
         {
             path: "contact-us",
             element: <ContactUs />
+        },
+        {
+            path: "setting/general",
+            element: <GeneralSetting />
         },
     ]
 }

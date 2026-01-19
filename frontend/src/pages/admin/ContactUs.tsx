@@ -1,9 +1,13 @@
 import { useForm, useFieldArray, type SubmitHandler, Controller } from 'react-hook-form';
 import {
     MapPin, MessageSquare, Plus, Trash2, Save, Globe, Info, Map,
-    Facebook, Instagram, Twitter, Linkedin, Youtube, Github,
-    ChevronDown
+    Facebook, Instagram, Twitter, Linkedin, Youtube, Github, Loader2
 } from 'lucide-react';
+import type { IContact } from '@/interface/contactInterface';
+import { useAddContactMutation, useGetContactQuery, useUpdateContactMutation } from '@/redux/features/contact/contactApi';
+import type { TResponse } from '@/interface/globalInterface';
+import toast from 'react-hot-toast';
+import { useEffect } from 'react';
 
 // Custom SVG for platforms not in Lucide
 const TikTokIcon = ({ size = 16 }) => (
@@ -26,23 +30,8 @@ const SOCIAL_OPTIONS = [
     { label: 'Threads', value: 'threads', icon: <Globe size={16} className="text-black" /> },
 ];
 
-export type IContact = {
-    title: string;
-    subTitle: string;
-    email: string;
-    phone: string;
-    address: string;
-    googleMapLink?: string;
-    whatsappLink: string;
-    messengerLink: string;
-    socials: {
-        icon: string;
-        url: string;
-    }[];
-};
-
 export default function ContactUsManagement() {
-    const { register, control, handleSubmit, formState: { errors } } = useForm<IContact>({
+    const { register, control, handleSubmit, formState: { errors }, reset } = useForm<IContact>({
         defaultValues: {
             title: "",
             subTitle: "",
@@ -56,14 +45,65 @@ export default function ContactUsManagement() {
         }
     });
 
-    const { fields, append, remove } = useFieldArray({
-        control,
-        name: "socials"
-    });
+    const { fields, append, remove } = useFieldArray({ control, name: "socials" });
 
-    const onSubmit: SubmitHandler<IContact> = (data) => {
-        console.log("Form Data Submitted:", data);
-        alert("Contact settings updated successfully!");
+    const { data } = useGetContactQuery({});
+    const contact = data?.data;
+    const id = contact?._id;
+
+    useEffect(() => {
+        if (contact) {
+            reset({
+                title: contact?.title ?? "",
+                subTitle: contact?.subTitle ?? "",
+                email: contact?.email ?? "",
+                phone: contact?.phone ?? "",
+                address: contact?.address ?? "",
+                googleMapLink: contact?.googleMapLink ?? "",
+                whatsappLink: contact?.whatsappLink ?? "",
+                messengerLink: contact?.messengerLink ?? "",
+                socials: contact?.socials?.length
+                    ? contact.socials
+                    : []
+            });
+        }
+    }, [contact, reset]);
+
+
+
+    const [addContact, { isLoading }] = useAddContactMutation();
+    const [updateContact, { isLoading: uLoading }] = useUpdateContactMutation();
+
+    const onSubmit: SubmitHandler<IContact> = async (data: IContact) => {
+        if (id) {
+            const res = (await updateContact({ id, data: data })) as TResponse;
+            if (res?.data?.success) {
+                toast.success("Contact Update Success");
+            } else {
+                toast.error(
+                    Array.isArray(res?.error?.data?.error) &&
+                        res?.error?.data?.error.length > 0
+                        ? `${res?.error?.data?.error[0]?.path || ""} ${res?.error?.data?.error[0]?.message || ""
+                            }`.trim()
+                        : res?.error?.data?.message || "Something went wrong!"
+                );
+                console.log(res);
+            }
+        } else {
+            const res = (await addContact(data)) as TResponse;
+            if (res?.data?.success) {
+                toast.success("Contact Add Success");
+            } else {
+                toast.error(
+                    Array.isArray(res?.error?.data?.error) &&
+                        res?.error?.data?.error.length > 0
+                        ? `${res?.error?.data?.error[0]?.path || ""} ${res?.error?.data?.error[0]?.message || ""
+                            }`.trim()
+                        : res?.error?.data?.message || "Something went wrong!"
+                );
+                console.log(res);
+            }
+        }
     };
 
     return (
@@ -78,9 +118,10 @@ export default function ContactUsManagement() {
                 <button
                     type="submit"
                     className="flex items-center gap-2 bg-primary text-white px-8 py-3 rounded-xl font-bold shadow-lg shadow-blue-200 hover:opacity-90 active:scale-95 transition-all"
+                    disabled={isLoading || uLoading}
                 >
                     <Save size={18} />
-                    Save Changes
+                    {isLoading ? <Loader2 className="animate-spin" size={20} /> : "Save Changes"}
                 </button>
             </div>
 
@@ -100,8 +141,9 @@ export default function ContactUsManagement() {
                             <div className="space-y-1.5 md:col-span-1">
                                 <label className="text-[11px] font-bold text-slate-400 uppercase tracking-wider ml-1">Title</label>
                                 <input
+                                    type='text'
                                     {...register("title", { required: "Title is required" })}
-                                    className={`w-full px-4 py-3 bg-slate-50 border ${errors.title ? 'border-red-400' : 'border-slate-100'} rounded-xl focus:bg-white focus:ring-2 focus:ring-primary/10 outline-none transition-all`}
+                                    className={` ${errors.title ? 'border-red-400' : 'border-slate-100'}`}
                                 />
                             </div>
 
@@ -109,8 +151,9 @@ export default function ContactUsManagement() {
                             <div className="space-y-1.5 md:col-span-1">
                                 <label className="text-[11px] font-bold text-slate-400 uppercase tracking-wider ml-1">Subtitle</label>
                                 <input
+                                    type='text'
                                     {...register("subTitle", { required: "Subtitle is required" })}
-                                    className={`w-full px-4 py-3 bg-slate-50 border ${errors.subTitle ? 'border-red-400' : 'border-slate-100'} rounded-xl focus:bg-white outline-none transition-all`}
+                                    className={` ${errors.subTitle ? 'border-red-400' : 'border-slate-100'}`}
                                 />
                             </div>
 
@@ -121,7 +164,7 @@ export default function ContactUsManagement() {
                                     {...register("email", { required: "Email is required" })}
                                     rows={3}
                                     placeholder="email1@test.com | email2@test.com"
-                                    className={`w-full px-4 py-3 bg-slate-50 border ${errors.email ? 'border-red-400' : 'border-slate-100'} rounded-xl outline-none focus:bg-white`}
+                                    className={` ${errors.email ? 'border-red-400' : 'border-slate-100'}`}
                                 />
                             </div>
 
@@ -132,7 +175,7 @@ export default function ContactUsManagement() {
                                     {...register("phone", { required: "Phone is required" })}
                                     rows={3}
                                     placeholder="+8801... | +8801..."
-                                    className={`w-full px-4 py-3 bg-slate-50 border ${errors.phone ? 'border-red-400' : 'border-slate-100'} rounded-xl outline-none focus:bg-white`}
+                                    className={` ${errors.phone ? 'border-red-400' : 'border-slate-100'}`}
                                 />
                             </div>
 
@@ -140,11 +183,11 @@ export default function ContactUsManagement() {
                             <div className="space-y-1.5 md:col-span-2">
                                 <label className="text-[11px] font-bold text-slate-400 uppercase tracking-wider ml-1">Office Addresses (Use | to separate)</label>
                                 <div className="relative">
-                                    <MapPin className="absolute left-4 top-3.5 text-slate-400" size={18} />
+                                    <MapPin className="absolute left-4 top-4 text-slate-400" size={18} />
                                     <textarea
                                         {...register("address", { required: "Address is required" })}
                                         rows={2}
-                                        className={`w-full pl-11 pr-4 py-3 bg-slate-50 border ${errors.address ? 'border-red-400' : 'border-slate-100'} rounded-xl outline-none focus:bg-white`}
+                                        className={`pl-10 ${errors.address ? 'border-red-400' : 'border-slate-100'}`}
                                     />
                                 </div>
                             </div>
@@ -153,12 +196,12 @@ export default function ContactUsManagement() {
                             <div className="space-y-1.5 md:col-span-2">
                                 <label className="text-[11px] font-bold text-slate-400 uppercase tracking-wider ml-1">Google Map Embed Link (Optional)</label>
                                 <div className="relative">
-                                    <Map className="absolute left-4 top-3.5 text-slate-400" size={18} />
+                                    <Map className="absolute left-4 top-4 text-slate-400" size={18} />
                                     <textarea
                                         {...register("googleMapLink")}
                                         rows={3}
                                         placeholder="Paste iframe src or map link here..."
-                                        className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-100 rounded-xl outline-none focus:bg-white"
+                                        className='pl-10'
                                     />
                                 </div>
                             </div>
@@ -176,11 +219,16 @@ export default function ContactUsManagement() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                             <div className="space-y-1.5">
                                 <label className="text-[11px] font-bold text-emerald-600 uppercase tracking-wider ml-1">WhatsApp URL</label>
-                                <input {...register("whatsappLink", { required: "WhatsApp link is required" })} placeholder="https://wa.me/..." className={`w-full px-4 py-3 bg-slate-50 border ${errors.whatsappLink ? 'border-red-400' : 'border-slate-100'} rounded-xl outline-none`} />
+                                <input type="text" {...register("whatsappLink", { required: "WhatsApp link is required" })} placeholder="https://wa.me/..." className={` ${errors.whatsappLink ? 'border-red-400' : 'border-slate-100'}`} />
                             </div>
                             <div className="space-y-1.5">
                                 <label className="text-[11px] font-bold text-blue-600 uppercase tracking-wider ml-1">Messenger URL</label>
-                                <input {...register("messengerLink", { required: "Messenger link is required" })} placeholder="https://m.me/..." className={`w-full px-4 py-3 bg-slate-50 border ${errors.messengerLink ? 'border-red-400' : 'border-slate-100'} rounded-xl outline-none`} />
+                                <input
+                                    type="text"
+                                    {...register("messengerLink")}
+                                    placeholder="https://m.me/..."
+                                    className={`${errors.messengerLink ? 'border-red-400' : 'border-slate-100'}`}
+                                />
                             </div>
                         </div>
                     </div>
@@ -238,9 +286,6 @@ export default function ContactUsManagement() {
                                                         {/* Visual Overlays for Icons */}
                                                         <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
                                                             {selectedOption?.icon}
-                                                        </div>
-                                                        <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
-                                                            <ChevronDown size={14} />
                                                         </div>
                                                     </div>
                                                 );

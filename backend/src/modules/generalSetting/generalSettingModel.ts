@@ -8,8 +8,6 @@ const generalSettingSchema = new Schema<IGeneralSetting>({
   siteName: { type: String, required: true },
   tagline: { type: String },
   siteTitle: { type: String, required: true },
-  siteDescription: { type: String },
-  siteKeywords: { type: [String] },
 });
 
 export const GeneralSetting = model<IGeneralSetting>(

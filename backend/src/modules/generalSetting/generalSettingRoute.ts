@@ -3,7 +3,6 @@ const Router = express.Router();
 import { verifyPermission } from '../../middlewares/verifyPermission';
 import {
   addGeneralSettingController,
-  deleteGeneralSettingController,
   getGeneralSettingController,
   getSingleGeneralSettingController,
   updateGeneralSettingController,
@@ -25,7 +24,7 @@ Router.post(
   },
   addGeneralSettingController,
 );
-Router.get('/all', getGeneralSettingController);
+Router.get('/', getGeneralSettingController);
 Router.get('/:id', getSingleGeneralSettingController);
 Router.patch(
   '/update/:id',
@@ -36,11 +35,6 @@ Router.patch(
     next();
   },
   updateGeneralSettingController,
-);
-Router.delete(
-  '/delete/:id',
-  verifyPermission('general-setting', 'delete'),
-  deleteGeneralSettingController,
 );
 
 export const generalSettingRoute = Router;

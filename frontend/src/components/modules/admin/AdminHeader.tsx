@@ -1,13 +1,19 @@
 import { useState } from "react";
 import { Menu, ExternalLink, LogOut, User, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useAppSelector } from "@/redux/hook/hooks";
+import { CONFIG } from "@/config";
 
 interface AdminHeaderProps {
     setIsSidebarOpen: (isOpen: boolean) => void;
 }
 
 export default function AdminHeader({ setIsSidebarOpen }: AdminHeaderProps) {
+    const { loggedUser } = useAppSelector((state) => state.auth);
     const [isProfileOpen, setIsProfileOpen] = useState(false);
+
+    console.log(loggedUser);
+
 
     return (
         <header className="sticky top-0 z-30 flex h-16 w-full items-center justify-between border-b border-slate-200 bg-white/80 px-3 backdrop-blur-md lg:px-4">
@@ -32,13 +38,7 @@ export default function AdminHeader({ setIsSidebarOpen }: AdminHeaderProps) {
             </div>
 
             <div className="flex items-center gap-2 md:gap-4">
-                {/* Notification Bell */}
-                {/* <button className="relative p-2 text-slate-500 hover:bg-slate-100 rounded-full transition-colors">
-                    <Bell size={20} />
-                    <span className="absolute top-2 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
-                </button>
-
-                <div className="h-6 w-px bg-slate-200 mx-1 hidden sm:block"></div> */}
+                {/* <div className="h-6 w-px bg-slate-200 mx-1 hidden sm:block"></div> */}
 
                 {/* User Profile Dropdown */}
                 <div className="relative">
@@ -47,13 +47,14 @@ export default function AdminHeader({ setIsSidebarOpen }: AdminHeaderProps) {
                         className="flex items-center gap-2 p-1 pr-2 rounded-full hover:bg-slate-100 transition-all"
                     >
                         <img
-                            src="https://ui-avatars.com/api/?name=Sabbir+Ahmed&background=0D8ABC&color=fff"
+                            src={loggedUser?.profileUrl ? CONFIG.BASE_URL + loggedUser.profileUrl : `https://ui-avatars.com/api/?name=${loggedUser?.name}&background=e52329&color=fff`}
                             className="w-8 h-8 rounded-full border border-slate-200"
                             alt="Admin"
+                            loading="lazy"
                         />
                         <div className="hidden md:block text-left">
-                            <p className="text-xs font-bold text-slate-800 leading-none">Sabbir Ahmed</p>
-                            <p className="text-[10px] text-slate-500">Super Admin</p>
+                            <p className="text-xs font-bold text-slate-800 leading-none">{loggedUser?.name || "Sabbir Ahmed"}</p>
+                            <p className="text-[10px] text-slate-500">{loggedUser?.role || "Super Admin"}</p>
                         </div>
                         <ChevronDown size={14} className={`text-slate-400 transition-transform ${isProfileOpen ? 'rotate-180' : ''}`} />
                     </button>

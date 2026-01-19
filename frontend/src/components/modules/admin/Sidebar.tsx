@@ -123,6 +123,7 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                                     ) : (
                                         <Link
                                             to={item.href || '#'}
+                                            onClick={() => setIsOpen(false)}
                                             className={`
                                                 w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all group text-[15px]
                                                 ${item.active
@@ -144,6 +145,7 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                                                 <Link
                                                     key={idx}
                                                     to={child.href}
+                                                    onClick={() => setIsOpen(false)}
                                                     className="block px-4 py-2 text-sm text-slate-500 hover:text-primary hover:bg-blue-50/50 rounded-lg transition-colors"
                                                 >
                                                     {child.label}
@@ -159,7 +161,7 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
 
                 {/* 3. Admin Inquiry Stats (Fixed at Bottom) */}
                 <div className="p-2 border-t border-slate-100 shrink-0 bg-white">
-                    <Link to="/admin/contact-message" className="block cursor-pointer group bg-slate-50 p-4 rounded-2xl border border-slate-100 relative overflow-hidden transition-all duration-300 hover:border-blue-200 hover:shadow-md hover:shadow-blue-50/50">
+                    <Link to="/admin/contact-message" onClick={() => setIsOpen(false)} className="block cursor-pointer group bg-slate-50 p-4 rounded-2xl border border-slate-100 relative overflow-hidden transition-all duration-300 hover:border-blue-200 hover:shadow-md hover:shadow-blue-50/50">
                         <div className="absolute -right-2 -bottom-2 text-slate-200/50 transition-all duration-500 group-hover:text-blue-100 group-hover:scale-110 group-hover:-rotate-12 group-hover:-translate-y-1">
                             <MessageSquare size={56} />
                         </div>

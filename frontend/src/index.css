@@ -112,6 +112,53 @@
   body {
     @apply bg-background text-neutral;
   }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="url"],
+  input[type="tel"],
+  textarea,
+  select {
+    @apply w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl 
+           outline-none transition-all duration-200 text-slate-700 text-sm;
+  }
+
+  /* Focus States */
+  input:focus,
+  textarea:focus,
+  select:focus {
+    @apply bg-white border-primary/20 ring-1 ring-primary/5 shadow-sm;
+  }
+
+  /* Placeholder Styling */
+  ::placeholder {
+    @apply text-slate-400 text-sm;
+  }
+
+  /* Textarea Specific */
+  textarea {
+    @apply resize-none leading-relaxed;
+  }
+
+  /* Select Specific */
+  select {
+    @apply cursor-pointer appearance-none bg-no-repeat;
+    background-position: right 1rem center;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%2394a3b8' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  }
+
+  /* Error State - Just add 'error' class from React Hook Form */
+  .input-error {
+    @apply border-red-200 bg-red-50/30 focus:ring-red-500/5 focus:border-red-300;
+  }
+
+  label {
+    color: var(--neutral);
+    font-size: 11px;
+    display: block;
+    margin-bottom: 3px;
+  }
 }
 
 html {
@@ -174,17 +221,4 @@ html.lenis {
 .text-outline-white {
   color: transparent;
   -webkit-text-stroke: 1px rgba(255, 255, 255, 0.6);
-}
-
-label {
-  color: var(--neutral);
-  font-size: 11px;
-  display: block;
-  margin-bottom: 3px;
-}
-
-input::placeholder,
-textarea::placeholder {
-  color: #a3a3a3;
-  font-size: 14px;
 }

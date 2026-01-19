@@ -1,4 +1,5 @@
 import { lazy, Suspense } from "react";
+import MainLayoutSkeleton from "../components/shared/Skeleton/MainLayoutSkeleton";
 
 // Lazy imports
 const MainLayout = lazy(() => import("../layout/MainLayout"));
@@ -13,7 +14,7 @@ const BlogDetails = lazy(() => import("../pages/main/BlogDetails"));
 export const mainRoutes = {
     path: "/",
     element: (
-        <Suspense fallback={<p>Loading...</p>}>
+        <Suspense fallback={<MainLayoutSkeleton />}>
             <MainLayout />
         </Suspense>
     ),

@@ -1,6 +1,8 @@
 import { lazy, Suspense } from "react";
 import DashboardLayoutSkeleton from "../components/shared/Skeleton/DashboardLayoutSkeleton";
 import { PrivateRoute } from "./PrivateRoute";
+import MyProfile from "@/pages/admin/Profile/MyProfile";
+import SeoSettings from "@/pages/admin/Seo";
 
 const AdminLayout = lazy(() => import("../layout/AdminLayout"));
 const Dashboard = lazy(() => import("../pages/admin/Dashboard"));
@@ -95,6 +97,14 @@ export const adminRoutes = {
         {
             path: "about/management/edit/:id",
             element: <ManagementForm />
-        }
+        },
+        {
+            path: "profile/my-profile",
+            element: <MyProfile />
+        },
+        {
+            path: "seo",
+            element: <SeoSettings />
+        },
     ]
 }

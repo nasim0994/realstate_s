@@ -44,5 +44,6 @@ export const baseApi = createApi({
     "about",
     "team",
     "management",
+    "seo",
   ],
 });

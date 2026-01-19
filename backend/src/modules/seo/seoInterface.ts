@@ -1,16 +1,10 @@
 export type ISeo = {
   title: string;
+  description: string;
+  keywords?: string[];
   author: string;
   subject: string;
-  copyright: string;
-  description: string;
-
-  ogTitle: string;
-  ogType: string;
-  ogUrl: string;
-  ogImageUrl: string;
-  ogDescription: string;
-  ogSiteName: string;
+  copyright?: string;
 
   facebook_domain_verification: string;
   google_site_verification: string;

@@ -42,7 +42,12 @@ export const getAllUserService = async (query: Record<string, unknown>) => {
 };
 
 export const getSingleUserService = async (id: string) => {
-  const result = await User.findById(id);
+  console.log(id);
+
+  const result = await User.findOne({ _id: id });
+
+  console.log(result);
+
   return result;
 };
 

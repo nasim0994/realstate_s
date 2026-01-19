@@ -1,9 +1,7 @@
 import { lazy, Suspense } from "react";
 import DashboardLayoutSkeleton from "../components/shared/Skeleton/DashboardLayoutSkeleton";
 import { PrivateRoute } from "./PrivateRoute";
-import MyProfile from "@/pages/admin/Profile/MyProfile";
-import SeoSettings from "@/pages/admin/Seo";
-import UpdatePassword from "@/pages/admin/Profile/UpdatePassword";
+
 
 const AdminLayout = lazy(() => import("../layout/AdminLayout"));
 const Dashboard = lazy(() => import("../pages/admin/Dashboard"));
@@ -28,6 +26,11 @@ const TeamForm = lazy(() => import("../pages/admin/Team/TeamForm"));
 const AllManagement = lazy(() => import("../pages/admin/Management/AllManagement"));
 const ManagementForm = lazy(() => import("../pages/admin/Management/ManagementForm"));
 
+const MyProfile = lazy(() => import("../pages/admin/Profile/MyProfile"));
+const UpdatePassword = lazy(() => import("../pages/admin/Profile/UpdatePassword"));
+const SeoSettings = lazy(() => import("../pages/admin/Seo"));
+const ContactMessage = lazy(() => import("../pages/admin/ContactMessage"));
+
 
 export const adminRoutes = {
     path: "/admin",
@@ -46,6 +49,10 @@ export const adminRoutes = {
         {
             path: "contact-us",
             element: <ContactUs />
+        },
+        {
+            path: "contact-message",
+            element: <ContactMessage />
         },
         {
             path: "setting/general",

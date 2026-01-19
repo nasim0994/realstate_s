@@ -24,7 +24,7 @@ export default function AllTeam() {
                     );
                 }
             } catch (error: any) {
-                toast.error(error?.data?.message || "Failed to add banner");
+                toast.error(error?.data?.message || "Failed to delete team member");
                 console.log(error);
             }
         }

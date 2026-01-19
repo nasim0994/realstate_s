@@ -22,6 +22,7 @@ export const baseApi = createApi({
     "permission",
     "user",
     "contact",
+    "message",
     "generalSetting",
     "banner",
     "gtm",

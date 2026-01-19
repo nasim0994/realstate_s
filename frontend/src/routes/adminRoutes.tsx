@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import DashboardLayoutSkeleton from "../components/shared/Skeleton/DashboardLayoutSkeleton";
 import { PrivateRoute } from "./PrivateRoute";
+import GtmConfig from "@/pages/admin/GtmConfig";
 
 const AdminLayout = lazy(() => import("../layout/AdminLayout"));
 const Dashboard = lazy(() => import("../pages/admin/Dashboard"));
@@ -48,6 +49,10 @@ export const adminRoutes = {
         {
             path: "setting/banner/edit/:id",
             element: <EditBanner />
+        },
+        {
+            path: "setting/gtm-config",
+            element: <GtmConfig />
         },
     ]
 }

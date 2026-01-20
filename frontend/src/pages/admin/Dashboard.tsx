@@ -35,7 +35,13 @@ export default function Dashboard() {
 
             {/* 2. Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                <Link to="/admin/projects/all" className="relative bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md overflow-hidden transition-all duration-300 group">
+
+                    <div className="absolute -right-1 -bottom-2 text-slate-200/50 transition-all duration-500 group-hover:text-primary/5 group-hover:scale-110 -rotate-12 group-hover:rotate-0 group-hover:-translate-y-1">
+                        <Building2 size={80} />
+                    </div>
+
+
                     <div className="flex items-center justify-between mb-4">
                         <div className={`text-primary bg-primary/5 p-3 rounded-xl`}>
                             <Building2 size={24} />
@@ -43,9 +49,14 @@ export default function Dashboard() {
                     </div>
                     <p className="text-slate-500 text-sm font-medium">Total Projects</p>
                     <h3 className="text-2xl font-black text-slate-800 mt-1">{projectCount?.data?.totalProject || 0}</h3>
-                </div>
+                </Link>
 
-                <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                <Link to="/admin/contact-message" className="relative bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md overflow-hidden transition-all duration-300 group">
+
+                    <div className="absolute -right-1 -bottom-2 text-slate-200/50 transition-all duration-500 group-hover:text-blue-50 group-hover:scale-110  group-hover:-rotate-12 group-hover:-translate-y-1">
+                        <MessageSquare size={80} />
+                    </div>
+
                     <div className="flex items-center justify-between mb-4">
                         <div className={`text-blue-600 bg-blue-50 p-3 rounded-xl`}>
                             <MessageSquare size={24} />
@@ -53,19 +64,29 @@ export default function Dashboard() {
                     </div>
                     <p className="text-slate-500 text-sm font-medium">New Messages</p>
                     <h3 className="text-2xl font-black text-slate-800 mt-1">{messageCount?.data?.unreadMessages || 0}</h3>
-                </div>
+                </Link>
 
-                <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                <Link to="/admin/blogs/all" className="relative bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md overflow-hidden transition-all duration-300 group">
+
+                    <div className="absolute -right-1 -bottom-2 text-slate-200/50 transition-all duration-500 group-hover:text-green-50 group-hover:scale-110 -rotate-12 group-hover:rotate-0 group-hover:-translate-y-1">
+                        <BookOpen size={80} />
+                    </div>
+
                     <div className="flex items-center justify-between mb-4">
-                        <div className={`text-primary bg-primary/5 p-3 rounded-xl`}>
+                        <div className={`text-green-600 bg-green-50 p-3 rounded-xl`}>
                             <BookOpen size={24} />
                         </div>
                     </div>
                     <p className="text-slate-500 text-sm font-medium">Active Blogs</p>
-                    <h3 className="text-2xl font-black text-slate-800 mt-1">{blogCount?.data?.totalBlogs || 0}</h3>
-                </div>
+                    <h3 className="text-2xl font-black text-neutral mt-1">{blogCount?.data?.totalBlogs || 0}</h3>
+                </Link>
 
-                <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                <Link to="/admin/user-role/user-management" className="relative bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md overflow-hidden transition-all duration-300 group">
+
+                    <div className="absolute -right-1 -bottom-2 text-slate-200/50 transition-all duration-500 group-hover:text-primary/5 group-hover:scale-110  group-hover:-rotate-12 group-hover:-translate-y-1">
+                        <User size={80} />
+                    </div>
+
                     <div className="flex items-center justify-between mb-4">
                         <div className={`text-primary bg-primary/5 p-3 rounded-xl`}>
                             <User size={24} />
@@ -73,22 +94,22 @@ export default function Dashboard() {
                     </div>
                     <p className="text-slate-500 text-sm font-medium">All Users</p>
                     <h3 className="text-2xl font-black text-slate-800 mt-1">{userCount?.data?.totalUsers || 0}</h3>
-                </div>
+                </Link>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                 {/* 3. Project Status Overview (Left/Center) */}
                 <div className="lg:col-span-2 space-y-4">
                     <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
-                        <div className="p-6 border-b border-slate-50 flex items-center justify-between">
+                        <div className="p-4 border-b border-slate-50 flex items-center justify-between">
                             <h3 className="font-bold text-neutral">Our Projects</h3>
                             <Link to="/admin/projects/all" className="text-sm text-blue-600 font-semibold flex items-center gap-1 hover:underline">
                                 View All <ChevronRight size={16} />
                             </Link>
                         </div>
 
-                        <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div className="p-4 rounded-xl border border-slate-50 bg-slate-50/30">
+                        <div className="p-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div className="p-4 rounded-xl border border-slate-100 bg-slate-50">
                                 <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
                                     Upcoming Projects
                                 </p>
@@ -97,7 +118,7 @@ export default function Dashboard() {
                                 </p>
                             </div>
 
-                            <div className="p-4 rounded-xl border border-slate-50 bg-slate-50/30">
+                            <div className="p-4 rounded-xl border border-slate-100 bg-slate-50">
                                 <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
                                     Ongoing Projects
                                 </p>
@@ -106,7 +127,7 @@ export default function Dashboard() {
                                 </p>
                             </div>
 
-                            <div className="p-4 rounded-xl border border-slate-50 bg-slate-50/30">
+                            <div className="p-4 rounded-xl border border-slate-100 bg-slate-50">
                                 <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
                                     Completed Projects
                                 </p>

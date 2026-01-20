@@ -126,7 +126,7 @@ export default function AllProjects() {
                                         </span>
                                     </td>
                                     <td>
-                                        <div className="flex items-center justify-center gap-6">
+                                        <div className="flex items-center gap-6">
                                             {/* Highlight Toggle */}
                                             <button onClick={() => handleToggleHighlight(item?._id)} className="flex flex-col items-center gap-1 group">
                                                 <Zap size={16} className={`${item?.isHighlight ? 'text-amber-500 fill-amber-500' : 'text-slate-300'}`} />

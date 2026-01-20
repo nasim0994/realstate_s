@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Send, Facebook, Instagram, Linkedin } from "lucide-react";
+import { useEffect } from "react";
 
 export default function Contact() {
-    window.scrollTo(0, 0);
+    useEffect(() => { window.scrollTo(0, 0); }, [])
 
     return (
         <div className="bg-white min-h-screen pt-32">

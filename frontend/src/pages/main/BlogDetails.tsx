@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Calendar, User, Facebook, Twitter, Linkedin, ArrowLeft } from "lucide-react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const blogContent = {
@@ -25,7 +26,7 @@ const blogContent = {
 };
 
 export default function BlogDetails() {
-    window.scrollTo(0, 0);
+    useEffect(() => { window.scrollTo(0, 0); }, [])
 
     return (
         <div className="bg-white min-h-screen pt-32 pb-24">

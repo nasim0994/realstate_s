@@ -11,8 +11,8 @@ const allProjects = [
 ];
 
 export default function Projects() {
-    window.scrollTo(0, 0);
     const [searchParams, setSearchParams] = useSearchParams();
+    useEffect(() => { window.scrollTo(0, 0); }, [])
 
     // URL থেকে মান পড়া (না থাকলে "All")
     const typeFromUrl = searchParams.get("type") || "All";

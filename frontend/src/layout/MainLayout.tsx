@@ -4,12 +4,10 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import MainFooter from "../components/shared/MainFooter";
 import SmoothScrollProvider from "../providers/SmoothScrollProvider";
-
+import FloatingActionButton from "@/components/shared/FloatingActionButton";
 
 export default function MainLayout() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-
 
     return (
         <SmoothScrollProvider>
@@ -22,6 +20,7 @@ export default function MainLayout() {
                 <Outlet />
             </motion.main>
             <MainFooter />
+            <FloatingActionButton />
         </SmoothScrollProvider>
     )
 }

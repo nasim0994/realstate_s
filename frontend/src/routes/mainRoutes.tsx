@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import MainLayoutSkeleton from "../components/shared/Skeleton/MainLayoutSkeleton";
 
+
 // Lazy imports
 const MainLayout = lazy(() => import("../layout/MainLayout"));
 const Home = lazy(() => import("../pages/main/Home"));
@@ -10,6 +11,7 @@ const Projects = lazy(() => import("../pages/main/Projects"));
 const Contact = lazy(() => import("../pages/main/Contact"));
 const Blogs = lazy(() => import("../pages/main/Blogs"));
 const BlogDetails = lazy(() => import("../pages/main/BlogDetails"));
+const PrivacyPolicy = lazy(() => import("../pages/main/PrivacyPolicy"));
 
 export const mainRoutes = {
     path: "/",
@@ -26,5 +28,6 @@ export const mainRoutes = {
         { path: "/contact-us", element: <Contact /> },
         { path: "/blogs", element: <Blogs /> },
         { path: "/blog/:slug", element: <BlogDetails /> },
+        { path: "/privacy-policy", element: <PrivacyPolicy /> },
     ]
 }

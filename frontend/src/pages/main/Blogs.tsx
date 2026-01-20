@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Calendar, User, ArrowUpRight } from "lucide-react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 
@@ -43,7 +44,7 @@ const blogs = [
 ];
 
 export default function Blogs() {
-    window.scrollTo(0, 0);
+    useEffect(() => { window.scrollTo(0, 0); }, [])
 
 
     return (

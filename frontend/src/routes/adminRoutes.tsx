@@ -1,13 +1,7 @@
 import { lazy, Suspense } from "react";
 import DashboardLayoutSkeleton from "../components/shared/Skeleton/DashboardLayoutSkeleton";
 import { PrivateRoute } from "./PrivateRoute";
-import AllBlogs from "@/pages/admin/blog/AllBlogs";
-import BlogForm from "@/pages/admin/blog/BlogsForm";
-import AllProjectType from "@/pages/admin/Project/AllProjectType";
-import AllProjects from "@/pages/admin/Project/AllProjects";
-import ProjectForm from "@/pages/admin/Project/ProjectForm";
-import AllRole from "@/pages/admin/Role/AllRole";
-import AllUsers from "@/pages/admin/User/AllUsers";
+
 
 
 const AdminLayout = lazy(() => import("../layout/AdminLayout"));
@@ -37,6 +31,16 @@ const MyProfile = lazy(() => import("../pages/admin/Profile/MyProfile"));
 const UpdatePassword = lazy(() => import("../pages/admin/Profile/UpdatePassword"));
 const SeoSettings = lazy(() => import("../pages/admin/Seo"));
 const ContactMessage = lazy(() => import("../pages/admin/ContactMessage"));
+
+const AllBlogs = lazy(() => import("../pages/admin/blog/AllBlogs"));
+const BlogForm = lazy(() => import("../pages/admin/blog/BlogsForm"));
+
+const AllProjectType = lazy(() => import("../pages/admin/Project/AllProjectType"));
+const AllProjects = lazy(() => import("../pages/admin/Project/AllProjects"));
+const ProjectForm = lazy(() => import("../pages/admin/Project/ProjectForm"));
+
+const AllRole = lazy(() => import("../pages/admin/Role/AllRole"));
+const AllUsers = lazy(() => import("../pages/admin/User/AllUsers"));
 
 
 export const adminRoutes = {

@@ -64,21 +64,42 @@ export default function MainFooter() {
                     <div className="w-full border-t border-white/10 pt-12 pb-12">
                         <div className="flex flex-wrap justify-center md:justify-between items-center gap-8">
                             <nav className="flex flex-wrap gap-8 justify-center md:gap-10">
-                                {["Home", "Projects", "About", "Contact", "Blogs"].map((item) => (
-                                    <a
-                                        key={item}
-                                        href={`/${item.toLowerCase()}`}
-                                        className="text-xs uppercase font-bold tracking-widest hover:text-primary transition-colors"
-                                    >
-                                        {item}
-                                    </a>
-                                ))}
+                                <Link
+                                    to={`/`}
+                                    className="text-xs uppercase font-bold tracking-widest hover:text-primary transition-colors"
+                                >
+                                    Home
+                                </Link>
+                                <Link
+                                    to={`/projects`}
+                                    className="text-xs uppercase font-bold tracking-widest hover:text-primary transition-colors"
+                                >
+                                    Projects
+                                </Link>
+                                <Link
+                                    to={`/about-us`}
+                                    className="text-xs uppercase font-bold tracking-widest hover:text-primary transition-colors"
+                                >
+                                    About
+                                </Link>
+                                <Link
+                                    to={`/contact-us`}
+                                    className="text-xs uppercase font-bold tracking-widest hover:text-primary transition-colors"
+                                >
+                                    Contact
+                                </Link>
+                                <Link
+                                    to={`/blogs`}
+                                    className="text-xs uppercase font-bold tracking-widest hover:text-primary transition-colors"
+                                >
+                                    Blogs
+                                </Link>
                             </nav>
 
-                            <div className="flex items-center gap-2 group cursor-pointer">
+                            <Link to="/privacy-policy" className="flex items-center gap-2 group cursor-pointer">
                                 <span className="text-xs uppercase font-bold tracking-widest">Privacy Policy</span>
                                 <ArrowUpRight className="w-4 h-4 text-primary group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                            </div>
+                            </Link>
                         </div>
                     </div>
 

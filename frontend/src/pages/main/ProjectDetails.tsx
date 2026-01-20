@@ -4,6 +4,7 @@ import {
     Layers, Compass, Home, Map, ExternalLink
 } from "lucide-react";
 import parser from "html-react-parser";
+import { useEffect } from "react";
 
 const projectData = {
     title: "The Sky Garden - Luxury Landmark",
@@ -50,7 +51,7 @@ const projectData = {
 };
 
 export default function ProjectDetails() {
-    window.scrollTo(0, 0);
+    useEffect(() => { window.scrollTo(0, 0); }, [])
     const parseDescription = projectData?.description ? parser(projectData?.description) : "";
     const convertPlainText = (htmlString: string) => {
         const tempDiv = document.createElement("div");

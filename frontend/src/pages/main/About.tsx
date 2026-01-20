@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
 import { Target, Eye, Quote } from "lucide-react";
 import AboutCom from "../../components/modules/home/AboutCom";
+import { useEffect } from "react";
 
 export default function AboutPage() {
-    window.scrollTo(0, 0);
+    useEffect(() => { window.scrollTo(0, 0); }, [])
 
     return (
         <main className="pt-10 bg-white">

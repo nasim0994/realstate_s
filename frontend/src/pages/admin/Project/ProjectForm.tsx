@@ -26,7 +26,7 @@ export default function ProjectForm() {
 
     useEffect(() => {
         if (isEditMode && projectData?.data) {
-            reset(projectData.data);
+            reset(projectData?.data);
             // eslint-disable-next-line react-hooks/set-state-in-effect
             setGalleriesUrl(projectData.data.galleries || []);
         }

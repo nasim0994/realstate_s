@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useAddProjectTypeMutation, useDeleteProjectTypeMutation, useGetAllProjectTypeQuery, useUpdateProjectTypeMutation } from '@/redux/features/projectType/projectTypeApi';
 import type { TResponse } from '@/interface/globalInterface';
+import TableSkeleton from '@/components/shared/Skeleton/TableSkeleton';
+import type { IProjectType } from '@/interface/projectTypeInterface';
 
 export default function AllProjectType() {
     const { data, isLoading } = useGetAllProjectTypeQuery({});
@@ -14,13 +16,13 @@ export default function AllProjectType() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingId, setEditingId] = useState<string | null>(null);
 
-    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm<IProjectType>();
     const types = data?.data || [];
 
-    const openModal = (type?: any) => {
+    const openModal = (type?: IProjectType) => {
         if (type) {
-            setEditingId(type._id);
-            reset({ name: type.name });
+            setEditingId(type?._id);
+            reset({ name: type?.name });
         } else {
             setEditingId(null);
             reset({ name: '' });
@@ -28,7 +30,7 @@ export default function AllProjectType() {
         setIsModalOpen(true);
     };
 
-    const onSubmit = async (formData: any) => {
+    const onSubmit = async (formData: IProjectType) => {
         try {
             if (editingId) {
                 await updateProjectType({ id: editingId, data: formData }) as TResponse;
@@ -73,31 +75,29 @@ export default function AllProjectType() {
                 <table className="w-full text-left border-separate border-spacing-0">
                     <thead>
                         <tr className="bg-slate-50/80">
-                            <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100">Type Name</th>
-                            <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100">URL Slug</th>
-                            <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100 text-right">Actions</th>
+                            <th>Type Name</th>
+                            <th>URL Slug</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100">
-                        {isLoading ? (
-                            <tr><td colSpan={3} className="p-10 text-center animate-pulse">Loading types...</td></tr>
-                        ) : types.map((type: any) => (
-                            <tr key={type._id} className="group hover:bg-slate-50/50 transition-all">
+                        {isLoading ? <TableSkeleton columns={3} /> : types?.map((type: IProjectType) => (
+                            <tr key={type?._id} className="group hover:bg-slate-50/50 transition-all">
                                 <td className="px-6 py-4">
                                     <div className="flex items-center gap-3 font-bold text-slate-800 text-sm">
                                         <div className="w-2 h-2 rounded-full bg-blue-400"></div>
-                                        {type.name}
+                                        {type?.name}
                                     </div>
                                 </td>
                                 <td className="px-6 py-4 font-mono text-xs text-slate-400">
-                                    /{type.slug}
+                                    /{type?.slug}
                                 </td>
                                 <td className="px-6 py-4 text-right">
                                     <div className="flex items-center justify-end gap-2">
                                         <button onClick={() => openModal(type)} className="p-2 hover:bg-blue-50 text-slate-400 hover:text-blue-600 rounded-lg transition-all">
                                             <Edit size={16} />
                                         </button>
-                                        <button onClick={() => handleDelete(type._id)} className="p-2 hover:bg-red-50 text-slate-400 hover:text-red-600 rounded-lg transition-all">
+                                        <button onClick={() => handleDelete(type?._id)} className="p-2 hover:bg-red-50 text-slate-400 hover:text-red-600 rounded-lg transition-all">
                                             <Trash2 size={16} />
                                         </button>
                                     </div>

@@ -4,6 +4,7 @@ import { API_URL } from '@/config';
 import toast from 'react-hot-toast';
 import type { TResponse } from '@/interface/globalInterface';
 import { useDeleteManagementMutation, useGetAllManagementQuery } from '@/redux/features/management/managementApi';
+import TableSkeleton from '@/components/shared/Skeleton/TableSkeleton';
 
 export default function AllManagement() {
     const { data, isLoading } = useGetAllManagementQuery({});
@@ -36,7 +37,7 @@ export default function AllManagement() {
                     </div>
                     <div>
                         <h1 className="text-xl font-bold text-neutral">Management Team</h1>
-                        <p className="text-slate-500 text-xs mt-1">Manage {managementList.length} board members and messages.</p>
+                        <p className="text-slate-500 text-xs mt-1">Manage {managementList?.length} board members and messages.</p>
                     </div>
                 </div>
                 <Link to="/admin/about/management/add" className="admin_primary_btn">
@@ -56,28 +57,28 @@ export default function AllManagement() {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-100">
-                            {!isLoading && managementList?.map((item: any) => (
-                                <tr key={item._id} className="group hover:bg-slate-50/50 transition-all">
-                                    <td>{item.order}</td>
+                            {isLoading ? <TableSkeleton columns={4} /> : managementList?.map((item: any) => (
+                                <tr key={item?._id} className="group hover:bg-slate-50/50 transition-all">
+                                    <td>{item?.order}</td>
                                     <td>
                                         <div className="flex items-center gap-3">
                                             <div className="w-10 h-10 rounded-full overflow-hidden border border-slate-200">
-                                                <img src={`${API_URL}${item.image}`} alt={item.name} className="w-full h-full object-cover" onError={(e: any) => e.target.src = 'https://ui-avatars.com/api/?name=' + item.name} />
+                                                <img src={`${API_URL}${item?.image}`} alt={item?.name} className="w-full h-full object-cover" onError={(e: any) => e.target.src = 'https://ui-avatars.com/api/?name=' + item?.name} />
                                             </div>
                                             <div>
-                                                <p className="font-bold text-neutral text-sm">{item.name}</p>
-                                                <p className="text-[11px] text-primary font-medium">{item.designation}</p>
+                                                <p className="font-bold text-neutral text-sm">{item?.name}</p>
+                                                <p className="text-[11px] text-primary font-medium">{item?.designation}</p>
                                             </div>
                                         </div>
                                     </td>
                                     <td>
-                                        <p>{item.title}</p>
-                                        <p>{item.subTitle}</p>
+                                        <p>{item?.title}</p>
+                                        <p>{item?.subTitle}</p>
                                     </td>
                                     <td>
                                         <div className="flex items-center justify-end gap-2">
-                                            <Link to={`/admin/about/management/edit/${item._id}`} className="p-2 bg-white border border-slate-200 rounded-lg text-slate-600 hover:text-blue-600 transition-all"><Edit size={14} /></Link>
-                                            <button onClick={() => handleDelete(item._id)} className="p-2 bg-white border border-slate-200 rounded-lg text-slate-600 hover:text-red-600 transition-all"><Trash2 size={14} /></button>
+                                            <Link to={`/admin/about/management/edit/${item?._id}`} className="p-2 bg-white border border-slate-200 rounded-lg text-slate-600 hover:text-blue-600 transition-all"><Edit size={14} /></Link>
+                                            <button onClick={() => handleDelete(item?._id)} className="p-2 bg-white border border-slate-200 rounded-lg text-slate-600 hover:text-red-600 transition-all"><Trash2 size={14} /></button>
                                         </div>
                                     </td>
                                 </tr>

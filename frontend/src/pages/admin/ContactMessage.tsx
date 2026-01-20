@@ -4,6 +4,8 @@ import toast from 'react-hot-toast';
 import { useDeleteMessageMutation, useGetAllMessageQuery } from '@/redux/features/contactMessage/contactMessageApi';
 import type { TResponse } from '@/interface/globalInterface';
 import MessageModal from '@/components/modules/admin/message/MessageModal';
+import TableSkeleton from '@/components/shared/Skeleton/TableSkeleton';
+import type { IMessage } from '@/interface/messageInterface';
 
 export default function ContactMessage() {
     const { data, isLoading } = useGetAllMessageQuery({});
@@ -59,28 +61,28 @@ export default function ContactMessage() {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-100">
-                            {!isLoading && messages.map((msg: any) => (
-                                <tr key={msg._id} className="group hover:bg-slate-50/50 transition-all">
+                            {isLoading ? <TableSkeleton columns={4} /> : messages?.map((msg: IMessage) => (
+                                <tr key={msg?._id} className="group hover:bg-slate-50/50 transition-all">
                                     <td>
                                         <div className="flex items-center gap-3">
                                             <div className="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-primary font-bold text-xs">
-                                                {msg.name.charAt(0)}
+                                                {msg?.name.charAt(0)}
                                             </div>
-                                            <span className="font-bold text-slate-800 text-sm">{msg.name}</span>
+                                            <span className="font-bold text-sm">{msg?.name}</span>
                                         </div>
                                     </td>
                                     <td>
                                         <div className="space-y-1">
                                             <div className="flex items-center gap-2 text-xs text-slate-500">
-                                                <Mail size={12} className="text-slate-400" /> {msg.email || 'N/A'}
+                                                <Mail size={12} className="text-slate-400" /> {msg?.email || 'N/A'}
                                             </div>
                                             <div className="flex items-center gap-2 text-xs text-slate-500">
-                                                <Phone size={12} className="text-slate-400" /> {msg.phone}
+                                                <Phone size={12} className="text-slate-400" /> {msg?.phone}
                                             </div>
                                         </div>
                                     </td>
                                     <td>
-                                        <p className="text-sm text-slate-500 truncate max-w-75">{msg.message}</p>
+                                        <p className="text-sm text-slate-500 truncate max-w-75">{msg?.message}</p>
                                     </td>
                                     <td className="px-6 py-4 text-right">
                                         <div className="flex items-center justify-end gap-2">
@@ -91,7 +93,7 @@ export default function ContactMessage() {
                                                 <Eye size={14} />
                                             </button>
                                             <button
-                                                onClick={() => handleDelete(msg._id)}
+                                                onClick={() => handleDelete(msg?._id)}
                                                 className="p-2 bg-white border border-slate-200 rounded-lg text-slate-600 hover:text-red-600 hover:border-red-600 transition-all"
                                             >
                                                 <Trash2 size={14} />

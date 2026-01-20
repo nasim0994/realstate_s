@@ -4,6 +4,7 @@ import { useGetAllUserQuery, useAddUserMutation, useUpdateUserMutation, useDelet
 import { useGetAllRoleQuery } from '@/redux/features/role/roleApi';
 import toast from 'react-hot-toast';
 import UserSidebar from './UserSidebar';
+import TableSkeleton from '@/components/shared/Skeleton/TableSkeleton';
 
 export default function AllUsers() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -87,28 +88,28 @@ export default function AllUsers() {
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100">
-                        {users.map((user: any) => (
-                            <tr key={user._id} className="hover:bg-slate-50/50 transition-colors group">
+                        {isUserLoading ? <TableSkeleton columns={5} /> : users?.map((user: any) => (
+                            <tr key={user?._id} className="hover:bg-slate-50/50 transition-colors group">
                                 <td>
                                     <div className="flex items-center gap-3">
                                         <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center font-bold text-slate-500 border border-slate-200">
-                                            {user.name.charAt(0)}
+                                            {user?.name.charAt(0)}
                                         </div>
                                         <div>
-                                            <p className="text-sm font-bold text-slate-700">{user.name}</p>
-                                            <p className="text-xs text-slate-400 flex items-center gap-1"><Mail size={10} /> {user.email}</p>
+                                            <p className="text-sm font-bold text-slate-700">{user?.name}</p>
+                                            <p className="text-xs text-slate-400 flex items-center gap-1"><Mail size={10} /> {user?.email}</p>
                                         </div>
                                     </div>
                                 </td>
-                                <td className="px-6 py-4 text-sm text-neutral/90 font-medium">{user.designation || 'N/A'}</td>
+                                <td className="px-6 py-4 text-sm text-neutral/90 font-medium">{user?.designation || 'N/A'}</td>
                                 <td>
                                     <span className="px-2.5 py-1 bg-primary/5 text-primary rounded-lg text-[11px] font-bold uppercase tracking-tight">
                                         {user?.role || 'No Role'}
                                     </span>
                                 </td>
                                 <td>
-                                    <div className={`flex items-center gap-1.5 text-[11px] font-bold uppercase ${user.status === 'active' ? 'text-green-600' : 'text-red-500'}`}>
-                                        <Circle size={8} fill="currentColor" /> {user.status}
+                                    <div className={`flex items-center gap-1.5 text-[11px] font-bold uppercase ${user?.status === 'active' ? 'text-green-600' : 'text-red-500'}`}>
+                                        <Circle size={8} fill="currentColor" /> {user?.status}
                                     </div>
                                 </td>
                                 <td>
@@ -123,7 +124,7 @@ export default function AllUsers() {
                         ))}
                     </tbody>
                 </table>
-                {users.length === 0 && !isUserLoading && (
+                {users?.length === 0 && !isUserLoading && (
                     <div className="p-20 text-center text-slate-400 font-medium">No users found. Click "Add Member" to create one.</div>
                 )}
             </div>

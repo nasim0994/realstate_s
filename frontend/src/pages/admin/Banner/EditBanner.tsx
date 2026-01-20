@@ -20,10 +20,10 @@ export default function EditBanner() {
     useEffect(() => {
         if (bannerData?.data) {
             reset({
-                title: bannerData.data.title,
-                description: bannerData.data.description,
-                order: bannerData.data.order,
-                image: bannerData.data.image,
+                title: bannerData?.data?.title,
+                description: bannerData?.data?.description,
+                order: bannerData?.data?.order,
+                image: bannerData?.data?.image,
             });
         }
     }, [bannerData, reset]);

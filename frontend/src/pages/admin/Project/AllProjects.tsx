@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useDeleteProjectMutation, useGetAllProjectQuery, useToggleStatusProjectMutation } from '@/redux/features/project/projectApi';
 import type { TResponse } from '@/interface/globalInterface';
+import TableSkeleton from '@/components/shared/Skeleton/TableSkeleton';
+import type { IProject } from '@/interface/projectInterface';
 
 export default function AllProjects() {
     const { data, isLoading } = useGetAllProjectQuery({});
@@ -37,10 +39,6 @@ export default function AllProjects() {
         }
     };
 
-
-
-    if (isLoading) return <p>Loading...</p>;
-
     return (
         <div className="space-y-3 animate-in fade-in duration-500">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-slate-200/60 shadow-sm">
@@ -65,51 +63,51 @@ export default function AllProjects() {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-100">
-                            {projects.map((item: any) => (
-                                <tr key={item._id} className="hover:bg-slate-50/50 transition-all">
+                            {isLoading ? <TableSkeleton columns={4} /> : projects?.map((item: IProject) => (
+                                <tr key={item?._id} className="hover:bg-slate-50/50 transition-all">
                                     <td>
                                         <div className="flex items-center gap-4">
-                                            <img src={item.thumbnail} className="w-16 h-12 rounded-lg object-cover border border-slate-200" alt="" />
+                                            <img src={item?.thumbnail} className="w-16 h-12 rounded-lg object-cover border border-slate-200" alt="" />
                                             <div>
-                                                <p className="font-bold text-slate-800 text-sm line-clamp-1">{item.title}</p>
+                                                <p className="font-bold text-slate-800 text-sm line-clamp-1">{item?.title}</p>
                                                 <p className="text-[10px] text-slate-400 flex items-center gap-1 mt-0.5 uppercase tracking-tighter">
-                                                    <MapPin size={10} /> {item.location}
+                                                    <MapPin size={10} /> {item?.location}
                                                 </p>
                                             </div>
                                         </div>
                                     </td>
                                     <td>
-                                        <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${item.status === 'completed' ? 'bg-green-100 text-green-600' :
-                                            item.status === 'ongoing' ? 'bg-blue-100 text-blue-600' : 'bg-amber-100 text-amber-600'
+                                        <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${item?.status === 'completed' ? 'bg-green-100 text-green-600' :
+                                            item?.status === 'ongoing' ? 'bg-blue-100 text-blue-600' : 'bg-amber-100 text-amber-600'
                                             }`}>
-                                            {item.status}
+                                            {item?.status}
                                         </span>
                                     </td>
                                     <td>
                                         <div className="flex items-center justify-center gap-6">
                                             {/* Highlight Toggle */}
-                                            <button onClick={() => handleToggle(item._id, 'isHighlight', item.isHighlight)} className="flex flex-col items-center gap-1 group">
-                                                <Zap size={16} className={`${item.isHighlight ? 'text-amber-500 fill-amber-500' : 'text-slate-300'}`} />
+                                            <button onClick={() => handleToggle(item?._id, 'isHighlight', item?.isHighlight)} className="flex flex-col items-center gap-1 group">
+                                                <Zap size={16} className={`${item?.isHighlight ? 'text-amber-500 fill-amber-500' : 'text-slate-300'}`} />
                                                 <span className="text-[9px] font-bold text-slate-400 group-hover:text-amber-600">Highlight</span>
                                             </button>
                                             {/* Featured Toggle */}
-                                            <button onClick={() => handleToggle(item._id, 'isFeatured', item.isFeatured)} className="flex flex-col items-center gap-1 group">
-                                                <Star size={16} className={`${item.isFeatured ? 'text-blue-500 fill-blue-500' : 'text-slate-300'}`} />
+                                            <button onClick={() => handleToggle(item?._id, 'isFeatured', item?.isFeatured)} className="flex flex-col items-center gap-1 group">
+                                                <Star size={16} className={`${item?.isFeatured ? 'text-blue-500 fill-blue-500' : 'text-slate-300'}`} />
                                                 <span className="text-[9px] font-bold text-slate-400 group-hover:text-blue-600">Featured</span>
                                             </button>
                                             {/* Active Toggle */}
-                                            <button onClick={() => handleToggle(item._id, 'isActive', item.isActive)} className="flex flex-col items-center gap-1 group">
-                                                <Eye size={16} className={`${item.isActive ? 'text-green-500' : 'text-slate-300'}`} />
+                                            <button onClick={() => handleToggle(item?._id, 'isActive', item?.isActive)} className="flex flex-col items-center gap-1 group">
+                                                <Eye size={16} className={`${item?.isActive ? 'text-green-500' : 'text-slate-300'}`} />
                                                 <span className="text-[9px] font-bold text-slate-400 group-hover:text-green-600">Active</span>
                                             </button>
                                         </div>
                                     </td>
                                     <td>
                                         <div className="flex items-center justify-end gap-2">
-                                            <Link to={`/admin/projects/edit/${item._id}`} className="p-2 hover:bg-slate-100 rounded-lg text-slate-400 hover:text-primary transition-all">
+                                            <Link to={`/admin/projects/edit/${item?._id}`} className="p-2 hover:bg-slate-100 rounded-lg text-slate-400 hover:text-primary transition-all">
                                                 <Edit size={16} />
                                             </Link>
-                                            <button onClick={() => handleDelete(item._id)} className="p-2 hover:bg-red-50 rounded-lg text-slate-400 hover:text-red-600 transition-all">
+                                            <button onClick={() => handleDelete(item?._id)} className="p-2 hover:bg-red-50 rounded-lg text-slate-400 hover:text-red-600 transition-all">
                                                 <Trash2 size={16} />
                                             </button>
                                         </div>

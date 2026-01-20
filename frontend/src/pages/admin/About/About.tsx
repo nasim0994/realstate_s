@@ -35,8 +35,6 @@ export default function About() {
         }
     }, [about, reset]);
 
-
-
     const [addAbout, { isLoading: isAdding }] = useAddAboutMutation();
     const [updateAbout, { isLoading: isUpdating }] = useUpdateAboutMutation();
 
@@ -194,14 +192,14 @@ export default function About() {
                         </div>
 
                         <div className="space-y-3">
-                            {fields.map((field, index) => (
-                                <div key={field.id} className="flex items-center gap-2 group">
+                            {fields?.map((field, index) => (
+                                <div key={field?.id} className="flex items-center gap-2 group">
                                     <input
                                         type="text"
                                         {...register(`ourConcerns.${index}`)}
                                         placeholder="Type concern name..."
                                     />
-                                    {fields.length > 1 && (
+                                    {fields?.length > 1 && (
                                         <button
                                             type="button"
                                             onClick={() => remove(index)}

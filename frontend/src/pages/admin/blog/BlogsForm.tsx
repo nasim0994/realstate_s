@@ -22,7 +22,7 @@ export default function BlogForm() {
 
     useEffect(() => {
         if (isEditMode && blogData?.data) {
-            reset(blogData.data);
+            reset(blogData?.data);
         }
     }, [blogData, reset, isEditMode]);
 

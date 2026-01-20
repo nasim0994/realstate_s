@@ -4,6 +4,7 @@ import { API_URL } from '@/config';
 import toast from 'react-hot-toast';
 import { useDeleteBannerMutation, useGetAllBannerQuery } from '@/redux/features/banner/bannerApi';
 import type { TResponse } from '@/interface/globalInterface';
+import TableSkeleton from '@/components/shared/Skeleton/TableSkeleton';
 
 export default function AllBanner() {
     const { data, isLoading } = useGetAllBannerQuery({});
@@ -66,13 +67,7 @@ export default function AllBanner() {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-100">
-                            {isLoading ? (
-                                Array(3).fill(0).map((_, i) => (
-                                    <tr key={i} className="animate-pulse">
-                                        <td colSpan={4} className="px-6 py-10 bg-slate-50/10"></td>
-                                    </tr>
-                                ))
-                            ) : banners?.length > 0 ? (
+                            {isLoading ? <TableSkeleton columns={4} /> : banners?.length > 0 ? (
                                 banners?.map((banner: any) => (
                                     <tr key={banner._id} className="group hover:bg-slate-50/50 transition-all duration-200">
                                         <td>

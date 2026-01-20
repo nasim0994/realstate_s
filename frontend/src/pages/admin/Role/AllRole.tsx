@@ -5,6 +5,7 @@ import { useAddRoleMutation, useDeleteRoleMutation, useGetAllRoleQuery, useUpdat
 import RoleSidebar from './RoleSidebar';
 import toast from 'react-hot-toast';
 import type { IRole } from '@/interface/roleInterface';
+import TableSkeleton from '@/components/shared/Skeleton/TableSkeleton';
 
 export default function AllRole() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -13,7 +14,7 @@ export default function AllRole() {
     const { data: routeData } = useGetAllPermissionRoutesQuery({});
     const permissionRoutes = routeData?.data || [];
 
-    const { data: roleData } = useGetAllRoleQuery({});
+    const { data: roleData, isLoading } = useGetAllRoleQuery({});
     const roles = roleData?.data || [];
 
     const [addRole, { isLoading: isAdding }] = useAddRoleMutation();
@@ -86,7 +87,7 @@ export default function AllRole() {
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100">
-                        {roles.map((role: IRole, index: number) => (
+                        {isLoading ? <TableSkeleton columns={3} /> : roles?.map((role: IRole, index: number) => (
                             <tr key={role?._id} className="group hover:bg-slate-50/80 transition-all">
                                 <td>{String(index + 1).padStart(2, '0')}</td>
                                 <td>

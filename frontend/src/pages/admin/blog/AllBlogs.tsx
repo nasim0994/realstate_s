@@ -4,6 +4,7 @@ import { useGetAllBlogsQuery, useDeleteBlogMutation, useToggleBlogStatusMutation
 import toast from 'react-hot-toast';
 import type { TResponse } from '@/interface/globalInterface';
 import { API_URL } from '@/config';
+import TableSkeleton from '@/components/shared/Skeleton/TableSkeleton';
 
 export default function AllBlogs() {
     const { data, isLoading } = useGetAllBlogsQuery({});
@@ -45,8 +46,6 @@ export default function AllBlogs() {
     };
 
 
-    if (isLoading) return <div>Loading...</div>;
-
 
     return (
         <div className="space-y-3 animate-in fade-in duration-500">
@@ -71,7 +70,7 @@ export default function AllBlogs() {
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100">
-                        {blogs?.map((blog: any, index: number) => (
+                        {isLoading ? <TableSkeleton columns={4} /> : blogs?.map((blog: any, index: number) => (
                             <tr key={blog?._id} className="group hover:bg-slate-50/50 transition-all">
                                 <td>{index + 1}</td>
                                 <td>
@@ -90,14 +89,12 @@ export default function AllBlogs() {
                                     </div>
                                 </td>
                                 <td>
-                                    <div className="flex justify-center">
-                                        <button
-                                            onClick={() => handleToggleStatus(blog?._id)}
-                                            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none ${blog?.isActive ? 'bg-primary' : 'bg-slate-300'}`}
-                                        >
-                                            <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${blog?.isActive ? 'translate-x-6' : 'translate-x-1'}`} />
-                                        </button>
-                                    </div>
+                                    <button
+                                        onClick={() => handleToggleStatus(blog?._id)}
+                                        className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none ${blog?.isActive ? 'bg-primary' : 'bg-slate-300'}`}
+                                    >
+                                        <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${blog?.isActive ? 'translate-x-6' : 'translate-x-1'}`} />
+                                    </button>
                                 </td>
                                 <td>
                                     <div className="flex items-center justify-end gap-2">

@@ -22,10 +22,10 @@ export default function MyProfile() {
     useEffect(() => {
         if (userData?.data) {
             profileForm.reset({
-                name: userData.data.name,
-                designation: userData.data.designation,
-                email: userData.data.email, // Read-only
-                profileUrl: userData.data.profileUrl
+                name: userData?.data?.name,
+                designation: userData?.data?.designation,
+                email: userData?.data?.email,
+                profileUrl: userData?.data?.profileUrl
             });
         }
     }, [userData, profileForm]);

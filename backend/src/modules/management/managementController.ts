@@ -6,6 +6,7 @@ import {
   addManagementService,
   deleteManagementService,
   getAllManagementService,
+  getManagementCountService,
   getSingleManagementService,
   updateManagementService,
 } from './managementService';
@@ -85,5 +86,14 @@ export const deleteManagementController = catchAsync(async (req, res) => {
   res.status(200).json({
     success: true,
     message: 'Management delete successfully',
+  });
+});
+
+export const getManagementCountController = catchAsync(async (req, res) => {
+  const result = await getManagementCountService();
+  res.status(200).json({
+    success: true,
+    message: 'Management count fetched successfully',
+    data: result,
   });
 });

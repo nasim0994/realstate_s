@@ -1,7 +1,5 @@
 import httpStatus from 'http-status';
 import AppError from '../../errors/AppError';
-import { makeSlug } from '../../utils/makeSlug';
-import mongoose from 'mongoose';
 import { IMessage } from './messageInterface';
 import { Message } from './messageModel';
 
@@ -38,4 +36,20 @@ export const deleteMessageService = async (id: string) => {
 
   await Message.findByIdAndDelete(id);
   return true;
+};
+
+export const markMessageAsReadService = async (id: string) => {
+  const isExist = await Message.findById(id);
+  if (!isExist) throw new AppError(httpStatus.NOT_FOUND, 'Message not found !');
+  if (isExist.isRead) return isExist;
+
+  isExist.isRead = true;
+  const result = await isExist.save();
+  return result;
+};
+
+export const getMessageCountsService = async () => {
+  const totalMessages = await Message.countDocuments();
+  const unreadMessages = await Message.countDocuments({ isRead: false });
+  return { totalMessages, unreadMessages };
 };

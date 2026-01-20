@@ -90,3 +90,19 @@ export const updateProjectActiveService = async (id: string) => {
   });
   return result;
 };
+
+// project count service - totalProject, & status('ongoing' | 'upcoming' | 'completed') wise count
+export const getProjectCountService = async () => {
+  const totalProject = await Project.countDocuments();
+  const ongoingProject = await Project.countDocuments({ status: 'ongoing' });
+  const upcomingProject = await Project.countDocuments({ status: 'upcoming' });
+  const completedProject = await Project.countDocuments({
+    status: 'completed',
+  });
+  return {
+    totalProject,
+    ongoingProject,
+    upcomingProject,
+    completedProject,
+  };
+};

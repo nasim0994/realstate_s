@@ -19,6 +19,13 @@ export const contactMessageApi = baseApi.injectEndpoints({
       providesTags: ["message"],
     }),
 
+    getMessageCount: builder.query({
+      query: () => ({
+        url: `/message/counts`,
+      }),
+      providesTags: ["message"],
+    }),
+
     getMessageById: builder.query({
       query: (id) => ({
         url: `/message/${id}`,
@@ -41,6 +48,14 @@ export const contactMessageApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["message"],
     }),
+
+    markMessageAsRead: builder.mutation({
+      query: (id) => ({
+        url: `/message/mark-as-read/${id}`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["message"],
+    }),
   }),
 });
 
@@ -50,4 +65,6 @@ export const {
   useGetMessageByIdQuery,
   useUpdateMessageMutation,
   useDeleteMessageMutation,
+  useGetMessageCountQuery,
+  useMarkMessageAsReadMutation,
 } = contactMessageApi;

@@ -54,3 +54,9 @@ export const deleteTeamService = async (id: string) => {
   deleteFile(`./uploads/${isExist?.image}`);
   return true;
 };
+
+
+export const getTeamCountService = async () => {
+  const totalTeams = await Team.countDocuments();
+  return { totalTeams };
+};

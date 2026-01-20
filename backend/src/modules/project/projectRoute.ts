@@ -5,6 +5,7 @@ import {
   getAllProjectController,
   getByIdProjectController,
   getBySlugProjectController,
+  getProjectCountController,
   updateProjectActiveController,
   updateProjectController,
   updateProjectFeatureController,
@@ -30,6 +31,7 @@ Router.post(
   },
   createProjectController,
 );
+Router.get('/count', getProjectCountController);
 Router.get('/:id', getByIdProjectController);
 Router.get('/slug/:slug', getBySlugProjectController);
 Router.patch(

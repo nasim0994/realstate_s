@@ -6,6 +6,7 @@ import {
   deleteBlogController,
   getAllBlogController,
   getBlogBySlugController,
+  getBlogCountController,
   getSingleBlogController,
   toggleBlogStatusController,
   updateBlogController,
@@ -24,6 +25,7 @@ Router.post(
   addBlogController,
 );
 Router.get('/all', getAllBlogController);
+Router.get('/count', getBlogCountController);
 Router.get('/:id', getSingleBlogController);
 Router.get('/slug/:slug', getBlogBySlugController);
 Router.patch(

@@ -6,6 +6,7 @@ import {
   deleteTeamController,
   getAllTeamController,
   getSingleTeamController,
+  getTeamCountController,
   updateTeamController,
 } from './teamController';
 import { fileUploader } from '../../utils/fileUploader';
@@ -23,6 +24,7 @@ Router.post(
   addTeamController,
 );
 Router.get('/all', getAllTeamController);
+Router.get('/count', getTeamCountController);
 Router.get('/:id', getSingleTeamController);
 Router.patch(
   '/update/:id',

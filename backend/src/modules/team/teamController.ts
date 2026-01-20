@@ -7,6 +7,7 @@ import {
   deleteTeamService,
   getAllTeamService,
   getSingleTeamService,
+  getTeamCountService,
   updateTeamService,
 } from './teamService';
 
@@ -85,5 +86,14 @@ export const deleteTeamController = catchAsync(async (req, res) => {
   res.status(200).json({
     success: true,
     message: 'Team delete successfully',
+  });
+});
+
+export const getTeamCountController = catchAsync(async (req, res) => {
+  const result = await getTeamCountService();
+  res.status(200).json({
+    success: true,
+    message: 'Team count fetched successfully',
+    data: result,
   });
 });

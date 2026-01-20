@@ -7,6 +7,7 @@ import {
   deleteBlogService,
   getAllBlogService,
   getBlogBySlugService,
+  getBlogCountService,
   getSingleBlogService,
   toggleBlogStatusService,
   updateBlogService,
@@ -111,5 +112,14 @@ export const toggleBlogStatusController = catchAsync(async (req, res) => {
   res.status(200).json({
     success: true,
     message: 'Blog status toggled successfully',
+  });
+});
+
+export const getBlogCountController = catchAsync(async (req, res) => {
+  const result = await getBlogCountService();
+  res.status(200).json({
+    success: true,
+    message: 'Blog count fetched successfully',
+    data: result,
   });
 });

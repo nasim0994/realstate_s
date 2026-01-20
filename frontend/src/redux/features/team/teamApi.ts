@@ -18,6 +18,13 @@ export const teamApi = baseApi.injectEndpoints({
       }),
       providesTags: ["team"],
     }),
+    getTeamCount: builder.query({
+      query: () => ({
+        url: "/team/count",
+        method: "GET",
+      }),
+      providesTags: ["team"],
+    }),
     getTeamById: builder.query({
       query: (id) => ({
         url: `/team/${id}`,
@@ -49,4 +56,5 @@ export const {
   useGetTeamByIdQuery,
   useUpdateTeamMutation,
   useDeleteTeamMutation,
+  useGetTeamCountQuery,
 } = teamApi;

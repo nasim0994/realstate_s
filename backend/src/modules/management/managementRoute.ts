@@ -5,6 +5,7 @@ import {
   addManagementController,
   deleteManagementController,
   getAllManagementController,
+  getManagementCountController,
   getSingleManagementController,
   updateManagementController,
 } from './managementController';
@@ -23,6 +24,7 @@ Router.post(
   addManagementController,
 );
 Router.get('/all', getAllManagementController);
+Router.get('/count', getManagementCountController);
 Router.get('/:id', getSingleManagementController);
 Router.patch(
   '/update/:id',

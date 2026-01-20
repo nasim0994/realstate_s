@@ -3,7 +3,9 @@ import {
   addMessageService,
   deleteMessageService,
   getAllMessageService,
+  getMessageCountsService,
   getSingleMessageService,
+  markMessageAsReadService,
   updateMessageService,
 } from './messageService';
 
@@ -57,5 +59,25 @@ export const deleteMessageController = catchAsync(async (req, res) => {
   res.status(200).json({
     success: true,
     message: 'Message delete successfully',
+  });
+});
+
+export const markMessageAsReadController = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const result = await markMessageAsReadService(id);
+  res.status(200).json({
+    success: true,
+    message: 'Message marked as read successfully',
+    data: result,
+  });
+});
+
+export const getMessageCountsController = catchAsync(async (req, res) => {
+  const result = await getMessageCountsService();
+
+  res.status(200).json({
+    success: true,
+    message: 'Message counts fetched successfully',
+    data: result,
   });
 });

@@ -18,6 +18,13 @@ export const userApi = baseApi.injectEndpoints({
       }),
       providesTags: ["user"],
     }),
+    getUserCount: builder.query({
+      query: () => ({
+        url: "/user/count",
+        method: "GET",
+      }),
+      providesTags: ["user"],
+    }),
     getUserById: builder.query({
       query: (id) => ({
         url: `/user/${id}`,
@@ -67,4 +74,5 @@ export const {
   useDeleteUserMutation,
   useUpdateProfileMutation,
   useUpdatePasswordMutation,
+  useGetUserCountQuery,
 } = userApi;

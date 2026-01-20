@@ -5,6 +5,7 @@ import {
   deleteUserService,
   getAllUserService,
   getSingleUserService,
+  getUserCountService,
   updatePasswordService,
   updateProfileService,
   updateUserService,
@@ -95,6 +96,15 @@ export const updatePasswordController = catchAsync(async (req, res) => {
   res.status(200).json({
     success: true,
     message: 'Password update successfully',
+    data: result,
+  });
+});
+
+export const getUserCountController = catchAsync(async (req, res) => {
+  const result = await getUserCountService();
+  res.status(200).json({
+    success: true,
+    message: 'User count fetched successfully',
     data: result,
   });
 });

@@ -4,6 +4,7 @@ import {
   deleteUserController,
   getAllUserController,
   getSingleUserController,
+  getUserCountController,
   updatePasswordController,
   updateProfileController,
   updateUserController,
@@ -22,6 +23,7 @@ Router.post(
   addUserController,
 );
 Router.get('/all', verifyPermission('user', 'read'), getAllUserController);
+Router.get('/count', getUserCountController);
 Router.get('/:id', getSingleUserController);
 Router.put(
   '/update/:id',

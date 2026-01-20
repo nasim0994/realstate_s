@@ -64,17 +64,17 @@ export default function AllBlogs() {
                 <table className="w-full text-left border-separate border-spacing-0">
                     <thead>
                         <tr className="bg-slate-50/80">
-                            <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase border-b border-slate-100">SL</th>
-                            <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase border-b border-slate-100">Post Details</th>
-                            <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase border-b border-slate-100 text-center">Status</th>
-                            <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase border-b border-slate-100 text-right">Actions</th>
+                            <th>SL</th>
+                            <th>Post Details</th>
+                            <th>Status</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100">
                         {blogs?.map((blog: any, index: number) => (
                             <tr key={blog?._id} className="group hover:bg-slate-50/50 transition-all">
-                                <td className="px-6 py-4">{index + 1}</td>
-                                <td className="px-6 py-4">
+                                <td>{index + 1}</td>
+                                <td>
                                     <div className="flex items-center gap-4">
                                         <div className="w-16 h-12 rounded-lg bg-slate-100 overflow-hidden border border-slate-200 shrink-0">
                                             {blog?.image ? (
@@ -89,7 +89,7 @@ export default function AllBlogs() {
                                         </div>
                                     </div>
                                 </td>
-                                <td className="px-6 py-4">
+                                <td>
                                     <div className="flex justify-center">
                                         <button
                                             onClick={() => handleToggleStatus(blog?._id)}
@@ -99,7 +99,7 @@ export default function AllBlogs() {
                                         </button>
                                     </div>
                                 </td>
-                                <td className="px-6 py-4 text-right">
+                                <td>
                                     <div className="flex items-center justify-end gap-2">
                                         <Link to={`/admin/blogs/edit/${blog?._id}`} className="p-2 hover:bg-blue-50 text-slate-400 hover:text-blue-600 rounded-lg transition-all">
                                             <Edit size={16} />

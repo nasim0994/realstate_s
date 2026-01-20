@@ -18,6 +18,13 @@ export const projectApi = baseApi.injectEndpoints({
       }),
       providesTags: ["project"],
     }),
+    getProjectCount: builder.query({
+      query: () => ({
+        url: "/project/count",
+        method: "GET",
+      }),
+      providesTags: ["project"],
+    }),
     getProjectById: builder.query({
       query: (id) => ({
         url: `/project/${id}`,
@@ -84,4 +91,5 @@ export const {
   useToggleStatusProjectMutation,
   useToggleHighlightProjectMutation,
   useDeleteProjectMutation,
+  useGetProjectCountQuery,
 } = projectApi;

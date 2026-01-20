@@ -18,6 +18,13 @@ export const managementApi = baseApi.injectEndpoints({
       }),
       providesTags: ["management"],
     }),
+    getManagementCount: builder.query({
+      query: () => ({
+        url: "/management/count",
+        method: "GET",
+      }),
+      providesTags: ["management"],
+    }),
     getManagementById: builder.query({
       query: (id) => ({
         url: `/management/${id}`,
@@ -49,4 +56,5 @@ export const {
   useGetManagementByIdQuery,
   useUpdateManagementMutation,
   useDeleteManagementMutation,
+  useGetManagementCountQuery,
 } = managementApi;

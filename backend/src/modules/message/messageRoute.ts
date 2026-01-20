@@ -6,7 +6,9 @@ import {
   addMessageController,
   deleteMessageController,
   getAllMessageController,
+  getMessageCountsController,
   getSingleMessageController,
+  markMessageAsReadController,
   updateMessageController,
 } from './messageController';
 import {
@@ -20,6 +22,7 @@ Router.get(
   verifyPermission('messages', 'read'),
   getAllMessageController,
 );
+Router.get('/counts', getMessageCountsController);
 Router.get(
   '/:id',
   verifyPermission('messages', 'read'),
@@ -31,6 +34,7 @@ Router.patch(
   verifyValidate(updateMessageValidation),
   updateMessageController,
 );
+Router.patch('/mark-as-read/:id', markMessageAsReadController);
 Router.delete(
   '/delete/:id',
   verifyPermission('messages', 'delete'),

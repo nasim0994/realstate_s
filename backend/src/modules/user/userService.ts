@@ -107,3 +107,8 @@ export const updatePasswordService = async (
   const result = await User.findByIdAndUpdate(id, newData, { new: true });
   return result;
 };
+
+export const getUserCountService = async () => {
+  const totalUsers = await User.countDocuments();
+  return { totalUsers };
+};

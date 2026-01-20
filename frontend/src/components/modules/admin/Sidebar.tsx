@@ -4,6 +4,7 @@ import {
     FileText, UserCog, ShieldCheck, Globe, Mail, Info, Search
 } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
+import { useGetMessageCountQuery } from '@/redux/features/contactMessage/contactMessageApi';
 
 interface SidebarProps {
     isOpen: boolean;
@@ -13,6 +14,8 @@ interface SidebarProps {
 export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
     const { pathname } = useLocation();
     const [openMenu, setOpenMenu] = useState<string | null>(null);
+
+    const { data: messageCount } = useGetMessageCountQuery({});
 
 
     const menuItems = useMemo(() => [
@@ -203,14 +206,13 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                             <div className="flex items-end justify-between gap-2">
                                 <div className="flex-1">
                                     <div className="flex items-baseline gap-1">
-                                        <p className="text-2xl font-black text-slate-800 tabular-nums">24</p>
-                                        <span className="text-[10px] font-bold text-emerald-500">+3</span>
+                                        <p className="text-2xl font-black text-slate-800 tabular-nums">{messageCount?.data?.totalMessages || 0}</p>
                                     </div>
                                     <p className="text-[10px] text-slate-500 font-medium">Total Received</p>
                                 </div>
                                 <div className="h-8 w-px bg-slate-200 self-center"></div>
                                 <div className="flex-1 pl-2">
-                                    <p className="text-2xl font-black text-primary tabular-nums">08</p>
+                                    <p className="text-2xl font-black text-primary tabular-nums">{messageCount?.data?.unreadMessages || 0}</p>
                                     <p className="text-[10px] text-primary font-bold uppercase tracking-tighter">Unread</p>
                                 </div>
                             </div>

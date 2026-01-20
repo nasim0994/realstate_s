@@ -55,14 +55,14 @@ export default function AllBanner() {
                     <table className="w-full text-left border-separate border-spacing-0">
                         <thead>
                             <tr className="bg-slate-50/80">
-                                <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100">
+                                <th>
                                     <div className="flex items-center gap-1.5 cursor-default">
                                         Order <ArrowUpDown size={12} className="text-slate-400" />
                                     </div>
                                 </th>
-                                <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100">Banner Preview</th>
-                                <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100">Details</th>
-                                <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100 text-right">Actions</th>
+                                <th>Banner Preview</th>
+                                <th>Details</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-100">
@@ -75,12 +75,12 @@ export default function AllBanner() {
                             ) : banners?.length > 0 ? (
                                 banners?.map((banner: any) => (
                                     <tr key={banner._id} className="group hover:bg-slate-50/50 transition-all duration-200">
-                                        <td className="px-6 py-5">
+                                        <td>
                                             <div className="w-9 h-9 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-600 font-bold text-xs">
                                                 {banner?.order}
                                             </div>
                                         </td>
-                                        <td className="px-6 py-5">
+                                        <td>
                                             <div className="relative w-32 h-18 rounded-lg overflow-hidden border border-slate-200 bg-slate-50 shadow-sm transition-transform duration-300 group-hover:ring-2 group-hover:ring-primary/10">
                                                 <img
                                                     src={`${API_URL}${banner?.image}`}
@@ -91,7 +91,7 @@ export default function AllBanner() {
                                                 />
                                             </div>
                                         </td>
-                                        <td className="px-6 py-5">
+                                        <td>
                                             <div className="max-w-50 md:max-w-xs space-y-1">
                                                 <h4 className="font-bold text-slate-800 text-[14px] leading-tight group-hover:text-primary transition-colors">
                                                     {banner?.title}
@@ -101,7 +101,7 @@ export default function AllBanner() {
                                                 </p>
                                             </div>
                                         </td>
-                                        <td className="px-6 py-5 text-right">
+                                        <td>
                                             <div className="flex items-center justify-end gap-2.5">
                                                 <Link
                                                     to={`/admin/setting/banner/edit/${banner?._id}`}

@@ -59,3 +59,8 @@ export const deleteManagementService = async (id: string) => {
   deleteFile(`./uploads/${isExist?.image}`);
   return true;
 };
+
+export const getManagementCountService = async () => {
+  const totalManagements = await Management.countDocuments();
+  return { totalManagements };
+};

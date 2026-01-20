@@ -69,3 +69,8 @@ export const toggleBlogStatusService = async (id: string) => {
   });
   return result;
 };
+
+export const getBlogCountService = async () => {
+  const totalBlogs = await Blog.countDocuments();
+  return { totalBlogs };
+};

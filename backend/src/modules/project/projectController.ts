@@ -5,6 +5,7 @@ import {
   getAllProjectService,
   getByIdProjectService,
   getBySlugProjectService,
+  getProjectCountService,
   updateProjectActiveService,
   updateProjectFeatureService,
   updateProjectService,
@@ -203,6 +204,16 @@ export const updateProjectActiveController = catchAsync(async (req, res) => {
   res.status(200).json({
     success: true,
     message: 'Project active status update successfully',
+    data: result,
+  });
+});
+
+export const getProjectCountController = catchAsync(async (req, res) => {
+  const result = await getProjectCountService();
+
+  res.status(200).json({
+    success: true,
+    message: 'Project count fetched successfully',
     data: result,
   });
 });

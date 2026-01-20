@@ -6,6 +6,7 @@ const messageSchema = new Schema<IMessage>({
   email: { type: String },
   phone: { type: String, required: true },
   message: { type: String, required: true },
+  isRead: { type: Boolean, required: true, default: false },
 });
 
 export const Message = model<IMessage>('Message', messageSchema);

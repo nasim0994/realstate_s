@@ -48,26 +48,23 @@ export const projectApi = baseApi.injectEndpoints({
       invalidatesTags: ["project"],
     }),
     toggleFeatureProject: builder.mutation({
-      query: ({ id, data }) => ({
-        url: `/project/toggle/feature/${id}`,
+      query: (id) => ({
+        url: `/project/toggle-feature/${id}`,
         method: "PATCH",
-        body: data,
       }),
       invalidatesTags: ["project"],
     }),
     toggleStatusProject: builder.mutation({
-      query: ({ id, data }) => ({
-        url: `/project/toggle/status/${id}`,
+      query: (id) => ({
+        url: `/project/toggle-active/${id}`,
         method: "PATCH",
-        body: data,
       }),
       invalidatesTags: ["project"],
     }),
     toggleHighlightProject: builder.mutation({
-      query: ({ id, data }) => ({
-        url: `/project/toggle/highlight/${id}`,
+      query: (id) => ({
+        url: `/project/toggle-highlight/${id}`,
         method: "PATCH",
-        body: data,
       }),
       invalidatesTags: ["project"],
     }),

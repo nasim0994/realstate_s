@@ -2,8 +2,8 @@ import type { IProjectType } from "./projectTypeInterface";
 
 export type IProject = {
   _id: string;
-  thumbnail: string;
-  galleries?: string[];
+  thumbnail: string | File | null;
+  galleries?: (string | File)[];
   title: string;
   slug: string;
   description: string;

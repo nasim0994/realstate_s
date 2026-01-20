@@ -8,6 +8,7 @@ import {
   getProjectCountService,
   updateProjectActiveService,
   updateProjectFeatureService,
+  updateProjectHighlightService,
   updateProjectService,
 } from './projectService';
 import { catchAsync } from '../../utils/catchAsync';
@@ -18,6 +19,8 @@ import { Project } from './projectModel';
 
 export const createProjectController = catchAsync(async (req, res, next) => {
   const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+
+  console.log('data', req.body);
 
   const thumbnail = files.thumbnail[0].filename;
   const galleries = files.gallery ? files.gallery.map((f) => f.filename) : [];
@@ -88,93 +91,88 @@ export const getBySlugProjectController = catchAsync(async (req, res) => {
 
 export const updateProjectController = catchAsync(async (req, res, next) => {
   const files = req.files as { [fieldname: string]: Express.Multer.File[] };
-  const thumbnail = files?.thumbnail ? files?.thumbnail[0].filename : null;
 
-  const newGalleries = files?.gallery
+  // 1. New Files handle kora
+  const thumbnailFile = files?.thumbnail ? files?.thumbnail[0].filename : null;
+  const newGalleryFiles = files?.gallery
     ? files.gallery.map((f) => f.filename)
     : [];
 
   try {
     const isExits = await Project.findById(req.params.id);
-    if (!isExits) throw new AppError(httpStatus.NOT_FOUND, 'Project not found');
+    if (!isExits) {
+      // delete uploaded filw if any
+      if (newGalleryFiles.length > 0) {
+        newGalleryFiles.forEach((f) => deleteFile(`./uploads/project/${f}`));
+      }
+      if (thumbnailFile) {
+        deleteFile(`./uploads/project/${thumbnailFile}`);
+      }
+      throw new AppError(httpStatus.NOT_FOUND, 'Project not found');
+    }
 
-    const { title, price, isVariant, variants, stock, galleriesUrl } = req.body;
+    // Frontend theke asha data (Stringify kora JSON ke parse kora)
+    const bodyData = req.body;
+    const existingGalleries = bodyData?.existingGalleries || [];
 
-    const project = {
-      ...req?.body,
-      slug: makeSlug(title),
-      thumbnail: thumbnail ? `/project/${thumbnail}` : isExits?.thumbnail,
-      variants: isVariant ? variants : [],
-      price: isVariant && variants?.length > 0 ? variants[0].price : price,
-      stock:
-        isVariant && variants?.length > 0
-          ? variants?.reduce(
-              (acc: number, variant: { stock: string }) =>
-                acc + Number(variant.stock),
-              0,
-            )
-          : stock,
+    // 2. Thumbnail Logic
+    const updatedThumbnail = thumbnailFile
+      ? `/project/${thumbnailFile}`
+      : isExits?.thumbnail;
+
+    // 3. Galleries Logic
+    // Prothome frontend theke asha 'existingGalleries' gulo rakhbo (ja user delete kore nai)
+    let finalGalleries: string[] = [...existingGalleries];
+
+    // Tarpor notun upload kora chobi gulo add korbo
+    if (newGalleryFiles.length > 0) {
+      const newImages = newGalleryFiles.map(
+        (filename) => `/project/${filename}`,
+      );
+      finalGalleries = [...finalGalleries, ...newImages];
+    }
+
+    // 4. Update Object Prepare
+    const projectUpdateData = {
+      ...bodyData,
+      slug: makeSlug(bodyData?.title),
+      thumbnail: updatedThumbnail,
+      galleries: finalGalleries,
     };
 
-    let finalGalleries: string[] = [];
-
-    if (newGalleries?.length > 0) {
-      const newImages = newGalleries.map(
-        (gallery: string) => `/project/${gallery}`,
-      );
-
-      finalGalleries.push(...finalGalleries, ...newImages);
-    }
-
-    if (isExits?.galleries) {
-      const filterImages = isExits?.galleries?.filter((gallery: string) =>
-        galleriesUrl?.includes(gallery),
-      );
-
-      finalGalleries = [...filterImages, ...finalGalleries];
-    }
-
-    project.galleries = finalGalleries;
-
-    const result = await updateProjectService(req.params.id, project);
+    const result = await updateProjectService(req.params.id, projectUpdateData);
 
     res.status(200).json({
       success: true,
-      message: 'Project update successfully',
+      message: 'Project updated successfully',
       data: result,
     });
 
+    // 5. File System theke purono files delete kora (Success hobar por)
     if (result) {
-      if (thumbnail && isExits?.thumbnail) {
-        deleteFile(`./uploads/${isExits?.thumbnail}`);
+      // Thumbnail delete
+      if (thumbnailFile && isExits?.thumbnail) {
+        deleteFile(`./uploads${isExits.thumbnail}`);
       }
 
-      if (galleriesUrl && isExits?.galleries) {
-        const deletedImages = isExits?.galleries?.filter(
-          (gallery) => !galleriesUrl?.includes(gallery),
-        );
+      // Gallery images delete (database-e chilo kintu final list-e nai)
+      const imagesToDelete = isExits?.galleries?.filter(
+        (oldImg: string) => !existingGalleries.includes(oldImg),
+      );
 
-        deletedImages?.forEach((image) => {
-          deleteFile(`./uploads/${image}`);
-        });
-      }
-
-      if (!galleriesUrl && (isExits?.galleries?.length ?? 0) > 0) {
-        isExits?.galleries?.forEach((image) => {
-          deleteFile(`./uploads/${image}`);
-        });
-      }
-    }
-  } catch (error) {
-    next(error);
-    if (newGalleries?.length > 0) {
-      newGalleries?.forEach((gallery: string) => {
-        deleteFile(`./uploads/project/${gallery}`);
+      imagesToDelete?.forEach((image: string) => {
+        deleteFile(`./uploads${image}`);
       });
     }
-    if (thumbnail) {
-      deleteFile(`./uploads/project/${thumbnail}`);
+  } catch (error) {
+    // Error hole notun upload kora file gulo delete kore dewa
+    if (newGalleryFiles.length > 0) {
+      newGalleryFiles.forEach((f) => deleteFile(`./uploads/project/${f}`));
     }
+    if (thumbnailFile) {
+      deleteFile(`./uploads/project/${thumbnailFile}`);
+    }
+    next(error);
   }
 });
 
@@ -214,6 +212,16 @@ export const getProjectCountController = catchAsync(async (req, res) => {
   res.status(200).json({
     success: true,
     message: 'Project count fetched successfully',
+    data: result,
+  });
+});
+
+export const toggleProjectHighlightController = catchAsync(async (req, res) => {
+  const result = await updateProjectHighlightService(req.params.id);
+
+  res.status(200).json({
+    success: true,
+    message: 'Project highlight updated successfully',
     data: result,
   });
 });

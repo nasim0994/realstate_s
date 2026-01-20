@@ -6,6 +6,7 @@ import {
   getByIdProjectController,
   getBySlugProjectController,
   getProjectCountController,
+  toggleProjectHighlightController,
   updateProjectActiveController,
   updateProjectController,
   updateProjectFeatureController,
@@ -15,12 +16,11 @@ const Router = express.Router();
 
 import { fileUploader } from '../../utils/fileUploader';
 
-const upload = fileUploader('moreAbout').fields([
+const upload = fileUploader('project').fields([
   { name: 'thumbnail', maxCount: 1 },
-  { name: 'gallery', maxCount: 10 },
+  { name: 'gallery' },
 ]);
 
-Router.get('/all', getAllProjectController);
 Router.post(
   '/add',
   verifyPermission('project', 'create'),
@@ -31,6 +31,7 @@ Router.post(
   },
   createProjectController,
 );
+Router.get('/all', getAllProjectController);
 Router.get('/count', getProjectCountController);
 Router.get('/:id', getByIdProjectController);
 Router.get('/slug/:slug', getBySlugProjectController);
@@ -47,6 +48,7 @@ Router.patch(
 
 Router.patch('/toggle-feature/:id', updateProjectFeatureController);
 Router.patch('/toggle-active/:id', updateProjectActiveController);
+Router.patch('/toggle-highlight/:id', toggleProjectHighlightController);
 Router.delete(
   '/delete/:id',
   verifyPermission('project', 'delete'),

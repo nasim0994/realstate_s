@@ -11,13 +11,7 @@ export const createProjectService = async (data: IProject) => {
 };
 
 export const getAllProjectService = async (query: Record<string, unknown>) => {
-  const ProjectQuery = new QueryBuilder(
-    Project.find().populate(
-      'category subCategory subSubCategory',
-      'name icon slug',
-    ),
-    query,
-  )
+  const ProjectQuery = new QueryBuilder(Project.find().populate('type'), query)
     .search(['title'])
     .filter()
     .sort()
@@ -91,7 +85,6 @@ export const updateProjectActiveService = async (id: string) => {
   return result;
 };
 
-// project count service - totalProject, & status('ongoing' | 'upcoming' | 'completed') wise count
 export const getProjectCountService = async () => {
   const totalProject = await Project.countDocuments();
   const ongoingProject = await Project.countDocuments({ status: 'ongoing' });
@@ -105,4 +98,24 @@ export const getProjectCountService = async () => {
     upcomingProject,
     completedProject,
   };
+};
+
+export const updateProjectHighlightService = async (id: string) => {
+  const isExist = await Project.findById(id);
+  if (!isExist) {
+    throw new AppError(httpStatus.NOT_FOUND, 'Project not found');
+  }
+
+  await Project.updateMany(
+    { isHighlight: true },
+    { $set: { isHighlight: false } },
+  );
+
+  const result = await Project.findByIdAndUpdate(
+    id,
+    { isHighlight: true },
+    { new: true },
+  );
+
+  return result;
 };

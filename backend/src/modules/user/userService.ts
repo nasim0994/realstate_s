@@ -23,7 +23,7 @@ export const addUserService = async (data: IUser) => {
 
 export const getAllUserService = async (query: Record<string, unknown>) => {
   const userQuery = new QueryBuilder(
-    User.find().populate('deletedBy', 'name'),
+    User.find().populate('rolePermission', 'name'),
     query,
   )
     .search(['name', 'email'])
@@ -73,11 +73,7 @@ export const deleteUserService = async (id: string, user: string) => {
       'You cannot delete Super Admin user!',
     );
 
-  const result = await User.findByIdAndUpdate(
-    id,
-    { isDeleted: true, deletedBy: user },
-    { new: true },
-  );
+  const result = await User.findByIdAndDelete(id);
   return result;
 };
 

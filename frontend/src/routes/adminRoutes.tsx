@@ -3,6 +3,11 @@ import DashboardLayoutSkeleton from "../components/shared/Skeleton/DashboardLayo
 import { PrivateRoute } from "./PrivateRoute";
 import AllBlogs from "@/pages/admin/blog/AllBlogs";
 import BlogForm from "@/pages/admin/blog/BlogsForm";
+import AllProjectType from "@/pages/admin/Project/AllProjectType";
+import AllProjects from "@/pages/admin/Project/AllProjects";
+import ProjectForm from "@/pages/admin/Project/ProjectForm";
+import AllRole from "@/pages/admin/Role/AllRole";
+import AllUsers from "@/pages/admin/User/AllUsers";
 
 
 const AdminLayout = lazy(() => import("../layout/AdminLayout"));
@@ -47,6 +52,23 @@ export const adminRoutes = {
         {
             path: "dashboard",
             element: <Dashboard />
+        },
+        // project
+        {
+            path: "projects/type/all",
+            element: <AllProjectType />
+        },
+        {
+            path: "projects/all",
+            element: <AllProjects />
+        },
+        {
+            path: "projects/add",
+            element: <ProjectForm />
+        },
+        {
+            path: "projects/edit/:id",
+            element: <ProjectForm />
         },
         // blogs
         {
@@ -129,6 +151,14 @@ export const adminRoutes = {
         {
             path: "profile/update-password",
             element: <UpdatePassword />
+        },
+        {
+            path: "user-role/role-management",
+            element: <AllRole />
+        },
+        {
+            path: "user-role/user-management",
+            element: <AllUsers />
         },
         {
             path: "seo",

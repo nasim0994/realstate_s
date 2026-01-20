@@ -9,11 +9,9 @@ export interface IUser {
   needsPasswordChange: boolean;
   role: string;
   rolePermission?: IRole[];
-  isDeleted: boolean;
   status: string;
   createdAt: string;
   updatedAt: string;
-  deletedBy?: IUser;
 }
 
 export interface IUserProps {

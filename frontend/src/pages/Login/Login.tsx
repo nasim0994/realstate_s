@@ -24,7 +24,7 @@ export default function Login() {
         defaultValues: { email: '', password: '' }
     });
 
-    const from = location.state?.from?.pathname || "/dashboard";
+    const from = location.state?.from?.pathname || "/admin/dashboard";
 
     const onSubmit = async (data: { email: string; password: string }) => {
         setErrorMessage(null);

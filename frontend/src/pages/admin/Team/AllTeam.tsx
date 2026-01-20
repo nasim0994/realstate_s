@@ -58,19 +58,19 @@ export default function AllTeam() {
                     <table className="w-full text-left border-separate border-spacing-0">
                         <thead>
                             <tr className="bg-slate-50/80">
-                                <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100">Order</th>
-                                <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100">Member</th>
-                                <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100">Designation</th>
-                                <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100 text-right">Actions</th>
+                                <th>Order</th>
+                                <th>Member</th>
+                                <th>Designation</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-100">
                             {!isLoading && teamMembers.map((member: any) => (
                                 <tr key={member._id} className="group hover:bg-slate-50/50 transition-all">
-                                    <td className="px-6 py-4">
+                                    <td>
                                         <div className="w-8 h-8 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-600 font-bold text-xs">{member.order}</div>
                                     </td>
-                                    <td className="px-6 py-4">
+                                    <td>
                                         <div className="flex items-center gap-3">
                                             <div className="w-10 h-10 rounded-full overflow-hidden border border-slate-200 bg-slate-50">
                                                 <img src={`${API_URL}${member.image}`} alt={member.name} className="w-full h-full object-cover" onError={(e: any) => e.target.src = 'https://ui-avatars.com/api/?name=' + member.name} />
@@ -78,8 +78,8 @@ export default function AllTeam() {
                                             <span className="font-bold text-slate-800 text-sm">{member.name}</span>
                                         </div>
                                     </td>
-                                    <td className="px-6 py-4 text-sm text-slate-500 font-medium">{member.designation}</td>
-                                    <td className="px-6 py-4 text-right">
+                                    <td>{member.designation}</td>
+                                    <td>
                                         <div className="flex items-center justify-end gap-2">
                                             <Link to={`/admin/about/team-member/edit/${member._id}`} className="p-2 bg-white border border-slate-200 rounded-lg text-slate-600 hover:text-blue-600 hover:border-blue-600 transition-all"><Edit size={14} /></Link>
                                             <button onClick={() => handleDelete(member._id)} className="p-2 bg-white border border-slate-200 rounded-lg text-slate-600 hover:text-red-600 hover:border-red-600 transition-all"><Trash2 size={14} /></button>

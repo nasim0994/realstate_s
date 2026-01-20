@@ -119,6 +119,8 @@
   input[type="url"],
   input[type="tel"],
   input[type="number"],
+  input[type="search"],
+  input[type="date"],
   textarea,
   select {
     @apply w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl 
@@ -224,4 +226,12 @@ html.lenis {
 
 .admin_primary_btn {
   @apply flex items-center gap-2 bg-primary text-white px-8 py-3 rounded-xl font-bold shadow-lg shadow-blue-200 hover:opacity-90 active:scale-95 transition-all;
+}
+
+table thead tr th {
+  @apply px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest last:text-end;
+}
+
+table tbody tr td {
+  @apply px-8 py-3 text-sm font-mono text-slate-400;
 }

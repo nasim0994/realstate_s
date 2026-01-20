@@ -49,17 +49,17 @@ export default function AllManagement() {
                     <table className="w-full text-left border-separate border-spacing-0">
                         <thead>
                             <tr className="bg-slate-50/80">
-                                <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100">Order</th>
-                                <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100">Member</th>
-                                <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100">Title</th>
-                                <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100 text-right">Actions</th>
+                                <th>Order</th>
+                                <th>Member</th>
+                                <th>Title</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-100">
                             {!isLoading && managementList?.map((item: any) => (
                                 <tr key={item._id} className="group hover:bg-slate-50/50 transition-all">
-                                    <td className="px-6 py-4 text-xs font-bold text-slate-400">{item.order}</td>
-                                    <td className="px-6 py-4">
+                                    <td>{item.order}</td>
+                                    <td>
                                         <div className="flex items-center gap-3">
                                             <div className="w-10 h-10 rounded-full overflow-hidden border border-slate-200">
                                                 <img src={`${API_URL}${item.image}`} alt={item.name} className="w-full h-full object-cover" onError={(e: any) => e.target.src = 'https://ui-avatars.com/api/?name=' + item.name} />
@@ -70,11 +70,11 @@ export default function AllManagement() {
                                             </div>
                                         </div>
                                     </td>
-                                    <td className="px-6 py-4 text-sm text-slate-500 truncate max-w-50">
+                                    <td>
                                         <p>{item.title}</p>
                                         <p>{item.subTitle}</p>
                                     </td>
-                                    <td className="px-6 py-4 text-right">
+                                    <td>
                                         <div className="flex items-center justify-end gap-2">
                                             <Link to={`/admin/about/management/edit/${item._id}`} className="p-2 bg-white border border-slate-200 rounded-lg text-slate-600 hover:text-blue-600 transition-all"><Edit size={14} /></Link>
                                             <button onClick={() => handleDelete(item._id)} className="p-2 bg-white border border-slate-200 rounded-lg text-slate-600 hover:text-red-600 transition-all"><Trash2 size={14} /></button>

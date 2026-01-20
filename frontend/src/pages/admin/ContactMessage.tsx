@@ -36,7 +36,7 @@ export default function ContactMessage() {
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-slate-200/60 shadow-sm">
                 <div className='flex items-start gap-2'>
-                    <div className="p-2 bg-primary/10 text-primary rounded-lg">
+                    <div className="p-2 bg-primary/5 text-primary rounded-lg">
                         <MessageSquare size={20} />
                     </div>
                     <div>
@@ -52,16 +52,16 @@ export default function ContactMessage() {
                     <table className="w-full text-left border-separate border-spacing-0">
                         <thead>
                             <tr className="bg-slate-50/80">
-                                <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100">Sender</th>
-                                <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100">Contact Info</th>
-                                <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100">Message Preview</th>
-                                <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100 text-right">Actions</th>
+                                <th>Sender</th>
+                                <th>Contact Info</th>
+                                <th>Message Preview</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-100">
                             {!isLoading && messages.map((msg: any) => (
                                 <tr key={msg._id} className="group hover:bg-slate-50/50 transition-all">
-                                    <td className="px-6 py-4">
+                                    <td>
                                         <div className="flex items-center gap-3">
                                             <div className="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-primary font-bold text-xs">
                                                 {msg.name.charAt(0)}
@@ -69,7 +69,7 @@ export default function ContactMessage() {
                                             <span className="font-bold text-slate-800 text-sm">{msg.name}</span>
                                         </div>
                                     </td>
-                                    <td className="px-6 py-4">
+                                    <td>
                                         <div className="space-y-1">
                                             <div className="flex items-center gap-2 text-xs text-slate-500">
                                                 <Mail size={12} className="text-slate-400" /> {msg.email || 'N/A'}
@@ -79,7 +79,7 @@ export default function ContactMessage() {
                                             </div>
                                         </div>
                                     </td>
-                                    <td className="px-6 py-4">
+                                    <td>
                                         <p className="text-sm text-slate-500 truncate max-w-75">{msg.message}</p>
                                     </td>
                                     <td className="px-6 py-4 text-right">

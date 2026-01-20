@@ -4,5 +4,4 @@ export const API_URL =
 export const CONFIG = {
   BASE_URL: API_URL,
   API_PATH: `${API_URL}/api`,
-  IMAGE_URL: `${API_URL}/uploads`,
 };

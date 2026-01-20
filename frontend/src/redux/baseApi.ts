@@ -31,5 +31,7 @@ export const baseApi = createApi({
     "management",
     "seo",
     "blogs",
+    "projectType",
+    "project",
   ],
 });

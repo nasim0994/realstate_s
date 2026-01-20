@@ -71,7 +71,6 @@ export default function TeamForm() {
                     console.log(res);
                 }
             }
-            navigate('/admin/about/team-member/all');
         } catch (error: any) {
             toast.error(error?.data?.message || "Failed to add member!");
             console.log(error);

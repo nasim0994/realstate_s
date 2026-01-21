@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import DashboardLayoutSkeleton from "../components/shared/Skeleton/DashboardLayoutSkeleton";
 import { PrivateRoute } from "./PrivateRoute";
+import { Navigate } from "react-router-dom";
 
 
 
@@ -53,6 +54,10 @@ export const adminRoutes = {
         </Suspense>
     ),
     children: [
+        {
+            index: true,
+            element: <Navigate to="/admin/dashboard" replace />
+        },
         {
             path: "dashboard",
             element: <Dashboard />

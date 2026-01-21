@@ -32,4 +32,10 @@ export default defineConfig({
   esbuild: {
     drop: ["console", "debugger"],
   },
+  preview: {
+    port: 3000,
+  },
+  server: {
+    port: 3000,
+  },
 });

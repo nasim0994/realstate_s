@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 import MainLayoutSkeleton from "../components/shared/Skeleton/MainLayoutSkeleton";
+import { Navigate } from "react-router-dom";
 
 
 // Lazy imports
@@ -22,6 +23,7 @@ export const mainRoutes = {
     ),
     children: [
         { path: "/", element: <Home /> },
+        { path: "/home", element: <Navigate to="/" replace /> },
         { path: "/project/:id", element: <ProjectDetails /> },
         { path: "/about-us", element: <AboutPage /> },
         { path: "/projects", element: <Projects /> },

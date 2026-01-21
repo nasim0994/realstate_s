@@ -33,5 +33,6 @@ export const baseApi = createApi({
     "blogs",
     "projectType",
     "project",
+    "notice",
   ],
 });

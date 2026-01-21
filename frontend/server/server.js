@@ -4,7 +4,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { URL } from "url";
 
-const PORT = 3000;
+const PORT = 3500;
 const FRONTEND_URL = "https://realstate.devnasim.xyz";
 const BACKEND_URL = "https://api.realstate.devnasim.xyz";
 

@@ -15,7 +15,7 @@ app.use(express.static('uploads'));
 app.use(
   cors({
     origin: [
-      'http://localhost:3000',
+      'http://localhost:3500',
       'https://backend.com',
       'https://www.backend.com',
     ],

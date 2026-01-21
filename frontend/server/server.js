@@ -11,18 +11,56 @@ const BACKEND_URL = "https://api.realstate.devnasim.xyz";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// 🔹 Detect latest JS/CSS bundle
-function getLatestBundle(ext) {
-  const assetsDir = path.join(__dirname, "../dist/assets");
-  if (!fs.existsSync(assetsDir)) return "";
-  const files = fs.readdirSync(assetsDir);
-  const file = files.find((f) => f.endsWith(ext));
-  if (!file) return "";
-  return `/assets/${file}`;
+// 🔹 Detect all JS/CSS bundles from manifest.json
+function getBundlesFromManifest() {
+  const manifestPath = path.join(__dirname, "../dist/.vite/manifest.json");
+
+  if (!fs.existsSync(manifestPath)) {
+    console.warn("⚠️ manifest.json not found");
+    return { js: [], css: [] };
+  }
+
+  const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf-8"));
+
+  const js = new Set();
+  const css = new Set();
+
+  // Find entry file (index.html or main entry)
+  let entryKey =
+    Object.keys(manifest).find((k) => k.includes("index.html")) ||
+    Object.keys(manifest).find((k) => manifest[k].isEntry);
+
+  if (!entryKey) {
+    console.warn("⚠️ No entry found in manifest.json");
+    return { js: [], css: [] };
+  }
+
+  function collect(key) {
+    const entry = manifest[key];
+    if (!entry) return;
+
+    if (entry.file && entry.file.endsWith(".js")) {
+      js.add("/" + entry.file);
+    }
+
+    if (entry.css) {
+      entry.css.forEach((c) => css.add("/" + c));
+    }
+
+    if (entry.imports) {
+      entry.imports.forEach((imp) => collect(imp));
+    }
+  }
+
+  collect(entryKey);
+
+  return {
+    js: Array.from(js),
+    css: Array.from(css),
+  };
 }
 
-const jsBundle = getLatestBundle(".js");
-const cssBundle = getLatestBundle(".css");
+const bundles = getBundlesFromManifest();
 
 // 🔹 Render HTML with full SEO/meta
 function renderHTML({ meta }) {
@@ -30,8 +68,8 @@ function renderHTML({ meta }) {
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>${meta.title}</title>
-<meta name="description" content="${meta.description}">
+<title>${meta.title || ""}</title>
+<meta name="description" content="${meta.description || ""}">
 <meta name="keywords" content="${meta.keywords || ""}">
 <meta name="author" content="${meta.author || ""}">
 <meta name="designer" content="${meta.designer || ""}">
@@ -41,34 +79,36 @@ ${meta.facebookDomainVerification ? `<meta name="facebook-domain-verification" c
 ${meta.googleSiteVerification ? `<meta name="google-site-verification" content="${meta.googleSiteVerification}">` : ""}
 
 <!-- Open Graph -->
-<meta property="og:title" content="${meta.title}">
-<meta property="og:description" content="${meta.description}">
-<meta property="og:image" content="${meta.image}">
+<meta property="og:title" content="${meta.title || ""}">
+<meta property="og:description" content="${meta.description || ""}">
+<meta property="og:image" content="${meta.image || ""}">
 <meta property="og:type" content="website">
-<meta property="og:url" content="${meta.url}">
+<meta property="og:url" content="${meta.url || ""}">
 
 <!-- Twitter -->
-<meta name="twitter:title" content="${meta.title}">
-<meta name="twitter:description" content="${meta.description}">
-<meta name="twitter:image" content="${meta.image}">
+<meta name="twitter:title" content="${meta.title || ""}">
+<meta name="twitter:description" content="${meta.description || ""}">
+<meta name="twitter:image" content="${meta.image || ""}">
 <meta name="twitter:card" content="summary_large_image">
 
-<link rel="stylesheet" href="${cssBundle}">
+${bundles.css.map((href) => `<link rel="stylesheet" href="${href}">`).join("\n")}
+
+${bundles.js.map((src) => `<script type="module" src="${src}"></script>`).join("\n")}
 
 ${
   meta.googleTagManager
     ? `
 <script>
-  (function(w,d,s,l,i){
-    w[l]=w[l]||[];
-    w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
-    var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),
-        dl=l!='dataLayer'?'&l='+l:'';
-    j.async=true;
-    j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
-    f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','${meta.googleTagManager}');
+(function(w,d,s,l,i){
+  w[l]=w[l]||[];
+  w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
+  var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),
+      dl=l!='dataLayer'?'&l='+l:'';
+  j.async=true;
+  j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+  f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','${meta.googleTagManager}');
 </script>
 `
     : ""
@@ -77,7 +117,6 @@ ${
 <body>
 ${meta.googleTagManager ? `<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=${meta.googleTagManager}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>` : ""}
 <div id="root"></div>
-<script type="module" src="${jsBundle}"></script>
 </body>
 </html>`;
 }
@@ -112,7 +151,7 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  // 🔹 Serve public images
+  // 🔹 Serve images
   if (pathname.startsWith("/images/")) {
     const filePath = path.join(__dirname, "../dist", pathname);
     let contentType = "image/jpeg";
@@ -134,6 +173,7 @@ const server = http.createServer(async (req, res) => {
       const plainDescription = product?.description
         ? product.description.replace(/<[^>]+>/g, "")
         : "";
+
       const metaDescription =
         plainDescription.length > 160
           ? plainDescription.slice(0, 157) + "..."
@@ -141,8 +181,8 @@ const server = http.createServer(async (req, res) => {
 
       html = renderHTML({
         meta: {
-          title: product?.title || "Your Title Here",
-          description: metaDescription || "Your Description Here",
+          title: product?.title,
+          description: metaDescription,
           image: product?.thumbnail
             ? `${BACKEND_URL}${product.thumbnail}`
             : "/images/logo.png",
@@ -158,7 +198,7 @@ const server = http.createServer(async (req, res) => {
         },
       });
     } catch (err) {
-      console.error("Product API failed:", err);
+      console.error("Project API failed:", err);
       html = fs.readFileSync(
         path.join(__dirname, "../dist/index.html"),
         "utf-8",
@@ -181,6 +221,7 @@ const server = http.createServer(async (req, res) => {
       const plainDescription = blog?.description
         ? blog.description.replace(/<[^>]+>/g, "")
         : "";
+
       const metaDescription =
         plainDescription.length > 160
           ? plainDescription.slice(0, 157) + "..."
@@ -188,8 +229,8 @@ const server = http.createServer(async (req, res) => {
 
       html = renderHTML({
         meta: {
-          title: blog?.title || "USNOTA Blog",
-          description: metaDescription || "USNOTA Blog",
+          title: blog?.title,
+          description: metaDescription,
           image: blog?.thumbnail ? `${BACKEND_URL}${blog.thumbnail}` : "",
           url: `${FRONTEND_URL}/blog/${slug}`,
           keywords: blog?.keywords,
@@ -214,7 +255,7 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  // 🔹 General SEO fallback for all other pages
+  // 🔹 General SEO fallback
   let html;
   try {
     const seoRes = await fetch(`${BACKEND_URL}/api/seo`);
@@ -223,8 +264,8 @@ const server = http.createServer(async (req, res) => {
 
     html = renderHTML({
       meta: {
-        title: seo?.title || "USNOTA Shop",
-        description: seo?.description || "USNOTA Shop",
+        title: seo?.title,
+        description: seo?.description,
         image: seo?.ogImage ? `${BACKEND_URL}${seo.ogImage}` : "",
         url: `${FRONTEND_URL}${pathname}`,
         keywords: seo?.keywords,
@@ -241,14 +282,12 @@ const server = http.createServer(async (req, res) => {
     console.error("SEO API failed:", err);
     html = fs.readFileSync(path.join(__dirname, "../dist/index.html"), "utf-8");
   }
+
   res.writeHead(200, { "Content-Type": "text/html" });
   res.end(html);
-  return;
-
-  // 🔹 Serve assets/images handled below (covered by SPA fallback)
 });
 
 // 🔹 Start server
 server.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
 });

@@ -18,6 +18,8 @@ app.use(
       'http://localhost:3500',
       'https://realstate.devnasim.xyz',
       'https://www.realstate.devnasim.xyz',
+      'https://s.devnasim.xyz',
+      'https://www.s.devnasim.xyz',
     ],
     credentials: true,
   }),

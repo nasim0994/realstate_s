@@ -8,7 +8,7 @@ export default function HighlightProject() {
             <div
                 className="absolute inset-0 z-0"
                 style={{
-                    backgroundImage: `url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2000&auto=format&fit=crop')`,
+                    backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),url('/project2.png')`,
                     backgroundAttachment: "fixed",
                     backgroundPosition: "center",
                     backgroundSize: "cover",
@@ -34,8 +34,8 @@ export default function HighlightProject() {
 
                     {/* Big Project Title */}
                     <h2 className="text-5xl md:text-[8vw] font-bold text-white leading-none tracking-tighter">
-                        THE <br />
-                        <span className="text-outline-white">SKY GARDEN</span>
+                        SWAN <br />
+                        <span className="text-outline-white">Khatibun Casel</span>
                     </h2>
 
                     {/* Subtitle & Action */}
@@ -44,7 +44,7 @@ export default function HighlightProject() {
                             A paradigm of luxury living in the heart of the city, where nature meets modern architecture.
                         </p>
 
-                        <AnimationButton text="Explore Project" link={`/project/sky-garden`} />
+                        <AnimationButton text="Explore Project" link={`/project/khatibun-casel`} />
                     </div>
                 </motion.div>
             </div>

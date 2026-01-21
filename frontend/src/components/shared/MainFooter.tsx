@@ -1,8 +1,12 @@
 import { motion } from "framer-motion";
-import { Facebook, Instagram, Linkedin, Twitter, ArrowUpRight } from "lucide-react";
+import { Facebook, Instagram, Linkedin, ArrowUpRight, Youtube } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function MainFooter() {
+
+    const currentYear = new Date().getFullYear();
+
+
     return (
         <footer className="relative w-full overflow-hidden bg-black text-white">
             <div className="absolute inset-0 z-0">
@@ -29,17 +33,17 @@ export default function MainFooter() {
                             href="tel:+8801234567890"
                             className="text-4xl md:text-[6vw] font-bold tracking-tighter hover:text-primary transition-colors duration-500"
                         >
-                            +880 1234 567 890
+                            09606-223322
                         </a>
                     </motion.div>
 
                     {/* Social Icons */}
                     <div className="flex gap-8 mb-16">
                         {[
-                            { icon: <Facebook />, link: "#" },
-                            { icon: <Instagram />, link: "#" },
-                            { icon: <Linkedin />, link: "#" },
-                            { icon: <Twitter />, link: "#" },
+                            { icon: <Facebook />, link: "https://www.facebook.com/swan.properties.bd" },
+                            { icon: <Instagram />, link: "https://www.instagram.com/swanpropertiesltd" },
+                            { icon: <Linkedin />, link: "https://www.linkedin.com/company/swan-properties-ltd" },
+                            { icon: <Youtube />, link: "https://www.youtube.com/@Swan-Properties-Ltd" },
                         ].map((social, i) => (
                             <motion.a
                                 key={i}
@@ -55,8 +59,7 @@ export default function MainFooter() {
                     {/* Address */}
                     <div className="max-w-md mb-20 text-center">
                         <p className="text-gray-400 text-sm uppercase tracking-[0.2em] font-medium leading-relaxed">
-                            Level 12, Corporate Tower, Gulshan Avenue <br />
-                            Dhaka 1212, Bangladesh
+                            Gulshan Grace, House: CWS (C)-08(Apt.-4W) Gulshan South Avenue, Gulshan-01 Dhaka-1212, Bangladesh
                         </p>
                     </div>
 
@@ -105,11 +108,7 @@ export default function MainFooter() {
 
                     {/* Copyright Section */}
                     <div className="w-full flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/5 text-[10px] text-gray-500 uppercase tracking-widest">
-                        <p>© 2024 Your Real Estate Firm. All Rights Reserved.</p>
-                        <p className="mt-4 md:mt-0 flex items-center gap-2">
-                            Design & Developed by
-                            <Link to="https://devnasim.xyz" className="text-white font-bold">DevNasim</Link>
-                        </p>
+                        <p>© {currentYear} Your Real Estate Firm. All Rights Reserved.</p>
                     </div>
                 </div>
             </div>

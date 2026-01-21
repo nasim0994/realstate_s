@@ -3,11 +3,56 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, MapPin, X } from "lucide-react";
 import { Link, useSearchParams } from "react-router-dom";
 
-const allProjects = [
-    { id: 1, title: "The Sky Garden", category: "Residential", status: "ongoing", location: "Gulshan 2", image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=800", slug: "sky-garden" },
-    { id: 2, title: "Corporate Hub", category: "Commercial", status: "completed", location: "Banani", image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800", slug: "corporate-hub" },
-    { id: 3, title: "Grand Residency", category: "Residential", status: "upcoming", location: "Dhanmondi", image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800", slug: "grand-residency" },
-    { id: 4, title: "Elite Business Center", category: "Commercial", status: "ongoing", location: "Uttara", image: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800", slug: "elite-business" },
+const projects = [
+    {
+        id: 1,
+        title: "Swan Sky View",
+        location: "Aftabnagor, Dhaka",
+        category: "Luxury Apartment",
+        image: "/project.png",
+        status: "Ongoing",
+
+    },
+    {
+        id: 2,
+        title: "Swan Umaria Arcade",
+        location: "Basundhara, Dhaka",
+        category: "Commercial Plaza",
+        image: "/project2.png",
+        status: "Ongoing",
+    },
+    {
+        id: 3,
+        title: "Swan Gyas Manor",
+        location: "Rampura, Dhaka",
+        category: "Commercial",
+        image: "/project3.png",
+        status: "Completed",
+    },
+    {
+        id: 4,
+        title: "Swan Sliver Spring",
+        location: "West Rampura, Dhaka",
+        category: "Luxury Apartment",
+        image: "/project4.png",
+        status: "Completed",
+    },
+    {
+        id: 5,
+        title: "Swan Rafiqul Villa",
+        location: "Shahbagh, Dhaka",
+        category: "Commercial Plaza",
+        image: "/project5.png",
+        status: "Completed",
+    },
+    {
+        id: 6,
+        title: "Swan Dream Park",
+        location: "Aftabnagor, Dhaka",
+        category: "Commercial",
+        image: "/project6.png",
+        status: "Completed",
+    },
 ];
 
 export default function Projects() {
@@ -50,7 +95,7 @@ export default function Projects() {
 
     // Filtering Logic
     const filteredProjects = useMemo(() => {
-        return allProjects.filter((project) => {
+        return projects.filter((project) => {
             const matchType = activeType === "All" || project.category === activeType;
             const matchStatus = activeStatus === "All" || project.status === activeStatus;
             return matchType && matchStatus;

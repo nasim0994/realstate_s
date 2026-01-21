@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Send, Facebook, Instagram, Linkedin } from "lucide-react";
+import { Mail, Phone, MapPin, Send, Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
 import { useEffect } from "react";
 
 export default function Contact() {
@@ -40,8 +40,7 @@ export default function Contact() {
                                 <div>
                                     <h4 className="text-xs uppercase font-bold tracking-widest mb-2">Our Office</h4>
                                     <p className="text-gray-500 leading-relaxed text-sm">
-                                        House 12, Road 05, Block F, <br />
-                                        Banani, Dhaka - 1213, Bangladesh.
+                                        Gulshan Grace, House: CWS (C)-08(Apt.-4W) Gulshan South Avenue, Gulshan-01 Dhaka-1212, Bangladesh
                                     </p>
                                 </div>
                             </div>
@@ -52,8 +51,8 @@ export default function Contact() {
                                 </div>
                                 <div>
                                     <h4 className="text-xs uppercase font-bold tracking-widest mb-2">Call Us</h4>
-                                    <p className="text-gray-500 text-sm">+880 1712 345 678</p>
-                                    <p className="text-gray-500 text-sm">+880 1912 345 678</p>
+                                    <p className="text-gray-500 text-sm">09606-223322</p>
+                                    <p className="text-gray-500 text-sm">+880 01755 558 530</p>
                                 </div>
                             </div>
 
@@ -63,8 +62,8 @@ export default function Contact() {
                                 </div>
                                 <div>
                                     <h4 className="text-xs uppercase font-bold tracking-widest mb-2">Email</h4>
-                                    <p className="text-gray-500 text-sm">info@luxeestate.com</p>
-                                    <p className="text-gray-500 text-sm">sales@luxeestate.com</p>
+                                    <p className="text-gray-500 text-sm">info@swanpropertiesltd.com</p>
+                                    <p className="text-gray-500 text-sm">sales@swanpropertiesltd.com</p>
                                 </div>
                             </div>
                         </div>
@@ -73,9 +72,14 @@ export default function Contact() {
                         <div className="pt-8 border-t border-gray-100">
                             <h4 className="text-[10px] uppercase font-bold tracking-[0.3em] mb-6 text-gray-400">Follow Our Journey</h4>
                             <div className="flex gap-4">
-                                {[Facebook, Instagram, Linkedin].map((Icon, idx) => (
-                                    <a key={idx} href="#" className="w-10 h-10 border border-gray-200 flex items-center justify-center hover:bg-black hover:text-white transition-all">
-                                        <Icon size={16} />
+                                {[
+                                    { icon: <Facebook />, link: "https://www.facebook.com/swan.properties.bd" },
+                                    { icon: <Instagram />, link: "https://www.instagram.com/swanpropertiesltd" },
+                                    { icon: <Linkedin />, link: "https://www.linkedin.com/company/swan-properties-ltd" },
+                                    { icon: <Youtube />, link: "https://www.youtube.com/@Swan-Properties-Ltd" },
+                                ].map((Icon, idx) => (
+                                    <a key={idx} href={Icon.link} target="_blank" className="w-10 h-10 border border-gray-200 flex items-center justify-center hover:bg-primary hover:text-white transition-all">
+                                        {Icon.icon}
                                     </a>
                                 ))}
                             </div>
@@ -119,7 +123,7 @@ export default function Contact() {
                                 ></textarea>
                             </div>
                             <div className="md:col-span-2">
-                                <button className="bg-black text-white px-10 py-5 text-xs uppercase font-bold tracking-[0.2em] flex items-center gap-3 hover:bg-primary transition-all group">
+                                <button className="bg-primary text-white px-10 py-5 text-xs uppercase font-bold tracking-[0.2em] flex items-center gap-3 hover:bg-primary transition-all group">
                                     Send Message
                                     <Send size={14} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                                 </button>

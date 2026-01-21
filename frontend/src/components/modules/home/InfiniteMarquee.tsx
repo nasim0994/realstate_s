@@ -51,8 +51,8 @@ function ParallaxText({ baseVelocity = 100 }: MarqueeProps) {
                 className="font-bold uppercase text-5xl md:text-[10vw] flex flex-nowrap gap-10 whitespace-nowrap"
                 style={{ x }}
             >
-                <span className="text-outline">Luxury Living, Perfected Daily</span>
-                <span className="text-outline">Luxury Living, Perfected Daily</span>
+                <span className="text-outline">Built on Strength. Built on Trust.</span>
+                <span className="text-outline">Built on Strength. Built on Trust.</span>
             </motion.div>
         </div>
     );

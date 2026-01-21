@@ -7,7 +7,7 @@ import parser from "html-react-parser";
 import { useEffect } from "react";
 
 const projectData = {
-    title: "The Sky Garden - Luxury Landmark",
+    title: "Swan Sky View",
     description: `<div className="text-neutral">
         <p className="leading-relaxed mb-6">
             গুলশানের অভিজাত লোকেশনে অবস্থিত এই পূর্ণাঙ্গ রেসিডেন্সিয়াল বিল্ডিংটি
@@ -28,7 +28,7 @@ const projectData = {
             বরং একটি পরিপূর্ণ ও সম্মানজনক জীবনযাপনের প্রতিচ্ছবি।
         </p>
     </div>`,
-    location: "Gulshan 2, Dhaka",
+    location: "Aftabnagor, Dhaka",
     type: "Residential",
     status: "Ongoing",
     price: "Price on Request",
@@ -41,11 +41,11 @@ const projectData = {
     aptSize: "2200 - 3500 SqFt",
     handover: "December 2026",
 
-    image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1200",
+    image: "/project2.png",
     gallery: [
-        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800",
-        "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?q=80&w=800",
-        "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?q=80&w=800"
+        "/project.png",
+        "/project3.png",
+        "/project4.png"
     ],
     googleMapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3650.5983416206684!2d90.4182967753364!3d23.791012178640324!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c7a0f70deb73%3A0x30c36427b19cf12!2sGulshan%202%2C%20Dhaka!5e0!3m2!1sen!2sbd!4v1715432000000!5m2!1sen!2sbd"
 };
@@ -66,23 +66,9 @@ export default function ProjectDetails() {
 
     return (
         <div className="bg-white min-h-screen">
-
             <title>{projectData?.title}</title>
             <meta name="description" content={metaDescription} />
 
-            {/* og */}
-            <meta property="og:title" content={projectData?.title} />
-            <meta property="og:description" content={metaDescription} />
-            <meta property="og:image" content={projectData?.image} />
-            <meta property="og:type" content="website" />
-            <meta property="og:url" content={window.location.href} />
-
-            {/* twitter */}
-            <meta name="twitter:title" content={projectData?.title} />
-            <meta name="twitter:description" content={metaDescription} />
-            <meta name="twitter:image" content={projectData?.image} />
-            <meta name="twitter:card" content="summary_large_image" />
-            <meta name="twitter:url" content={window.location.href} />
 
 
             {/* Hero Section (Same as before) */}

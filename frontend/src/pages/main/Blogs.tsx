@@ -11,7 +11,7 @@ const blogs = [
         excerpt: "Discover how green buildings are reshaping the urban landscape and promoting a healthier lifestyle for city dwellers.",
         date: "Oct 12, 2025",
         author: "Ar. Rahat Ahmed",
-        image: "https://images.unsplash.com/photo-1449156059431-78995541dca5?q=80&w=1200",
+        image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=800",
         slug: "future-of-architecture"
     },
     {
@@ -38,7 +38,7 @@ const blogs = [
         excerpt: "Learn how to make your studio apartment feel like a mansion with these clever space-saving tips.",
         date: "Aug 30, 2025",
         author: "Nina Hossain",
-        image: "https://images.unsplash.com/photo-1505691938895-1758d7eaa511?q=80&w=800",
+        image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=800",
         slug: "maximizing-small-spaces"
     }
 ];

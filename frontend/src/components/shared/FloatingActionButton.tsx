@@ -1,7 +1,7 @@
 import { FaWhatsapp } from 'react-icons/fa';
 
 export default function FloatingActionButton() {
-    const phoneNumber = "+880123456789";
+    const phoneNumber = "8801755558530";
     const message = "Hello! I would like to know more about your projects.";
 
     const handleClick = () => {

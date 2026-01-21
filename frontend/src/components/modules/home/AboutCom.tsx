@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import AnimationButton from "../../shared/AnimationButton";
+import { Link } from "react-router-dom";
 
 const counters = [
     { label: "Years of Experience", value: "12+" },
@@ -34,12 +35,18 @@ export default function AboutCom() {
                             <h4 className="text-primary font-semibold uppercase tracking-widest text-sm mb-4">
                                 Since 2012
                             </h4>
-                            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-6">
-                                We Provide The Best <br /> Property For You
+                            <h2 className="text-4xl md:text-5xl font-extrabold text-neutral leading-tight mb-6">
+                                We Provide The Best <br /> <span className="text-primary">Property For You</span>
                             </h2>
-                            <p className="text-gray-600 text-lg leading-relaxed max-w-lg">
-                                Our mission is to provide the most professional, informative, loyal and dedicated service in the industry. The best interests of our clients will always come first.
-                            </p>
+                            <div className="space-y-4 text-gray-600 text-justify lg:pr-10">
+                                <p>
+                                    Swan Properties Ltd. is a trusted real estate development company in Bangladesh, committed to delivering safe, sustainable, and thoughtfully designed residential and commercial spaces. As a sister concern of Swan Group, we carry forward a legacy of quality, integrity, and reliability built over decades.
+                                </p>
+
+                                <p>
+                                    At Swan Properties, we believe that construction is not just about buildings—it is about responsibility toward people, communities, and the future. Every project is carefully planned and executed in full compliance with the BNBC Code 2020, ensuring structural safety, durability, and preparedness for seismic resilience of up to 7.5 Richter scale. <Link to="/about-us" className="text-primary cursor-pointer text-[15px]" >read more</Link>
+                                </p>
+                            </div>
                         </motion.div>
 
                         {/* Counters */}

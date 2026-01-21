@@ -5,20 +5,20 @@ const contactDetails = [
     {
         icon: <Mail className="w-6 h-6" />,
         label: "Email Us",
-        value: "hello@yourrealestate.com",
-        link: "mailto:hello@yourrealestate.com",
+        value: "info@swanpropertiesltd.com",
+        link: "mailto:info@swanpropertiesltd.com",
     },
     {
         icon: <Phone className="w-6 h-6" />,
         label: "Call Anytime",
-        value: "+880 1234 567 890",
-        link: "tel:+8801234567890",
+        value: "09606-223322",
+        link: "tel:09606223322",
     },
     {
         icon: <MapPin className="w-6 h-6" />,
         label: "Visit Office",
-        value: "12/A, Road 55, Gulshan 2, Dhaka",
-        link: "https://maps.google.com",
+        value: "Gulshan Grace, House: CWS (C)-08(Apt.-4W) Gulshan South Avenue, Gulshan-01 Dhaka-1212, Bangladesh",
+        link: "https://goo.gl/maps/Gulshan Grace, House: CWS (C)-08(Apt.-4W) Gulshan South Avenue, Gulshan-01 Dhaka-1212, Bangladesh",
     },
 ];
 

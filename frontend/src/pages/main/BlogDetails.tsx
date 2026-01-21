@@ -10,7 +10,7 @@ const blogContent = {
     date: "October 12, 2025",
     author: "Ar. Rahat Ahmed",
     role: "Chief Architect",
-    image: "https://images.unsplash.com/photo-1449156059431-78995541dca5?q=80&w=1200",
+    image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=800",
     content: `
     <p>Sustainable architecture is no longer just a trend; it is a necessity for the rapidly growing urban landscape of Dhaka. As the city faces challenges like heat islands and air pollution, architects are turning to green building solutions to create a more livable environment.</p>
     
@@ -73,7 +73,7 @@ export default function BlogDetails() {
 
                     {/* Share Sidebar (Desktop Only) */}
                     <div className="hidden lg:block absolute -left-24 top-0 space-y-4">
-                        <p className="text-[10px] font-bold uppercase tracking-widest text-gray-300 vertical-text rotate-180">Share Story</p>
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-gray-300 vertical-text">Share Story</p>
                         <div className="flex flex-col gap-3">
                             <button className="w-10 h-10 border border-gray-100 flex items-center justify-center hover:bg-primary hover:text-white transition-all"><Facebook size={16} /></button>
                             <button className="w-10 h-10 border border-gray-100 flex items-center justify-center hover:bg-black hover:text-white transition-all"><Twitter size={16} /></button>
@@ -86,17 +86,6 @@ export default function BlogDetails() {
                         <div dangerouslySetInnerHTML={{ __html: blogContent.content }} />
                     </div>
 
-                    {/* --- Author Card --- */}
-                    <div className="mt-20 p-10 bg-gray-50 flex flex-col md:flex-row gap-8 items-center border-l-4 border-primary">
-                        <div className="w-24 h-24 bg-gray-200 rounded-full overflow-hidden shrink-0">
-                            <img src="https://i.pravatar.cc/200?img=11" alt="Author" className="w-full h-full object-cover" loading="lazy" />
-                        </div>
-                        <div>
-                            <h4 className="text-xl font-bold">{blogContent.author}</h4>
-                            <p className="text-primary text-[10px] font-bold uppercase tracking-widest mb-3">{blogContent.role}</p>
-                            <p className="text-gray-500 text-sm leading-relaxed">{blogContent.authorBio}</p>
-                        </div>
-                    </div>
 
                 </div>
 

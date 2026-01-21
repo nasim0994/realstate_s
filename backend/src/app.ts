@@ -16,8 +16,8 @@ app.use(
   cors({
     origin: [
       'http://localhost:3500',
-      'https://backend.com',
-      'https://www.backend.com',
+      'https://realstate.devnasim.xyz',
+      'https://www.realstate.devnasim.xyz',
     ],
     credentials: true,
   }),

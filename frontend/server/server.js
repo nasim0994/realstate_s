@@ -81,14 +81,14 @@ ${meta.googleSiteVerification ? `<meta name="google-site-verification" content="
 <!-- Open Graph -->
 <meta property="og:title" content="${meta.title || ""}">
 <meta property="og:description" content="${meta.description || ""}">
-<meta property="og:image" content="${meta.image || "/og_image.jpg"}">
+<meta property="og:image" content="${meta.image || "/images/og_image.jpg"}">
 <meta property="og:type" content="website">
 <meta property="og:url" content="${meta.url || ""}">
 
 <!-- Twitter -->
 <meta name="twitter:title" content="${meta.title || ""}">
 <meta name="twitter:description" content="${meta.description || ""}">
-<meta name="twitter:image" content="${meta.image || "/og_image.jpg"}">
+<meta name="twitter:image" content="${meta.image || "/images/og_image.jpg"}">
 <meta name="twitter:card" content="summary_large_image">
 
 ${bundles.css.map((href) => `<link rel="stylesheet" href="${href}">`).join("\n")}

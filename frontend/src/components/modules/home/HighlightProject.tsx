@@ -8,7 +8,7 @@ export default function HighlightProject() {
             <div
                 className="absolute inset-0 z-0"
                 style={{
-                    backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),url('/project2.png')`,
+                    backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),url('/images/project2.png')`,
                     backgroundAttachment: "fixed",
                     backgroundPosition: "center",
                     backgroundSize: "cover",

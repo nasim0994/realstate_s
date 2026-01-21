@@ -41,11 +41,11 @@ const projectData = {
     aptSize: "2200 - 3500 SqFt",
     handover: "December 2026",
 
-    image: "/project2.png",
+    image: "/images/project2.png",
     gallery: [
-        "/project.png",
-        "/project3.png",
-        "/project4.png"
+        "/images/project.png",
+        "/images/project3.png",
+        "/images/project4.png"
     ],
     googleMapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3650.5983416206684!2d90.4182967753364!3d23.791012178640324!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c7a0f70deb73%3A0x30c36427b19cf12!2sGulshan%202%2C%20Dhaka!5e0!3m2!1sen!2sbd!4v1715432000000!5m2!1sen!2sbd"
 };

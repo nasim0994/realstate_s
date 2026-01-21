@@ -46,7 +46,7 @@ export default function Header({ mobileMenuOpen, setMobileMenuOpen }: { mobileMe
             <div className="container flex items-center justify-between">
                 {/* Logo */}
                 <Link to="/" >
-                    <img src="/logo.png" alt="Logo" className="w-17.5 sm:w-20" loading="lazy" />
+                    <img src="/images/logo.png" alt="Logo" className="w-17.5 sm:w-20" loading="lazy" />
                 </Link>
 
                 {/* Desktop Nav */}

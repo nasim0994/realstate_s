@@ -9,7 +9,7 @@ const projects = [
         title: "Swan Sky View",
         location: "Aftabnagor, Dhaka",
         category: "Luxury Apartment",
-        image: "/project.png",
+        image: "/images/project.png",
         status: "Ongoing",
 
     },
@@ -18,7 +18,7 @@ const projects = [
         title: "Swan Umaria Arcade",
         location: "Basundhara, Dhaka",
         category: "Commercial Plaza",
-        image: "/project2.png",
+        image: "/images/project2.png",
         status: "Ongoing",
     },
     {
@@ -26,7 +26,7 @@ const projects = [
         title: "Swan Gyas Manor",
         location: "Rampura, Dhaka",
         category: "Commercial",
-        image: "/project3.png",
+        image: "/images/project3.png",
         status: "Completed",
     },
     {
@@ -34,7 +34,7 @@ const projects = [
         title: "Swan Sliver Spring",
         location: "West Rampura, Dhaka",
         category: "Luxury Apartment",
-        image: "/project4.png",
+        image: "/images/project4.png",
         status: "Completed",
     },
     {
@@ -42,7 +42,7 @@ const projects = [
         title: "Swan Rafiqul Villa",
         location: "Shahbagh, Dhaka",
         category: "Commercial Plaza",
-        image: "/project5.png",
+        image: "/images/project5.png",
         status: "Completed",
     },
     {
@@ -50,7 +50,7 @@ const projects = [
         title: "Swan Dream Park",
         location: "Aftabnagor, Dhaka",
         category: "Commercial",
-        image: "/project6.png",
+        image: "/images/project6.png",
         status: "Completed",
     },
 ];

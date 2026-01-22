@@ -1,7 +1,7 @@
 import AnimationButton from "@/components/shared/AnimationButton";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Target, Eye, Quote } from "lucide-react";
-import { useEffect, useMemo, useRef } from "react";
+import { useMemo, useRef } from "react";
 import parser from "html-react-parser";
 import { useGetAboutQuery } from "@/redux/features/about/aboutApi";
 import { useGetAllManagementQuery } from "@/redux/features/management/managementApi";
@@ -17,7 +17,6 @@ const counters = [
 ];
 
 export default function AboutPage() {
-    useEffect(() => { window.scrollTo(0, 0); }, []);
     const containerRef = useRef(null);
 
     const { scrollYProgress } = useScroll({

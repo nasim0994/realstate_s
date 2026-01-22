@@ -1,4 +1,4 @@
-import { useMemo, useEffect } from "react";
+import { useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MapPin, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Link, useSearchParams } from "react-router-dom";
@@ -15,10 +15,6 @@ export default function Projects() {
     const activeStatus = searchParams.get("status") || "All";
     const currentPage = Number(searchParams.get("page")) || 1;
     const limit = 9;
-
-    useEffect(() => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, [currentPage, activeType, activeStatus]);
 
     // Project Types Data
     const { data: projectTypeData } = useGetAllProjectTypeQuery({});

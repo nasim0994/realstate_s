@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { Calendar, User, Facebook, Twitter, Linkedin, ArrowLeft } from "lucide-react";
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const blogContent = {
@@ -26,7 +25,6 @@ const blogContent = {
 };
 
 export default function BlogDetails() {
-    useEffect(() => { window.scrollTo(0, 0); }, [])
 
     return (
         <div className="bg-white min-h-screen pt-32 pb-24">
@@ -85,8 +83,6 @@ export default function BlogDetails() {
                     <div className="prose prose-lg max-w-none prose-headings:font-bold prose-headings:tracking-tighter prose-blockquote:border-l-primary prose-blockquote:bg-gray-50 prose-blockquote:p-8 prose-blockquote:italic text-gray-600 leading-relaxed drop-cap">
                         <div dangerouslySetInnerHTML={{ __html: blogContent.content }} />
                     </div>
-
-
                 </div>
 
             </div>

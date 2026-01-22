@@ -7,7 +7,7 @@ import {
     Phone,
     Mail,
 } from 'lucide-react';
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { TikTokIcon } from "../admin/ContactUs";
 import type { ISocial } from "@/interface/contactInterface";
 import ContactForm from "@/components/modules/contact/ContactForm";
@@ -29,8 +29,6 @@ const iconMap: Record<string, React.ReactNode> = {
 };
 
 export default function Contact() {
-    useEffect(() => { window.scrollTo(0, 0); }, [])
-
     const { data } = useGetContactQuery({});
     const contact = data?.data || {};
 

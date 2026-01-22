@@ -4,7 +4,6 @@ import {
     Layers, Compass, Home, Map, ExternalLink
 } from "lucide-react";
 import parser from "html-react-parser";
-import { useEffect } from "react";
 import { useGetProjectBySlugQuery } from "@/redux/features/project/projectApi";
 import { useParams } from "react-router-dom";
 import { CONFIG } from "@/config";
@@ -14,7 +13,6 @@ import MainLayoutSkeleton from "@/components/shared/Skeleton/MainLayoutSkeleton"
 
 export default function ProjectDetails() {
     const { slug } = useParams();
-    useEffect(() => { window.scrollTo(0, 0); }, []);
 
     const { data, isLoading } = useGetProjectBySlugQuery(slug);
     const project = data?.data || {};

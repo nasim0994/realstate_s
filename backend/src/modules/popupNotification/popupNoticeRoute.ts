@@ -9,12 +9,14 @@ import {
   updatePopupNoticeController,
 } from './popupNoticeController';
 import { fileUploader } from '../../utils/fileUploader';
-const upload = fileUploader('notice').single('image');
+const { upload, uploadAndConvert } = fileUploader('notice');
+const uploader = upload.single('image');
 
 Router.post(
   '/add',
   verifyPermission('notice', 'create'),
-  upload,
+  uploader,
+  uploadAndConvert,
   (req: Request, res: Response, next: NextFunction) => {
     req.body = req.body.data && JSON.parse(req.body.data);
     next();
@@ -26,7 +28,8 @@ Router.get('/:id', getSinglePopupNoticeController);
 Router.patch(
   '/update/:id',
   verifyPermission('notice', 'update'),
-  upload,
+  uploader,
+  uploadAndConvert,
   (req: Request, res: Response, next: NextFunction) => {
     req.body = req.body.data && JSON.parse(req.body.data);
     next();

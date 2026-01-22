@@ -1,106 +1,59 @@
-import { useState, useMemo, useEffect } from "react";
+import { useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, MapPin, X } from "lucide-react";
+import { MapPin, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Link, useSearchParams } from "react-router-dom";
-
-const projects = [
-    {
-        id: 1,
-        title: "Swan Sky View",
-        location: "Aftabnagor, Dhaka",
-        category: "Luxury Apartment",
-        image: "/images/project.png",
-        status: "Ongoing",
-
-    },
-    {
-        id: 2,
-        title: "Swan Umaria Arcade",
-        location: "Basundhara, Dhaka",
-        category: "Commercial Plaza",
-        image: "/images/project2.png",
-        status: "Ongoing",
-    },
-    {
-        id: 3,
-        title: "Swan Gyas Manor",
-        location: "Rampura, Dhaka",
-        category: "Commercial",
-        image: "/images/project3.png",
-        status: "Completed",
-    },
-    {
-        id: 4,
-        title: "Swan Sliver Spring",
-        location: "West Rampura, Dhaka",
-        category: "Luxury Apartment",
-        image: "/images/project4.png",
-        status: "Completed",
-    },
-    {
-        id: 5,
-        title: "Swan Rafiqul Villa",
-        location: "Shahbagh, Dhaka",
-        category: "Commercial Plaza",
-        image: "/images/project5.png",
-        status: "Completed",
-    },
-    {
-        id: 6,
-        title: "Swan Dream Park",
-        location: "Aftabnagor, Dhaka",
-        category: "Commercial",
-        image: "/images/project6.png",
-        status: "Completed",
-    },
-];
+import { useGetAllProjectQuery } from "@/redux/features/project/projectApi";
+import type { IProject } from "@/interface/projectInterface";
+import { CONFIG } from "@/config";
+import { useGetAllProjectTypeQuery } from "@/redux/features/projectType/projectTypeApi";
+import type { IProjectType } from "@/interface/projectTypeInterface";
 
 export default function Projects() {
     const [searchParams, setSearchParams] = useSearchParams();
-    useEffect(() => { window.scrollTo(0, 0); }, [])
 
-    // URL থেকে মান পড়া (না থাকলে "All")
-    const typeFromUrl = searchParams.get("type") || "All";
-    const statusFromUrl = searchParams.get("status") || "All";
+    const activeType = searchParams.get("type") || "All";
+    const activeStatus = searchParams.get("status") || "All";
+    const currentPage = Number(searchParams.get("page")) || 1;
+    const limit = 9;
 
-    // State initialization (URL এর মান অনুযায়ী)
-    const [activeType, setActiveType] = useState(typeFromUrl);
-    const [activeStatus, setActiveStatus] = useState(statusFromUrl);
-
-    // ১. URL change হলে state আপডেট করার জন্য useEffect
     useEffect(() => {
-        const t = searchParams.get("type") || "All";
-        const s = searchParams.get("status") || "All";
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, [currentPage, activeType, activeStatus]);
 
-        // Capitalize first letter to match our array values (e.g. upcoming -> Upcoming)
-        const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
+    // Project Types Data
+    const { data: projectTypeData } = useGetAllProjectTypeQuery({});
+    const types = useMemo(() => projectTypeData?.data || [], [projectTypeData]);
 
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        setActiveType(t === "All" ? "All" : capitalize(t));
-        setActiveStatus(s === "All" ? "All" : capitalize(s));
-    }, [searchParams, setActiveType, setActiveStatus]);
+    // Projects Data with Pagination & Filters
+    const { data, isLoading } = useGetAllProjectQuery({
+        isActive: true,
+        fields: "title,location,thumbnail,slug,status",
+        type: activeType !== "All" ? activeType : undefined,
+        status: activeStatus !== "All" ? activeStatus.toLowerCase() : undefined,
+        page: currentPage,
+        limit: limit
+    });
 
+    const projects = useMemo(() => data?.data || [], [data]);
+    const meta = data?.meta;
 
-    const handleFilterChange = (key: "type" | "status", value: string) => {
+    const handleFilterChange = (key: string, value: string) => {
         const newParams = new URLSearchParams(searchParams);
+        newParams.set("page", "1");
 
         if (value === "All") {
             newParams.delete(key);
         } else {
-            newParams.set(key, value.toLowerCase());
+            newParams.set(key, key === "status" ? value.charAt(0).toUpperCase() + value.slice(1) : value);
         }
-
         setSearchParams(newParams);
     };
 
-    // Filtering Logic
-    const filteredProjects = useMemo(() => {
-        return projects.filter((project) => {
-            const matchType = activeType === "All" || project.category === activeType;
-            const matchStatus = activeStatus === "All" || project.status === activeStatus;
-            return matchType && matchStatus;
-        });
-    }, [activeType, activeStatus]);
+    const handlePageChange = (newPage: number) => {
+        const newParams = new URLSearchParams(searchParams);
+        newParams.set("page", newPage.toString());
+        setSearchParams(newParams);
+    };
 
     const resetFilters = () => {
         setSearchParams({});
@@ -117,113 +70,144 @@ export default function Projects() {
                     </motion.h1>
                 </div>
 
-                {/* --- Multi-Filter UI --- */}
+                {/* --- Filter UI --- */}
                 <div className="flex flex-col md:flex-row gap-6 items-start md:items-center justify-between py-6 border-y border-gray-100 mb-12">
                     <div className="flex flex-wrap items-center gap-4 md:gap-8">
-
                         {/* Dropdown: Project Type */}
                         <div className="relative">
                             <p className="text-[9px] uppercase font-bold tracking-[0.2em] text-gray-400 mb-2 ml-1">Select Type</p>
-                            <div className="relative">
-                                <select
-                                    value={activeType}
-                                    onChange={(e) => handleFilterChange("type", e.target.value)}
-                                    className="appearance-none bg-[#f9f9f9] border border-gray-200 text-neutral text-xs font-bold uppercase tracking-widest py-3 pl-6 pr-12 cursor-pointer focus:outline-none hover:bg-white min-w-45"
-                                >
-                                    {["All", "Residential", "Commercial"].map((type) => (
-                                        <option key={type} value={type}>{type} Projects</option>
-                                    ))}
-                                </select>
-                                <ChevronDown size={14} className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400" />
-                            </div>
+                            <select
+                                value={activeType}
+                                onChange={(e) => handleFilterChange("type", e.target.value)}
+                                className="appearance-none bg-[#f9f9f9] border border-gray-200 text-neutral text-xs font-bold uppercase tracking-widest py-3 pl-6 pr-12 cursor-pointer focus:outline-none hover:bg-white min-w-45"
+                            >
+                                <option value="All">All Types</option>
+                                {types?.map((type: IProjectType) => (
+                                    <option key={type?._id} value={type?._id}>{type?.name}</option>
+                                ))}
+                            </select>
                         </div>
 
                         {/* Dropdown: Project Status */}
                         <div className="relative">
                             <p className="text-[9px] uppercase font-bold tracking-[0.2em] text-gray-400 mb-2 ml-1">Project Status</p>
-                            <div className="relative">
-                                <select
-                                    value={activeStatus}
-                                    onChange={(e) => handleFilterChange("status", e.target.value)}
-                                    className="appearance-none bg-[#f9f9f9] border border-gray-200 text-neutral text-xs font-bold uppercase tracking-widest py-3 pl-6 pr-12 cursor-pointer focus:outline-none hover:bg-white min-w-45"
-                                >
-                                    {["All", "Ongoing", "Completed", "Upcoming"].map((status) => (
-                                        <option key={status} value={status}>{status} Status</option>
-                                    ))}
-                                </select>
-                                <ChevronDown size={14} className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400" />
-                            </div>
+                            <select
+                                value={activeStatus}
+                                onChange={(e) => handleFilterChange("status", e.target.value)}
+                                className="appearance-none bg-[#f9f9f9] border border-gray-200 text-neutral text-xs font-bold uppercase tracking-widest py-3 pl-6 pr-12 cursor-pointer focus:outline-none hover:bg-white min-w-45"
+                            >
+                                {["All", "Ongoing", "Completed", "Upcoming"].map((status) => (
+                                    <option key={status} value={status}>{status} Status</option>
+                                ))}
+                            </select>
                         </div>
                     </div>
 
                     {/* Reset Button */}
                     {(activeType !== "All" || activeStatus !== "All") && (
-                        <button
-                            onClick={resetFilters}
-                            className="group flex items-center gap-2 text-[10px] uppercase font-bold tracking-widest hover:text-primary transition-colors"
-                        >
-                            <div className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center group-hover:border-primary transition-all">
+                        <button onClick={resetFilters} className="group flex items-center gap-2 text-[10px] uppercase font-bold tracking-widest hover:text-primary transition-colors">
+                            <div className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center group-hover:border-primary">
                                 <X size={12} />
                             </div>
-                            Reset
+                            Reset Filters
                         </button>
                     )}
                 </div>
 
                 {/* --- Project Grid --- */}
-                <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
-                    <AnimatePresence mode="popLayout">
-                        {filteredProjects.map((project, index) => (
-                            <Link to={`/project/${project.id}`}>
-                                <motion.div
-                                    className="group cursor-pointer relative"
-                                    initial={{ opacity: 0, y: 50 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ duration: 0.6, delay: index * 0.2 }}
+                {isLoading ? (
+                    <div className="h-64 flex items-center justify-center">Loading Projects...</div>
+                ) : (
+                    <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
+                        <AnimatePresence mode="popLayout">
+                            {projects?.length > 0 ? projects?.map((project: IProject, index: number) => (
+                                <Link key={project._id} to={`/project/${project?.slug}`}>
+                                    <motion.div
+                                        className="group cursor-pointer relative"
+                                        initial={{ opacity: 0, y: 30 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, scale: 0.9 }}
+                                        transition={{ duration: 0.4, delay: index * 0.05 }}
+                                    >
+                                        <div className="relative aspect-4/5 overflow-hidden bg-gray-100">
+                                            <img
+                                                src={`${CONFIG.BASE_URL}${project?.thumbnail}`}
+                                                alt={project?.title}
+                                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                            />
+                                            <div className="absolute top-6 left-6">
+                                                <span className="bg-white text-neutral text-[10px] font-bold uppercase tracking-widest px-4 py-2 shadow-sm">
+                                                    {project?.status}
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div className="mt-6 space-y-2 px-2">
+                                            <div className="flex items-center text-gray-500 gap-1">
+                                                <MapPin className="w-3.5 h-3.5 text-primary" />
+                                                <span className="text-xs font-medium uppercase tracking-wider">{project?.location}</span>
+                                            </div>
+                                            <h3 className="text-2xl font-bold text-neutral group-hover:text-primary transition-colors duration-300">
+                                                {project?.title}
+                                            </h3>
+                                            <div className="w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-500 mt-4" />
+                                        </div>
+                                    </motion.div>
+                                </Link>
+                            )) : <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="flex flex-col items-center justify-center py-20 px-4 text-center border border-dashed border-gray-200 rounded-lg bg-gray-50/50"
+                            >
+                                <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-6">
+                                    <X className="w-10 h-10 text-gray-300" strokeWidth={1.5} />
+                                </div>
+                                <h3 className="text-2xl font-bold text-neutral mb-2">No Projects Found</h3>
+                                <p className="text-gray-500 max-w-sm mb-8 text-sm">
+                                    We couldn't find any projects matching your current filters. Please try adjusting your selection or reset the filters.
+                                </p>
+                                <button
+                                    onClick={resetFilters}
+                                    className="px-8 py-3 bg-neutral text-white text-[10px] font-bold uppercase tracking-widest hover:bg-primary transition-colors duration-300"
                                 >
-                                    {/* Image Container */}
-                                    <div className="relative aspect-4/5 overflow-hidden bg-gray-200">
-                                        <img
-                                            src={project.image}
-                                            alt={project.title}
-                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                        />
+                                    Clear All Filters
+                                </button>
+                            </motion.div>}
+                        </AnimatePresence>
+                    </motion.div>
+                )}
 
-                                        {/* Red Overlay on Hover */}
-                                        <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                {/* --- Pagination --- */}
+                {meta && meta.pages > 1 && (
+                    <div className="mt-20 flex justify-center items-center gap-2">
+                        <button
+                            disabled={currentPage === 1}
+                            onClick={() => handlePageChange(currentPage - 1)}
+                            className="p-3 border border-gray-200 rounded-full hover:bg-primary hover:text-white disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-current transition-all"
+                        >
+                            <ChevronLeft size={20} />
+                        </button>
 
-                                        {/* Category Badge */}
-                                        <div className="absolute top-6 left-6">
-                                            <span className="bg-white text-neutral text-[10px] font-bold uppercase tracking-widest px-4 py-2">
-                                                {project.category}
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                    {/* Project Info */}
-                                    <div className="mt-6 space-y-2 px-2">
-                                        <div className="flex items-center text-gray-500 gap-1">
-                                            <MapPin className="w-3.5 h-3.5 text-primary" />
-                                            <span className="text-xs font-medium uppercase tracking-wider">{project.location}</span>
-                                        </div>
-                                        <h3 className="text-2xl font-bold text-neutral group-hover:text-primary transition-colors duration-300">
-                                            {project.title}
-                                        </h3>
-
-                                        <div className="w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-500 mt-4" />
-                                    </div>
-                                </motion.div>
-                            </Link>
+                        {[...Array(meta.pages)].map((_, i) => (
+                            <button
+                                key={i}
+                                onClick={() => handlePageChange(i + 1)}
+                                className={`w-12 h-12 rounded-full font-bold text-xs transition-all ${currentPage === i + 1
+                                    ? "bg-primary text-white"
+                                    : "bg-gray-50 text-neutral hover:bg-gray-200"
+                                    }`}
+                            >
+                                {String(i + 1).padStart(2, '0')}
+                            </button>
                         ))}
-                    </AnimatePresence>
-                </motion.div>
 
-                {/* Empty State */}
-                {filteredProjects.length === 0 && (
-                    <div className="py-40 text-center border-2 border-dashed border-gray-100">
-                        <h3 className="text-2xl font-bold text-gray-300 uppercase tracking-[0.3em]">No projects found matching the criteria</h3>
-                        <button onClick={resetFilters} className="mt-6 text-primary font-bold uppercase text-xs tracking-widest underline underline-offset-4">View All Projects</button>
+                        <button
+                            disabled={currentPage === meta.pages}
+                            onClick={() => handlePageChange(currentPage + 1)}
+                            className="p-3 border border-gray-200 rounded-full hover:bg-primary hover:text-white disabled:opacity-30 transition-all"
+                        >
+                            <ChevronRight size={20} />
+                        </button>
                     </div>
                 )}
             </div>

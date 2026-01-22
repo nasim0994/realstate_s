@@ -8,9 +8,9 @@ import TableSkeleton from '@/components/shared/Skeleton/TableSkeleton';
 
 export default function AllTeam() {
     const { data, isLoading } = useGetAllTeamQuery({});
-    const [deleteTeam] = useDeleteTeamMutation();
     const teamMembers = data?.data || [];
 
+    const [deleteTeam] = useDeleteTeamMutation();
     const handleDelete = async (id: string) => {
         if (window.confirm("Are you sure you want to remove this team member?")) {
             try {

@@ -11,12 +11,14 @@ import {
 } from './managementController';
 import { fileUploader } from '../../utils/fileUploader';
 
-const upload = fileUploader('management').single('image');
+const { upload, uploadAndConvert } = fileUploader('management');
+const uploader = upload.single('image');
 
 Router.post(
   '/add',
   verifyPermission('management', 'create'),
-  upload,
+  uploader,
+  uploadAndConvert,
   (req: Request, res: Response, next: NextFunction) => {
     req.body = req.body.data && JSON.parse(req.body.data);
     next();
@@ -29,7 +31,8 @@ Router.get('/:id', getSingleManagementController);
 Router.patch(
   '/update/:id',
   verifyPermission('management', 'update'),
-  upload,
+  uploader,
+  uploadAndConvert,
   (req: Request, res: Response, next: NextFunction) => {
     req.body = req.body.data && JSON.parse(req.body.data);
     next();

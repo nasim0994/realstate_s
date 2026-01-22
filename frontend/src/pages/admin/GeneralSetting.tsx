@@ -80,7 +80,7 @@ export default function GeneralSettings() {
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 animate-in fade-in duration-500 pb-10">
             {/* Header */}
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex flex-wrap gap-4 items-center justify-between mb-8">
                 <div>
                     <h1 className="text-2xl font-bold text-slate-800 tracking-tight">General Settings</h1>
                     <p className="text-slate-500 text-sm">Update site identity and branding assets.</p>
@@ -91,7 +91,7 @@ export default function GeneralSettings() {
                 </button>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                 {/* Left: Branding Assets */}
                 <div className="lg:col-span-1 space-y-6">
                     <div className="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-6">

@@ -8,7 +8,9 @@ import {
   updateGeneralSettingController,
 } from './generalSettingController';
 import { fileUploader } from '../../utils/fileUploader';
-const upload = fileUploader('generalSetting').fields([
+
+const { upload, uploadAndConvert } = fileUploader('generalSetting');
+const uploader = upload.fields([
   { name: 'logo', maxCount: 1 },
   { name: 'favicon', maxCount: 1 },
   { name: 'footerImage', maxCount: 1 },
@@ -17,7 +19,8 @@ const upload = fileUploader('generalSetting').fields([
 Router.post(
   '/add',
   verifyPermission('general-setting', 'create'),
-  upload,
+  uploader,
+  uploadAndConvert,
   (req: Request, res: Response, next: NextFunction) => {
     req.body = req.body.data && JSON.parse(req.body.data);
     next();
@@ -29,7 +32,8 @@ Router.get('/:id', getSingleGeneralSettingController);
 Router.patch(
   '/update/:id',
   verifyPermission('general-setting', 'update'),
-  upload,
+  uploader,
+  uploadAndConvert,
   (req: Request, res: Response, next: NextFunction) => {
     req.body = req.body.data && JSON.parse(req.body.data);
     next();

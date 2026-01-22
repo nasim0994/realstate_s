@@ -5,93 +5,62 @@ import {
 } from "lucide-react";
 import parser from "html-react-parser";
 import { useEffect } from "react";
+import { useGetProjectBySlugQuery } from "@/redux/features/project/projectApi";
+import { useParams } from "react-router-dom";
+import { CONFIG } from "@/config";
+import moment from "moment";
+import MainLayoutSkeleton from "@/components/shared/Skeleton/MainLayoutSkeleton";
 
-const projectData = {
-    title: "Swan Sky View",
-    description: `<div className="text-neutral">
-        <p className="leading-relaxed mb-6">
-            গুলশানের অভিজাত লোকেশনে অবস্থিত এই পূর্ণাঙ্গ রেসিডেন্সিয়াল বিল্ডিংটি
-            আধুনিক স্থাপত্য, বিলাসিতা এবং আরামদায়ক জীবনযাপনের এক অনন্য সংমিশ্রণ।
-            শহরের কোলাহল থেকে কিছুটা দূরে, কিন্তু প্রয়োজনীয় সব সুযোগ-সুবিধার একদম কাছে—
-            এই প্রকল্পটি তৈরি করা হয়েছে ভবিষ্যৎমুখী আরবান লাইফস্টাইলকে মাথায় রেখে।
-        </p>
-
-        <p className="leading-relaxed mb-6">
-            প্রতিটি ফ্লোর ও ইউনিট পরিকল্পিত হয়েছে সর্বোচ্চ আলো-বাতাস নিশ্চিত করার জন্য।
-            প্রশস্ত লিভিং স্পেস, আধুনিক ইন্টেরিয়র ডিজাইন এবং প্রিমিয়াম ফিনিশিং
-            এই বিল্ডিংকে গুলশানের অন্যান্য প্রকল্প থেকে আলাদা করে তুলেছে।
-        </p>
-
-        <p className="leading-relaxed">
-            শক্তিশালী স্ট্রাকচার, উন্নত নিরাপত্তা ব্যবস্থা, নিরবচ্ছিন্ন বিদ্যুৎ ও পানির সুবিধা
-            এবং সুপরিকল্পিত কমন এরিয়া—সব মিলিয়ে এটি শুধু একটি ভবন নয়,
-            বরং একটি পরিপূর্ণ ও সম্মানজনক জীবনযাপনের প্রতিচ্ছবি।
-        </p>
-    </div>`,
-    location: "Aftabnagor, Dhaka",
-    type: "Residential",
-    status: "Ongoing",
-    price: "Price on Request",
-
-    // Technical Specifications
-    landArea: "15 Katha",
-    facing: "South Facing",
-    storied: "G + 14 Storied",
-    layout: "3 Units Per Floor",
-    aptSize: "2200 - 3500 SqFt",
-    handover: "December 2026",
-
-    image: "/images/project2.png",
-    gallery: [
-        "/images/project.png",
-        "/images/project3.png",
-        "/images/project4.png"
-    ],
-    googleMapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3650.5983416206684!2d90.4182967753364!3d23.791012178640324!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c7a0f70deb73%3A0x30c36427b19cf12!2sGulshan%202%2C%20Dhaka!5e0!3m2!1sen!2sbd!4v1715432000000!5m2!1sen!2sbd"
-};
 
 export default function ProjectDetails() {
-    useEffect(() => { window.scrollTo(0, 0); }, [])
-    const parseDescription = projectData?.description ? parser(projectData?.description) : "";
+    const { slug } = useParams();
+    useEffect(() => { window.scrollTo(0, 0); }, []);
+
+    const { data, isLoading } = useGetProjectBySlugQuery(slug);
+    const project = data?.data || {};
+    const responsiveIframe = project?.googleMapEmbedLink?.replace(/width="\d+"/, 'width="100%"');
+
+
+    const parseDescription = project?.description ? parser(project?.description) : "";
     const convertPlainText = (htmlString: string) => {
         const tempDiv = document.createElement("div");
         tempDiv.innerHTML = htmlString;
         return tempDiv.textContent || tempDiv.innerText || "";
     }
 
-    const plainDescription = convertPlainText(projectData.description);
+    const plainDescription = convertPlainText(project.description);
     const metaDescription = plainDescription.length > 160
         ? plainDescription.substring(0, 157) + "..."
         : plainDescription;
 
+    if (isLoading) return <MainLayoutSkeleton />;
+
     return (
         <div className="bg-white min-h-screen">
-            <title>{projectData?.title}</title>
+            <title>{project?.title}</title>
             <meta name="description" content={metaDescription} />
-
-
 
             {/* Hero Section (Same as before) */}
             <section className="relative h-[65vh] w-full">
-                <img src={projectData?.image} alt={projectData?.title} className="w-full h-full object-cover" loading="lazy" />
-                <div className="absolute inset-0 bg-black/50 flex items-end">
+                <img src={CONFIG.BASE_URL + project?.thumbnail} alt={project?.title} className="w-full h-full object-cover" loading="lazy" />
+                <div className="absolute inset-0 bg-black/60 flex items-end">
                     <div className="container pb-16">
                         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
                             {/* Status & Category Badge */}
                             <div className="flex gap-3 mb-4">
                                 <span className="bg-primary px-4 py-1 text-[10px] font-bold uppercase tracking-widest text-white inline-block">
-                                    {projectData?.type}
+                                    {project?.type?.name}
                                 </span>
                                 {/* Ongoing Status Badge */}
                                 <span className="bg-white/20 backdrop-blur-md border border-white/30 px-4 py-1 text-[10px] font-bold uppercase tracking-widest text-white inline-block">
                                     <span className="inline-block w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse" />
-                                    {projectData?.status}
+                                    {project?.status}
                                 </span>
                             </div>
-                            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">{projectData.title}</h1>
+                            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">{project?.title}</h1>
                             <div className="flex items-center gap-2 text-gray-200 uppercase tracking-widest text-xs font-semibold">
                                 <MapPin className="w-4 h-4 text-primary" />
-                                {projectData?.location}
+                                {project?.location}
                             </div>
                         </motion.div>
                     </div>
@@ -110,21 +79,21 @@ export default function ProjectDetails() {
 
                         {/* Technical Specifications Grid */}
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-1px bg-gray-100 border border-gray-100 shadow-sm">
-                            <SpecItem icon={<Map />} label="Land Area" value={projectData.landArea} />
-                            <SpecItem icon={<Layers />} label="Storied" value={projectData.storied} />
-                            <SpecItem icon={<Compass />} label="Facing" value={projectData.facing} />
-                            <SpecItem icon={<Maximize />} label="Apt/Space Size" value={projectData.aptSize} />
-                            <SpecItem icon={<Home />} label="Layout" value={projectData.layout} />
-                            <SpecItem icon={<Calendar />} label="Handover" value={projectData.handover} />
+                            <SpecItem icon={<Map />} label="Land Area" value={project?.landArea} />
+                            <SpecItem icon={<Layers />} label="Storied" value={project?.storied} />
+                            <SpecItem icon={<Compass />} label="Facing" value={project?.facing} />
+                            <SpecItem icon={<Maximize />} label="Apt/Space Size" value={project?.aptSize} />
+                            <SpecItem icon={<Home />} label="Layout" value={project?.layout} />
+                            <SpecItem icon={<Calendar />} label="Handover" value={moment(project?.handoverDate).format('MMMM YYYY')} />
                         </div>
 
                         {/* Gallery Section */}
                         <div className="space-y-8">
                             <h3 className="text-2xl font-bold uppercase tracking-tight">Galleries</h3>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                {projectData.gallery.map((img, i) => (
+                                {project?.galleries?.map((img: string, i: number) => (
                                     <motion.div key={i} whileHover={{ scale: 0.98 }} className="overflow-hidden aspect-video bg-gray-100">
-                                        <img src={img} className="w-full h-full object-cover" alt="gallery" loading="lazy" />
+                                        <img src={CONFIG.BASE_URL + img} className="w-full h-full object-cover" alt="gallery" loading="lazy" />
                                     </motion.div>
                                 ))}
                             </div>
@@ -134,11 +103,8 @@ export default function ProjectDetails() {
                         <div className="space-y-8">
                             <h3 className="text-2xl font-bold uppercase tracking-tight">Project Location</h3>
                             <div className="w-full h-100 bg-gray-100 grayscale hover:grayscale-0 transition-all duration-700">
-                                <iframe
-                                    src={projectData.googleMapEmbed}
-                                    className="w-full h-full border-0"
-                                    allowFullScreen
-                                    loading="lazy"
+                                <div
+                                    dangerouslySetInnerHTML={{ __html: responsiveIframe }}
                                 />
                             </div>
                         </div>

@@ -14,7 +14,9 @@ import { userValidation } from './userValidation';
 import { verifyPermission } from '../../middlewares/verifyPermission';
 import { fileUploader } from '../../utils/fileUploader';
 const Router = express.Router();
-const upload = fileUploader('user').single('image');
+
+const { upload, uploadAndConvert } = fileUploader('user');
+const uploader = upload.single('image');
 
 Router.post(
   '/add',
@@ -32,7 +34,8 @@ Router.put(
 );
 Router.put(
   '/update/profile/:id',
-  upload,
+  uploader,
+  uploadAndConvert,
   (req: Request, res: Response, next: NextFunction) => {
     req.body = req.body.data && JSON.parse(req.body.data);
     next();

@@ -24,9 +24,9 @@ export const mainRoutes = {
     children: [
         { path: "/", element: <Home /> },
         { path: "/home", element: <Navigate to="/" replace /> },
-        { path: "/project/:id", element: <ProjectDetails /> },
         { path: "/about-us", element: <AboutPage /> },
         { path: "/projects", element: <Projects /> },
+        { path: "/project/:slug", element: <ProjectDetails /> },
         { path: "/contact-us", element: <Contact /> },
         { path: "/blogs", element: <Blogs /> },
         { path: "/blog/:slug", element: <BlogDetails /> },

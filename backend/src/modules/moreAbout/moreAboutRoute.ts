@@ -9,13 +9,14 @@ import {
   updateMoreAboutController,
 } from './moreAboutController';
 import { fileUploader } from '../../utils/fileUploader';
-
-const upload = fileUploader('moreAbout').single('icon');
+const { upload, uploadAndConvert } = fileUploader('moreAbout');
+const uploader = upload.single('icon');
 
 Router.post(
   '/add',
   verifyPermission('more-about', 'create'),
-  upload,
+  uploader,
+  uploadAndConvert,
   (req: Request, res: Response, next: NextFunction) => {
     req.body = req.body.data && JSON.parse(req.body.data);
     next();
@@ -27,7 +28,8 @@ Router.get('/:id', getSingleMoreAboutController);
 Router.patch(
   '/update/:id',
   verifyPermission('more-about', 'update'),
-  upload,
+  uploader,
+  uploadAndConvert,
   (req: Request, res: Response, next: NextFunction) => {
     req.body = req.body.data && JSON.parse(req.body.data);
     next();

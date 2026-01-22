@@ -216,12 +216,12 @@ export default function About() {
 
                 {/* Right: Text Content */}
                 <div className="lg:col-span-8 space-y-6">
-                    <div className="bg-white p-8 rounded-2xl border border-slate-200/60 shadow-sm space-y-6">
+                    <div className="bg-white p-5 rounded-2xl border border-slate-200/60 shadow-sm space-y-6">
                         <h3 className="font-bold text-slate-800 flex items-center gap-2 text-sm mb-2 border-b border-slate-50 pb-4">
                             <Type size={18} className="text-primary" /> Content Details
                         </h3>
 
-                        <div className="grid grid-cols-1 gap-6">
+                        <div className="grid grid-cols-1 gap-4">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="space-y-2">
                                     <label>Sub Title</label>

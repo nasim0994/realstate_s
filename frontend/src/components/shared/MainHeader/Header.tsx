@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+import { useGetGeneralSettingQuery } from "@/redux/features/generalSetting/generalSettingApi";
+import { CONFIG } from "@/config";
 
 const navLinks = [
     { name: "Home", href: "/" },
@@ -28,6 +30,12 @@ export default function Header({ mobileMenuOpen, setMobileMenuOpen }: { mobileMe
     const isHomePage = location.pathname === "/";
     const isProjectDetailsPage = location.pathname.startsWith("/project/");
 
+
+    const { data } = useGetGeneralSettingQuery({});
+    const logo = data?.data?.logo;
+
+
+
     useEffect(() => {
         const handleScroll = () => {
             setScrolled(isHomePage || isProjectDetailsPage ? window.scrollY > 50 : true);
@@ -46,7 +54,7 @@ export default function Header({ mobileMenuOpen, setMobileMenuOpen }: { mobileMe
             <div className="container flex items-center justify-between">
                 {/* Logo */}
                 <Link to="/" >
-                    <img src="/images/logo.png" alt="Logo" className="w-17.5 sm:w-20" loading="lazy" />
+                    <img src={CONFIG.BASE_URL + logo || "/images/logo.png"} alt="Logo" className="w-17.5 sm:w-20" loading="lazy" />
                 </Link>
 
                 {/* Desktop Nav */}

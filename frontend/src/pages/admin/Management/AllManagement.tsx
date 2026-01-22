@@ -8,9 +8,9 @@ import TableSkeleton from '@/components/shared/Skeleton/TableSkeleton';
 
 export default function AllManagement() {
     const { data, isLoading } = useGetAllManagementQuery({});
-    const [deleteManagement] = useDeleteManagementMutation();
     const managementList = data?.data || [];
 
+    const [deleteManagement] = useDeleteManagementMutation();
     const handleDelete = async (id: string) => {
         if (window.confirm("Are you sure you want to remove this management member?")) {
             try {

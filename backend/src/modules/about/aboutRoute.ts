@@ -9,7 +9,10 @@ import {
   updateAboutController,
 } from './aboutController';
 import { fileUploader } from '../../utils/fileUploader';
-const upload = fileUploader('about').fields([
+
+const { upload, uploadAndConvert } = fileUploader('about');
+
+const uploader = upload.fields([
   { name: 'bigImage', maxCount: 1 },
   { name: 'smallImage', maxCount: 1 },
 ]);
@@ -17,7 +20,8 @@ const upload = fileUploader('about').fields([
 Router.post(
   '/add',
   verifyPermission('about', 'create'),
-  upload,
+  uploader,
+  uploadAndConvert,
   (req: Request, res: Response, next: NextFunction) => {
     req.body = req.body.data && JSON.parse(req.body.data);
     next();
@@ -29,7 +33,8 @@ Router.get('/:id', getSingleAboutController);
 Router.patch(
   '/update/:id',
   verifyPermission('about', 'update'),
-  upload,
+  uploader,
+  uploadAndConvert,
   (req: Request, res: Response, next: NextFunction) => {
     req.body = req.body.data && JSON.parse(req.body.data);
     next();

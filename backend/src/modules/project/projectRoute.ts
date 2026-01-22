@@ -15,8 +15,9 @@ import { verifyPermission } from '../../middlewares/verifyPermission';
 const Router = express.Router();
 
 import { fileUploader } from '../../utils/fileUploader';
+const { upload, uploadAndConvert } = fileUploader('project');
 
-const upload = fileUploader('project').fields([
+const uploader = upload.fields([
   { name: 'thumbnail', maxCount: 1 },
   { name: 'gallery' },
 ]);
@@ -24,7 +25,8 @@ const upload = fileUploader('project').fields([
 Router.post(
   '/add',
   verifyPermission('project', 'create'),
-  upload,
+  uploader,
+  uploadAndConvert,
   (req: Request, res: Response, next: NextFunction) => {
     req.body = req.body.data && JSON.parse(req.body.data);
     next();
@@ -38,7 +40,8 @@ Router.get('/slug/:slug', getBySlugProjectController);
 Router.patch(
   '/update/:id',
   verifyPermission('project', 'update'),
-  upload,
+  uploader,
+  uploadAndConvert,
   (req: Request, res: Response, next: NextFunction) => {
     req.body = req.body.data && JSON.parse(req.body.data);
     next();

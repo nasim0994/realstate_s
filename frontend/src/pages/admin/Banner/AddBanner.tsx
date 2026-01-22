@@ -16,8 +16,8 @@ export default function AddBanner() {
         const formData = new FormData();
 
         // check file size
-        if (data.image?.[0] && data.image[0].size > 1 * 1024 * 1024) {
-            return toast.error("Image size should be less than 1MB");
+        if (data.image?.[0] && data.image[0].size > 2 * 1024 * 1024) {
+            return toast.error("Image size should be less than 2MB");
         }
 
         const bannerData = {
@@ -56,7 +56,7 @@ export default function AddBanner() {
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-10">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-10">
 
             {/* Header with Back Button */}
             <div className="flex items-center justify-between mb-8">
@@ -83,7 +83,7 @@ export default function AddBanner() {
                 </button>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
 
                 {/* Left Side: Image Upload */}
                 <div className="lg:col-span-1">
@@ -99,7 +99,7 @@ export default function AddBanner() {
                             register={register}
                             errors={errors}
                             setValue={setValue}
-                            maxSize={1}
+                            maxSize={2}
                         />
                         <p className="mt-4 text-[11px] text-slate-400 italic leading-relaxed text-center">
                             Recommended size: 1920x1080px. <br /> Aspect ratio 16:9 works best.

@@ -17,8 +17,6 @@ export const addAboutController = catchAsync(async (req, res, next) => {
   const smallImage = files.smallImage?.[0]?.filename || null;
 
   if (!bigImage || !smallImage) {
-    if (bigImage) deleteFile(`./uploads/about/${bigImage}`);
-    if (smallImage) deleteFile(`./uploads/about/${smallImage}`);
     throw new AppError(httpStatus.BAD_REQUEST, 'Image is required !');
   }
 
@@ -69,18 +67,16 @@ export const updateAboutController = catchAsync(async (req, res, next) => {
 
   const files = (req.files as { [key: string]: Express.Multer.File[] }) || {};
 
-  const logo = files.logo?.[0]?.filename || null;
-  const favicon = files.favicon?.[0]?.filename || null;
-  const footerImage = files.footerImage?.[0]?.filename || null;
-
-  const data = {
-    ...req.body,
-    logo: logo ? `/about/${logo}` : undefined,
-    favicon: favicon ? `/about/${favicon}` : undefined,
-    footerImage: footerImage ? `/about/${footerImage}` : undefined,
-  };
+  const bigImage = files.bigImage?.[0]?.filename || null;
+  const smallImage = files.smallImage?.[0]?.filename || null;
 
   try {
+    const data = {
+      ...req.body,
+      bigImage: bigImage ? `/about/${bigImage}` : undefined,
+      smallImage: smallImage ? `/about/${smallImage}` : undefined,
+    };
+
     const result = await updateAboutService(id, data);
 
     res.status(200).json({
@@ -89,9 +85,8 @@ export const updateAboutController = catchAsync(async (req, res, next) => {
       data: result,
     });
   } catch (error) {
-    if (logo) deleteFile(`./uploads/about/${logo}`);
-    if (favicon) deleteFile(`./uploads/about/${favicon}`);
-    if (footerImage) deleteFile(`./uploads/about/${footerImage}`);
+    if (bigImage) deleteFile(`./uploads/about/${bigImage}`);
+    if (smallImage) deleteFile(`./uploads/about/${smallImage}`);
     next(error);
   }
 });

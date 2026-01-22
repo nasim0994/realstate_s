@@ -9,12 +9,15 @@ import {
   updateBannerController,
 } from './bannerController';
 import { fileUploader } from '../../utils/fileUploader';
-const upload = fileUploader('banner').single('image');
+
+const { upload, uploadAndConvert } = fileUploader('banner');
+const uploader = upload.single('image');
 
 Router.post(
   '/add',
   verifyPermission('banner', 'create'),
-  upload,
+  uploader,
+  uploadAndConvert,
   (req: Request, res: Response, next: NextFunction) => {
     req.body = req.body.data && JSON.parse(req.body.data);
     next();
@@ -26,7 +29,8 @@ Router.get('/:id', getSingleBannerController);
 Router.patch(
   '/update/:id',
   verifyPermission('banner', 'update'),
-  upload,
+  uploader,
+  uploadAndConvert,
   (req: Request, res: Response, next: NextFunction) => {
     req.body = req.body.data && JSON.parse(req.body.data);
     next();

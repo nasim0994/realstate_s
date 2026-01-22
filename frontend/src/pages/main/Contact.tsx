@@ -1,9 +1,50 @@
+import { useGetContactQuery } from "@/redux/features/contact/contactApi";
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Send, Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
-import { useEffect } from "react";
+import {
+    Facebook, Instagram, Twitter, Linkedin, Youtube,
+    MessageSquare, Github, Globe,
+    MapPin,
+    Phone,
+    Mail,
+} from 'lucide-react';
+import { useEffect, useMemo } from "react";
+import { TikTokIcon } from "../admin/ContactUs";
+import type { ISocial } from "@/interface/contactInterface";
+import ContactForm from "@/components/modules/contact/ContactForm";
+
+
+const iconMap: Record<string, React.ReactNode> = {
+    facebook: <Facebook size={20} />,
+    instagram: <Instagram size={20} />,
+    twitter: <Twitter size={20} />,
+    linkedin: <Linkedin size={20} />,
+    youtube: <Youtube size={20} />,
+    whatsapp: <MessageSquare size={20} />,
+    github: <Github size={20} />,
+    tiktok: <TikTokIcon size={20} />,
+    pinterest: <Globe size={20} />,
+    snapchat: <Globe size={20} />,
+    threads: <Globe size={20} />,
+    default: <Globe size={20} />
+};
 
 export default function Contact() {
     useEffect(() => { window.scrollTo(0, 0); }, [])
+
+    const { data } = useGetContactQuery({});
+    const contact = data?.data || {};
+
+    const { remainingTitle, lastTwoWords } = useMemo(() => {
+        if (!contact?.subTitle) return { remainingTitle: "", lastTwoWords: "" };
+        const titleWords = contact.subTitle.split(" ");
+
+        return {
+            lastTwoWords: titleWords.slice(-2).join(" "),
+            remainingTitle: titleWords.slice(0, -2).join(" "),
+        };
+    }, [contact.subTitle]);
+
+    const responsiveIframe = contact?.googleMapLink?.replace(/width="\d+"/, 'width="100%"');
 
     return (
         <div className="bg-white min-h-screen pt-32">
@@ -16,15 +57,15 @@ export default function Contact() {
                         animate={{ opacity: 1 }}
                         className="text-primary font-bold uppercase tracking-[0.4em] text-[10px] mb-4"
                     >
-                        Get in touch
+                        {contact?.title || "Get in Touch"}
                     </motion.h4>
                     <motion.h1
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         className="text-5xl md:text-8xl font-bold tracking-tighter leading-none"
                     >
-                        Let’s Build Your <br />
-                        <span className="text-outline">Dream Together.</span>
+                        {remainingTitle} <br />
+                        <span className="text-outline">{lastTwoWords}</span>
                     </motion.h1>
                 </div>
 
@@ -40,7 +81,7 @@ export default function Contact() {
                                 <div>
                                     <h4 className="text-xs uppercase font-bold tracking-widest mb-2">Our Office</h4>
                                     <p className="text-gray-500 leading-relaxed text-sm">
-                                        Gulshan Grace, House: CWS (C)-08(Apt.-4W) Gulshan South Avenue, Gulshan-01 Dhaka-1212, Bangladesh
+                                        {contact?.address}
                                     </p>
                                 </div>
                             </div>
@@ -51,8 +92,9 @@ export default function Contact() {
                                 </div>
                                 <div>
                                     <h4 className="text-xs uppercase font-bold tracking-widest mb-2">Call Us</h4>
-                                    <p className="text-gray-500 text-sm">09606-223322</p>
-                                    <p className="text-gray-500 text-sm">+880 01755 558 530</p>
+                                    {contact?.phone?.split("|").map((phone: string,) => (
+                                        <p key={phone} className="text-gray-500 text-sm">{phone}</p>
+                                    ))}
                                 </div>
                             </div>
 
@@ -62,8 +104,13 @@ export default function Contact() {
                                 </div>
                                 <div>
                                     <h4 className="text-xs uppercase font-bold tracking-widest mb-2">Email</h4>
-                                    <p className="text-gray-500 text-sm">info@swanpropertiesltd.com</p>
-                                    <p className="text-gray-500 text-sm">sales@swanpropertiesltd.com</p>
+                                    {contact?.email?.split("|").map((email: string,) => (
+                                        <div key={email}>
+                                            <a href={`mailto:${email}`} className="text-gray-500 text-sm hover:underline">
+                                                {email}
+                                            </a>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
                         </div>
@@ -72,15 +119,15 @@ export default function Contact() {
                         <div className="pt-8 border-t border-gray-100">
                             <h4 className="text-[10px] uppercase font-bold tracking-[0.3em] mb-6 text-gray-400">Follow Our Journey</h4>
                             <div className="flex gap-4">
-                                {[
-                                    { icon: <Facebook />, link: "https://www.facebook.com/swan.properties.bd" },
-                                    { icon: <Instagram />, link: "https://www.instagram.com/swanpropertiesltd" },
-                                    { icon: <Linkedin />, link: "https://www.linkedin.com/company/swan-properties-ltd" },
-                                    { icon: <Youtube />, link: "https://www.youtube.com/@Swan-Properties-Ltd" },
-                                ].map((Icon, idx) => (
-                                    <a key={idx} href={Icon.link} target="_blank" className="w-10 h-10 border border-gray-200 flex items-center justify-center hover:bg-primary hover:text-white transition-all">
-                                        {Icon.icon}
-                                    </a>
+                                {contact?.socials?.map((social: ISocial, i: number) => (
+                                    <motion.a
+                                        key={i}
+                                        href={social?.url}
+                                        target="_blank"
+                                        className="w-10 h-10 border border-gray-200 flex items-center justify-center hover:bg-primary hover:text-white transition-all"
+                                    >
+                                        {iconMap[social?.icon.toLowerCase()] || iconMap.default}
+                                    </motion.a>
                                 ))}
                             </div>
                         </div>
@@ -88,62 +135,16 @@ export default function Contact() {
 
                     {/* Right Side: Contact Form (8 Columns) */}
                     <div className="lg:col-span-8 bg-[#f9f9f9] p-8 md:p-12">
-                        <form className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <div className="space-y-2">
-                                <label>Full Name</label>
-                                <input
-                                    type="text"
-                                    placeholder="John Doe"
-                                    className="w-full bg-white border border-gray-100 px-6 py-4 text-sm focus:outline-none focus:border-black transition-all"
-                                />
-                            </div>
-                            <div className="space-y-2">
-                                <label>Email Address</label>
-                                <input
-                                    type="email"
-                                    placeholder="john@example.com"
-                                    className="w-full bg-white border border-gray-100 px-6 py-4 text-sm focus:outline-none focus:border-black transition-all"
-                                />
-                            </div>
-                            <div className="space-y-2 md:col-span-2">
-                                <label>Subject</label>
-                                <select className="w-full bg-white border border-gray-100 px-6 py-4 text-sm focus:outline-none focus:border-black transition-all appearance-none">
-                                    <option>General Inquiry</option>
-                                    <option>Residential Project</option>
-                                    <option>Commercial Project</option>
-                                    <option>Appointment</option>
-                                </select>
-                            </div>
-                            <div className="space-y-2 md:col-span-2">
-                                <label>Message</label>
-                                <textarea
-                                    rows={5}
-                                    placeholder="How can we help you?"
-                                    className="w-full bg-white border border-gray-100 px-6 py-4 text-sm focus:outline-none focus:border-black transition-all resize-none"
-                                ></textarea>
-                            </div>
-                            <div className="md:col-span-2">
-                                <button className="bg-primary text-white px-10 py-5 text-xs uppercase font-bold tracking-[0.2em] flex items-center gap-3 hover:bg-primary transition-all group">
-                                    Send Message
-                                    <Send size={14} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                                </button>
-                            </div>
-                        </form>
+                        <ContactForm />
                     </div>
-
                 </div>
             </div>
 
             {/* Map Section - Full Width */}
-            <div className="w-full h-125 bg-gray-200 grayscale contrast-125">
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.000000000000!2d90.4000000000000!3d23.7900000000000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c70000000001%3A0x0000000000000000!2sBanani%2C%20Dhaka!5e0!3m2!1sen!2sbd!4v1600000000000!5m2!1sen!2sbd"
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    allowFullScreen
-                    loading="lazy"
-                ></iframe>
+            <div className="w-full h-125 bg-gray-200 grayscale hover:grayscale-0 contrast-125 duration-300">
+                <div
+                    dangerouslySetInnerHTML={{ __html: responsiveIframe }}
+                />
             </div>
         </div>
     );

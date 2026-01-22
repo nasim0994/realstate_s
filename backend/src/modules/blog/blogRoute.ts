@@ -12,12 +12,14 @@ import {
   updateBlogController,
 } from './blogController';
 import { fileUploader } from '../../utils/fileUploader';
-const upload = fileUploader('blog').single('image');
+const { upload, uploadAndConvert } = fileUploader('blog');
+const uploader = upload.single('image');
 
 Router.post(
   '/add',
   verifyPermission('blogs', 'create'),
-  upload,
+  uploader,
+  uploadAndConvert,
   (req: Request, res: Response, next: NextFunction) => {
     req.body = req.body.data && JSON.parse(req.body.data);
     next();
@@ -31,7 +33,8 @@ Router.get('/slug/:slug', getBlogBySlugController);
 Router.patch(
   '/update/:id',
   verifyPermission('blogs', 'update'),
-  upload,
+  uploader,
+  uploadAndConvert,
   (req: Request, res: Response, next: NextFunction) => {
     req.body = req.body.data && JSON.parse(req.body.data);
     next();

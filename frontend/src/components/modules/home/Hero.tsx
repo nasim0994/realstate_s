@@ -1,37 +1,29 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BsArrowDown } from "react-icons/bs";
-
-const slides = [
-    {
-        id: 1,
-        image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2053&auto=format&fit=crop",
-        title: "Discover Your Dream Sanctuary",
-        subtitle: "Exclusive properties in the most desirable locations.",
-    },
-    {
-        id: 2,
-        image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop",
-        title: "Modern Living Redefined",
-        subtitle: "Experience luxury and comfort like never before.",
-    },
-    {
-        id: 3,
-        image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2053&auto=format&fit=crop",
-        title: "Architectural Masterpieces",
-        subtitle: "Where design meets functionality in perfect harmony.",
-    },
-];
+import { useGetAllBannerQuery } from "@/redux/features/banner/bannerApi";
+import { CONFIG } from "@/config";
 
 export default function Hero() {
     const [current, setCurrent] = useState(0);
+    const { data, isLoading } = useGetAllBannerQuery({});
+    const banners = data?.data || [];
 
     useEffect(() => {
+        if (banners?.length <= 1) return;
+
         const timer = setInterval(() => {
-            setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+            setCurrent((prev) => (prev === banners?.length - 1 ? 0 : prev + 1));
         }, 10000);
+
         return () => clearInterval(timer);
-    }, []);
+    }, [banners?.length]);
+
+    if (isLoading) return <div className="h-screen w-screen bg-black animate-pulse" />;
+    if (banners?.length === 0) return null;
+
+    const currentBanner = banners[current];
+
 
     return (
 
@@ -48,9 +40,10 @@ export default function Hero() {
                     className="absolute inset-0 w-full h-full"
                 >
                     <img
-                        src={slides[current].image}
+                        src={CONFIG.BASE_URL + currentBanner?.image}
                         alt="Real Estate Hero"
                         className="w-full h-full object-cover opacity-80"
+                        loading="lazy"
                     />
                     <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/30 to-black/30" />
                 </motion.div>
@@ -66,7 +59,7 @@ export default function Hero() {
                         transition={{ delay: 0.5, duration: 0.8 }}
                         className="text-5xl md:text-7xl font-bold text-white leading-tight"
                     >
-                        {slides[current].title}
+                        {currentBanner?.title}
                     </motion.h6>
 
                     <motion.p
@@ -76,7 +69,7 @@ export default function Hero() {
                         transition={{ delay: 0.7, duration: 0.8 }}
                         className="text-lg md:text-2xl text-gray-200 font-light"
                     >
-                        {slides[current].subtitle}
+                        {currentBanner?.description}
                     </motion.p>
                 </div>
             </div>

@@ -33,10 +33,7 @@ export const getByIdProjectService = async (id: string) => {
 };
 
 export const getBySlugProjectService = async (slug: string) => {
-  const result = await Project.findOne({ slug }).populate(
-    'type',
-    'name icon slug',
-  );
+  const result = await Project.findOne({ slug }).populate('type');
   return result;
 };
 

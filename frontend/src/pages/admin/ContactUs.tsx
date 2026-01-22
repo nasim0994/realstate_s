@@ -10,7 +10,7 @@ import toast from 'react-hot-toast';
 import { useEffect } from 'react';
 
 // Custom SVG for platforms not in Lucide
-const TikTokIcon = ({ size = 16 }) => (
+export const TikTokIcon = ({ size = 16 }) => (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
         <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.89-.6-4.13-1.47V18c0 1.32-.43 2.67-1.32 3.66-1.57 1.75-4.43 2.06-6.38 1.05-2.01-1.04-3-3.6-2.15-5.71.74-1.83 2.82-2.9 4.75-2.58.11-1.33.04-2.67.04-4-.01 0-.01 0-.01-.01V12c-2.32-.01-4.66.01-6.99-.01-.08-1.54-.64-3.11-1.78-4.2-1.13-1.12-2.73-1.63-4.29-1.8V1.95c1.45.17 2.91.6 4.16 1.48V.02z" />
     </svg>

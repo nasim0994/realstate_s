@@ -1,3 +1,8 @@
+export type ISocial = {
+  icon: string;
+  url: string;
+};
+
 export type IContact = {
   title: string;
   subTitle: string;
@@ -7,8 +12,5 @@ export type IContact = {
   googleMapLink?: string;
   whatsappLink: string;
   messengerLink?: string;
-  socials: {
-    icon: string;
-    url: string;
-  }[];
+  socials: ISocial[];
 };

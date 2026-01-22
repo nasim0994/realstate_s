@@ -77,14 +77,14 @@ export const updateGeneralSettingController = catchAsync(
     const favicon = files.favicon?.[0]?.filename || null;
     const footerImage = files.footerImage?.[0]?.filename || null;
 
-    const data = {
-      ...req.body,
-      logo: logo ? `/generalSetting/${logo}` : undefined,
-      favicon: favicon ? `/generalSetting/${favicon}` : undefined,
-      footerImage: footerImage ? `/generalSetting/${footerImage}` : undefined,
-    };
-
     try {
+      const data = {
+        ...req.body,
+        logo: logo ? `/generalSetting/${logo}` : undefined,
+        favicon: favicon ? `/generalSetting/${favicon}` : undefined,
+        footerImage: footerImage ? `/generalSetting/${footerImage}` : undefined,
+      };
+
       const result = await updateGeneralSettingService(id, data);
 
       res.status(200).json({

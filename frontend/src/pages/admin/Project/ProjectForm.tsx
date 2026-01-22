@@ -145,7 +145,13 @@ export default function ProjectForm() {
                     toast.success("Project updated successfully!");
                     navigate('/admin/projects/all');
                 } else {
-                    toast.error(res?.error?.data?.message || "Failed to update project!");
+                    toast.error(
+                        Array.isArray(res?.error?.data?.error) &&
+                            res?.error?.data?.error.length > 0
+                            ? `${res?.error?.data?.error[0]?.path || ""} ${res?.error?.data?.error[0]?.message || ""
+                                }`.trim()
+                            : res?.error?.data?.message || "Something went wrong!"
+                    );
                     console.log(res);
                 }
             } else {
@@ -154,7 +160,13 @@ export default function ProjectForm() {
                     toast.success("Project added successfully!");
                     navigate('/admin/projects/all');
                 } else {
-                    toast.error(res?.error?.data?.message || "Failed to added project!");
+                    toast.error(
+                        Array.isArray(res?.error?.data?.error) &&
+                            res?.error?.data?.error.length > 0
+                            ? `${res?.error?.data?.error[0]?.path || ""} ${res?.error?.data?.error[0]?.message || ""
+                                }`.trim()
+                            : res?.error?.data?.message || "Something went wrong!"
+                    );
                     console.log(res);
                 }
             }

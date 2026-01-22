@@ -14,7 +14,7 @@ interface MarqueeProps {
     baseVelocity: number;
 }
 
-function ParallaxText({ baseVelocity = 100 }: MarqueeProps) {
+function ParallaxText({ baseVelocity = 100, slogan = "Built on Strength. Built on Trust." }: MarqueeProps & { slogan?: string }) {
     const baseX = useMotionValue(0);
     const { scrollY } = useScroll();
     const scrollVelocity = useVelocity(scrollY);
@@ -51,17 +51,17 @@ function ParallaxText({ baseVelocity = 100 }: MarqueeProps) {
                 className="font-bold uppercase text-5xl md:text-[10vw] flex flex-nowrap gap-10 whitespace-nowrap"
                 style={{ x }}
             >
-                <span className="text-outline">Built on Strength. Built on Trust.</span>
-                <span className="text-outline">Built on Strength. Built on Trust.</span>
+                <span className="text-outline">{slogan}</span>
+                <span className="text-outline">{slogan}</span>
             </motion.div>
         </div>
     );
 }
 
-export default function InfiniteMarquee() {
+export default function InfiniteMarquee({ slogan }: { slogan?: string }) {
     return (
         <section className="pb-20 bg-base-100 overflow-hidden">
-            <ParallaxText baseVelocity={-2} />
+            <ParallaxText baseVelocity={-2} slogan={slogan} />
         </section>
     );
 }

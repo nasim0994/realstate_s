@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import { useDeleteTeamMutation, useGetAllTeamQuery } from '@/redux/features/team/teamApi';
 import type { TResponse } from '@/interface/globalInterface';
 import TableSkeleton from '@/components/shared/Skeleton/TableSkeleton';
+import type { ITeam } from '@/interface/teamInterface';
 
 export default function AllTeam() {
     const { data, isLoading } = useGetAllTeamQuery({});
@@ -49,7 +50,7 @@ export default function AllTeam() {
                     </div>
 
                 </div>
-                <Link to="/admin/about/team-member/add" className="admin_primary_btn">
+                <Link to="/admin/about/team/add" className="admin_primary_btn">
                     <Plus size={16} /> Add Member
                 </Link>
             </div>
@@ -62,11 +63,12 @@ export default function AllTeam() {
                                 <th>Order</th>
                                 <th>Member</th>
                                 <th>Designation</th>
+                                <th>Category</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-100">
-                            {isLoading ? <TableSkeleton columns={4} /> : teamMembers?.map((member: any) => (
+                            {isLoading ? <TableSkeleton columns={4} /> : teamMembers?.map((member: ITeam) => (
                                 <tr key={member?._id} className="group hover:bg-slate-50/50 transition-all">
                                     <td>
                                         <div className="w-8 h-8 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-600 font-bold text-xs">{member?.order}</div>
@@ -80,9 +82,10 @@ export default function AllTeam() {
                                         </div>
                                     </td>
                                     <td>{member?.designation}</td>
+                                    <td>{member?.category?.name}</td>
                                     <td>
                                         <div className="flex items-center justify-end gap-2">
-                                            <Link to={`/admin/about/team-member/edit/${member?._id}`} className="p-2 bg-white border border-slate-200 rounded-lg text-slate-600 hover:text-blue-600 hover:border-blue-600 transition-all"><Edit size={14} /></Link>
+                                            <Link to={`/admin/about/team/edit/${member?._id}`} className="p-2 bg-white border border-slate-200 rounded-lg text-slate-600 hover:text-blue-600 hover:border-blue-600 transition-all"><Edit size={14} /></Link>
                                             <button onClick={() => handleDelete(member?._id)} className="p-2 bg-white border border-slate-200 rounded-lg text-slate-600 hover:text-red-600 hover:border-red-600 transition-all"><Trash2 size={14} /></button>
                                         </div>
                                     </td>

@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Menu, ExternalLink, LogOut, User, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useAppSelector } from "@/redux/hook/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hook/hooks";
 import { CONFIG } from "@/config";
+import { userLogout } from "@/redux/features/user/authSlice";
 
 interface AdminHeaderProps {
     setIsSidebarOpen: (isOpen: boolean) => void;
@@ -11,8 +12,7 @@ interface AdminHeaderProps {
 export default function AdminHeader({ setIsSidebarOpen }: AdminHeaderProps) {
     const { loggedUser } = useAppSelector((state) => state.auth);
     const [isProfileOpen, setIsProfileOpen] = useState(false);
-
-
+    const dispatch = useAppDispatch();
 
     return (
         <header className="sticky top-0 z-30 flex h-16 w-full items-center justify-between border-b border-slate-200 bg-white/80 px-3 backdrop-blur-md lg:px-4">
@@ -71,7 +71,7 @@ export default function AdminHeader({ setIsSidebarOpen }: AdminHeaderProps) {
                                 </a>
                                 <div className="h-px bg-slate-100 my-1"></div>
                                 <button
-                                    onClick={() => console.log("Logging out...")}
+                                    onClick={() => dispatch(userLogout())}
                                     className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors"
                                 >
                                     <LogOut size={16} />

@@ -33,11 +33,21 @@ export default function AllProjectType() {
     const onSubmit = async (formData: IProjectType) => {
         try {
             if (editingId) {
-                await updateProjectType({ id: editingId, data: formData }) as TResponse;
-                toast.success("Project type updated!");
+                const res = await updateProjectType({ id: editingId, data: formData }) as TResponse;
+                if (res?.data?.success) {
+                    toast.success("Project Type updated!");
+                } else {
+                    toast.error(res?.error?.data?.message || "Update failed");
+                    console.log(res);
+                }
             } else {
-                await addProjectType(formData) as TResponse;
-                toast.success("New project type added!");
+                const res = await addProjectType(formData) as TResponse;
+                if (res?.data?.success) {
+                    toast.success("Project Type added!");
+                } else {
+                    toast.error(res?.error?.data?.message || "Add failed");
+                    console.log(res);
+                }
             }
             setIsModalOpen(false);
         } catch (error: any) {

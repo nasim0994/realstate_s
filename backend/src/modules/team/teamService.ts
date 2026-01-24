@@ -11,7 +11,7 @@ export const addTeamService = async (data: ITeam) => {
 };
 
 export const getAllTeamService = async (query: Record<string, unknown>) => {
-  const result = new QueryBuilder(Team.find(), query)
+  const result = new QueryBuilder(Team.find().populate('category'), query)
     .search(['name', 'designation'])
     .filter()
     .sort()
@@ -54,7 +54,6 @@ export const deleteTeamService = async (id: string) => {
   deleteFile(`./uploads/${isExist?.image}`);
   return true;
 };
-
 
 export const getTeamCountService = async () => {
   const totalTeams = await Team.countDocuments();

@@ -6,6 +6,8 @@ import FileUploadField from '@/utils/fileUploadField';
 import { useAddTeamMutation, useGetTeamByIdQuery, useUpdateTeamMutation } from '@/redux/features/team/teamApi';
 import toast from 'react-hot-toast';
 import type { TResponse } from '@/interface/globalInterface';
+import { useGetAllTeamCategoryQuery } from '@/redux/features/teamCategory/teamCategoryApi';
+import type { ITeamCategory } from '@/interface/teamCategoryInterface';
 
 export default function TeamForm() {
     const { id } = useParams();
@@ -17,6 +19,9 @@ export default function TeamForm() {
     const [updateTeam, { isLoading: isUpdating }] = useUpdateTeamMutation();
 
     const { register, handleSubmit, watch, setValue, reset, formState: { errors } } = useForm<any>();
+
+    const { data } = useGetAllTeamCategoryQuery({});
+    const categories = data?.data || [];
 
     useEffect(() => {
         if (isEdit && memberData?.data) {
@@ -32,7 +37,7 @@ export default function TeamForm() {
         }
 
         const formData = new FormData();
-        const info = { name: data.name, designation: data.designation, order: Number(data.order) };
+        const info = { name: data.name, designation: data.designation, order: Number(data.order), category: data.category };
 
         formData.append('data', JSON.stringify(info));
         if (data.image?.[0] instanceof File) {
@@ -44,7 +49,7 @@ export default function TeamForm() {
                 const res = await updateTeam({ id, data: formData }) as TResponse;
                 if (res?.data?.success) {
                     toast.success("Member updated successfully!");
-                    navigate('/admin/about/team-member/all');
+                    navigate('/admin/about/team/all');
                 } else {
                     toast.error(
                         Array.isArray(res?.error?.data?.error) &&
@@ -59,7 +64,7 @@ export default function TeamForm() {
                 const res = await addTeam(formData) as TResponse;
                 if (res?.data?.success) {
                     toast.success("Member added successfully!");
-                    navigate('/admin/about/team-member/all');
+                    navigate('/admin/about/team/all');
                 } else {
                     toast.error(
                         Array.isArray(res?.error?.data?.error) &&
@@ -81,7 +86,7 @@ export default function TeamForm() {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                    <Link to="/admin/about/team-member/all" className="p-2 bg-white rounded-xl border border-slate-200 text-slate-500 hover:text-primary transition-all"><ArrowLeft size={20} /></Link>
+                    <Link to="/admin/about/team/all" className="p-2 bg-white rounded-xl border border-slate-200 text-slate-500 hover:text-primary transition-all"><ArrowLeft size={20} /></Link>
                     <h1 className="text-xl font-bold text-slate-900">{isEdit ? 'Edit Member' : 'Add New Member'}</h1>
                 </div>
                 <button type="submit" disabled={isAdding || isUpdating} className="admin_primary_btn">
@@ -99,9 +104,18 @@ export default function TeamForm() {
                 <div className="md:col-span-2 space-y-6">
                     <div className="bg-white p-8 rounded-2xl border border-slate-200/60 shadow-sm space-y-5">
                         <div className="space-y-2">
-                            <label className="text-xs font-bold text-slate-500 uppercase tracking-widest ml-1 flex items-center gap-2"><User size={14} /> Full Name</label>
+                            <label className="text-xs font-bold text-slate-500 uppercase tracking-widest ml-1 flex items-center gap-2"><User size={14} />Full Name</label>
                             <input type="text" {...register("name", { required: "Name is required" })} placeholder="e.g. John Doe" />
                         </div>
+
+                        <select {...register("category")}>
+                            <option value="">Select Category</option>
+                            {
+                                categories?.map((category: ITeamCategory) => (
+                                    <option key={category?._id} value={category?._id}>{category?.name}</option>
+                                ))
+                            }
+                        </select>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                             <div className="space-y-2">

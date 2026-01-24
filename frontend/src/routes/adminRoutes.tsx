@@ -2,6 +2,13 @@ import { lazy, Suspense } from "react";
 import DashboardLayoutSkeleton from "../components/shared/Skeleton/DashboardLayoutSkeleton";
 import { PrivateRoute } from "./PrivateRoute";
 import { Navigate } from "react-router-dom";
+import TeamCategory from "@/pages/admin/Team/TeamCategory";
+import AllAwards from "@/pages/admin/awards/AllAwards";
+import AwardsForm from "@/pages/admin/awards/AwardsForm";
+import AllMoreAbout from "@/pages/admin/About/moreAbout/AllMoreAbout";
+import MoreAboutForm from "@/pages/admin/About/moreAbout/MoreAboutForm";
+import AllConcerns from "@/pages/admin/About/concerns/AllConcerns";
+import ConcernsForm from "@/pages/admin/About/concerns/ConcernsForm";
 
 
 
@@ -81,16 +88,22 @@ export const adminRoutes = {
         },
         // blogs
         {
-            path: "blogs/all",
-            element: <AllBlogs />
-        },
-        {
-            path: "blogs/add",
-            element: <BlogForm />
-        },
-        {
-            path: "blogs/edit/:id",
-            element: <BlogForm />
+            path: "archives",
+            children: [
+                // blog
+                {
+                    path: "blogs/all",
+                    element: <AllBlogs />
+                },
+                {
+                    path: "blogs/add",
+                    element: <BlogForm />
+                },
+                {
+                    path: "blogs/edit/:id",
+                    element: <BlogForm />
+                },
+            ]
         },
 
         {
@@ -121,38 +134,103 @@ export const adminRoutes = {
             path: "setting/gtm-config",
             element: <GtmConfig />
         },
+
+        // about
         {
             path: "about",
-            element: <About />
+            children: [
+                {
+                    path: "",
+                    element: <About />
+                },
+
+                // more about
+                {
+                    path: "more/all",
+                    element: <AllMoreAbout />
+                },
+                {
+                    path: "more/add",
+                    element: <MoreAboutForm />
+                },
+                {
+                    path: "more/edit/:id",
+                    element: <MoreAboutForm />
+                },
+
+                // concerns
+                {
+                    path: "concerns/all",
+                    element: <AllConcerns />
+                },
+                {
+                    path: "concerns/add",
+                    element: <ConcernsForm />
+                },
+                {
+                    path: "concerns/edit/:id",
+                    element: <ConcernsForm />
+                },
+
+                // team
+                {
+                    path: "team/category/all",
+                    element: <TeamCategory />
+                },
+                {
+                    path: "team/all",
+                    element: <AllTeam />
+                },
+                {
+                    path: "team/add",
+                    element: <TeamForm />
+                },
+                {
+                    path: "team/edit/:id",
+                    element: <TeamForm />
+                },
+
+                // management
+                {
+                    path: "management/all",
+                    element: <AllManagement />
+                },
+                {
+                    path: "management/add",
+                    element: <ManagementForm />
+                },
+                {
+                    path: "management/edit/:id",
+                    element: <ManagementForm />
+                },
+            ]
         },
 
-        // team
+        // awards
         {
-            path: "about/team-member/all",
-            element: <AllTeam />
+            path: "awards/all",
+            element: <AllAwards />
         },
         {
-            path: "about/team-member/add",
-            element: <TeamForm />
+            path: "awards/add",
+            element: <AwardsForm />
         },
         {
-            path: "about/team-member/edit/:id",
-            element: <TeamForm />
+            path: "awards/edit/:id",
+            element: <AwardsForm />
         },
 
-        // management
-        {
-            path: "about/management/all",
-            element: <AllManagement />
-        },
-        {
-            path: "about/management/add",
-            element: <ManagementForm />
-        },
-        {
-            path: "about/management/edit/:id",
-            element: <ManagementForm />
-        },
+
+
+
+
+
+
+
+
+
+
+
         {
             path: "profile/my-profile",
             element: <MyProfile />

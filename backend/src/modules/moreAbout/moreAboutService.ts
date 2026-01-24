@@ -1,7 +1,5 @@
 import httpStatus from 'http-status';
 import AppError from '../../errors/AppError';
-import { makeSlug } from '../../utils/makeSlug';
-import mongoose from 'mongoose';
 import { IMoreAbout } from './moreAboutInterface';
 import { MoreAbout } from './moreAboutModel';
 import { deleteFile } from '../../utils/deleteFile';

@@ -7,7 +7,6 @@ const aboutSchema = new Schema<IAbout>({
   title: { type: String, required: true },
   subTitle: { type: String, required: true },
   description: { type: String, required: true },
-  ourConcerns: { type: [String] },
 });
 
 export const About = model<IAbout>('About', aboutSchema);

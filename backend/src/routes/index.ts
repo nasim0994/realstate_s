@@ -18,6 +18,9 @@ import { teamRoute } from '../modules/team/teamRoute';
 import { moreAboutRoute } from '../modules/moreAbout/moreAboutRoute';
 import { projectTypesRoute } from '../modules/projectType/projectTypeRoute';
 import { projectRoute } from '../modules/project/projectRoute';
+import { teamCategoryRoute } from '../modules/teamCategory/teamCategoryRoute';
+import { concernsRoute } from '../modules/concerns/concernsRoute';
+import { awardsRoute } from '../modules/awards/awardsRoute';
 
 const moduleRoutes = [
   {
@@ -60,13 +63,28 @@ const moduleRoutes = [
     permissionRoute: true,
   },
   {
+    path: '/concerns',
+    route: concernsRoute,
+    permissionRoute: true,
+  },
+  {
     path: '/management',
     route: managementRoute,
     permissionRoute: true,
   },
   {
+    path: '/team-category',
+    route: teamCategoryRoute,
+    permissionRoute: true,
+  },
+  {
     path: '/team',
     route: teamRoute,
+    permissionRoute: true,
+  },
+  {
+    path: '/awards',
+    route: awardsRoute,
     permissionRoute: true,
   },
   {

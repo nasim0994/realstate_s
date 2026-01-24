@@ -1,6 +1,7 @@
 import AppError from '../../errors/AppError';
 import { catchAsync } from '../../utils/catchAsync';
 import { deleteFile } from '../../utils/deleteFile';
+import { makeSlug } from '../../utils/makeSlug';
 import {
   addMoreAboutService,
   deleteMoreAboutService,
@@ -8,14 +9,17 @@ import {
   getSingleMoreAboutService,
   updateMoreAboutService,
 } from './moreAboutService';
+import httpStatus from 'http-status';
 
 export const addMoreAboutController = catchAsync(async (req, res, next) => {
   const icon: string | undefined = req?.file?.filename;
+  console.log(icon);
   if (!icon) throw new AppError(httpStatus.NOT_FOUND, 'Icon is required !');
 
   try {
     const data = {
       ...req.body,
+      slug: makeSlug(req.body.title),
       icon: `/moreAbout/${icon}`,
     };
     const result = await addMoreAboutService(data);
@@ -59,6 +63,7 @@ export const updateMoreAboutController = catchAsync(async (req, res, next) => {
   try {
     const data = {
       ...req.body,
+      slug: makeSlug(req.body.title),
       icon: icon ? `/moreAbout/${icon}` : undefined,
     };
     const result = await updateMoreAboutService(id, data);

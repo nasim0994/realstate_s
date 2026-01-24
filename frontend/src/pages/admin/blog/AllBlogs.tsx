@@ -54,7 +54,7 @@ export default function AllBlogs() {
                     <h1 className="text-xl font-bold text-neutral">Blog Management</h1>
                     <p className="text-slate-500 text-xs mt-1">Manage your articles, news and updates.</p>
                 </div>
-                <Link to="/admin/archives/blogs/add" className="admin_primary_btn">
+                <Link to="/admin/media/blogs/add" className="admin_primary_btn">
                     <Plus size={18} /> Add New Blog
                 </Link>
             </div>
@@ -98,7 +98,7 @@ export default function AllBlogs() {
                                 </td>
                                 <td>
                                     <div className="flex items-center justify-end gap-2">
-                                        <Link to={`/admin/archives/blogs/edit/${blog?._id}`} className="p-2 hover:bg-blue-50 text-slate-400 hover:text-blue-600 rounded-lg transition-all">
+                                        <Link to={`/admin/media/blogs/edit/${blog?._id}`} className="p-2 hover:bg-blue-50 text-slate-400 hover:text-blue-600 rounded-lg transition-all">
                                             <Edit size={16} />
                                         </Link>
                                         <button onClick={() => handleDelete(blog?._id)} className="p-2 hover:bg-red-50 text-slate-400 hover:text-red-600 rounded-lg transition-all">

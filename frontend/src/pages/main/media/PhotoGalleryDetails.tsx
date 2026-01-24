@@ -3,7 +3,7 @@ import { Calendar, MapPin, ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 
-export default function PhotoArchiveDetails() {
+export default function PhotoGalleryDetails() {
     const archive = {
         title: "Annual Conference 2025",
         description: "A gathering of industry leaders and innovators to discuss the future of technology and sustainable development. This event featured over 20 keynote speakers and multiple networking sessions.",
@@ -28,7 +28,7 @@ export default function PhotoArchiveDetails() {
                 {/* Banner Content */}
                 <div className="absolute inset-0 flex items-end">
                     <div className="max-w-7xl mx-auto w-full px-6 pb-12">
-                        <Link to="/archives/photo-archives" className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-6 text-sm transition-colors">
+                        <Link to="/media/photo-galleries" className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-6 text-sm transition-colors">
                             <ChevronLeft size={18} /> Back to Archive
                         </Link>
                         <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">

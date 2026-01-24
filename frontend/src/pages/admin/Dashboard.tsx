@@ -66,7 +66,7 @@ export default function Dashboard() {
                     <h3 className="text-2xl font-black text-slate-800 mt-1">{messageCount?.data?.unreadMessages || 0}</h3>
                 </Link>
 
-                <Link to="/admin/archives/blogs/all" className="relative bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md overflow-hidden transition-all duration-300 group">
+                <Link to="/admin/media/blogs/all" className="relative bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md overflow-hidden transition-all duration-300 group">
 
                     <div className="absolute -right-1 -bottom-2 text-slate-200/50 transition-all duration-500 group-hover:text-green-50 group-hover:scale-110 -rotate-12 group-hover:rotate-0 group-hover:-translate-y-1">
                         <BookOpen size={80} />

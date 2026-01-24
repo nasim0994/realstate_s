@@ -43,12 +43,12 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
         },
         {
             icon: Info,
-            label: 'Archives',
+            label: 'Media',
             children: [
-                { label: 'Photo Archives', href: '/admin/archives/photo' },
-                { label: 'Video Archives', href: '/admin/archives/video' },
-                { label: 'Happy Clients', href: '/admin/archives/happy-clients' },
-                { label: 'News & Blog', href: '/admin/archives/blogs/all' },
+                { label: 'Photo Galleries', href: '/admin/media/photo' },
+                { label: 'Video Galleries', href: '/admin/media/video' },
+                { label: 'Happy Clients', href: '/admin/media/happy-clients' },
+                { label: 'News & Blog', href: '/admin/media/blogs/all' },
             ]
         },
         { icon: Globe, label: 'Awards', href: "/admin/awards/all" },

@@ -21,23 +21,26 @@ const navLinks = [
         ]
     },
     {
-        name: "Archives",
-        href: "/archives",
+        name: "Media",
+        href: "#",
         hasDropdown: true,
         dropdown: [
-            { name: "Chairman Quote", href: "/archives/chairman-quote" },
-            { name: "Photo Archives", href: "/archives/photo-archives" },
-            { name: "Video Archives", href: "/archives/video-archives" },
-            { name: "Happy Clients", href: "/archives/happy-clients" },
-            { name: "News & Blog", href: "/archives/news-blog" },
+            { name: "Chairman Quote", href: "/media/chairman-quote" },
+            { name: "Photo Gallery", href: "/media/photo-galleries" },
+            { name: "Video Gallery", href: "/media/video-galleries" },
+            { name: "Happy Clients", href: "/media/happy-clients" },
+            { name: "Press Release", href: "/media/press-release" },
+            { name: "Online News", href: "/media/online-news" },
+            { name: "Tv News", href: "/media/tv-news" },
+            { name: "Blogs", href: "/media/blogs" },
         ]
     },
     {
         name: "About Us",
-        href: "/about-us",
+        href: "/about/company-profile",
         hasDropdown: true,
         dropdown: [
-            { name: "Message From Chairman", href: "/about/chairman-quote" },
+            { name: "Message From Chairman", href: "/about/chairman-message" },
             { name: "Company Profile", href: "/about/company-profile" },
             { name: "Our Concerns", href: "/about/our-concerns" },
             { name: "Our Team", href: "/about/our-team" },
@@ -54,19 +57,19 @@ export default function Header({ mobileMenuOpen, setMobileMenuOpen }: { mobileMe
 
     const isHomePage = location.pathname === "/";
     const isProjectDetailsPage = location.pathname.startsWith("/project/");
-    const isPhotoArchiveDetailsPage = location.pathname.startsWith("/archives/photo-archive/");
+    const isPhotoGalleryDetailsPage = location.pathname.startsWith("/media/photo-gallery/");
 
     const { data } = useGetGeneralSettingQuery({});
     const logo = data?.data?.logo;
 
     useEffect(() => {
         const handleScroll = () => {
-            setScrolled(isHomePage || isProjectDetailsPage || isPhotoArchiveDetailsPage ? window.scrollY > 50 : true);
+            setScrolled(isHomePage || isProjectDetailsPage || isPhotoGalleryDetailsPage ? window.scrollY > 50 : true);
         };
         handleScroll();
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
-    }, [isHomePage, isProjectDetailsPage, isPhotoArchiveDetailsPage]);
+    }, [isHomePage, isProjectDetailsPage, isPhotoGalleryDetailsPage]);
 
     const toggleMobileDropdown = (idx: number) => {
         setOpenDropdownIdx(openDropdownIdx === idx ? null : idx);

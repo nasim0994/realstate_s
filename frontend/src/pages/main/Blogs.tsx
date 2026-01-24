@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import { ArrowRight, Calendar, User, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
-
 const blogs = [
     {
         id: 1,
@@ -44,11 +43,9 @@ const blogs = [
 
 export default function Blogs() {
 
-
     return (
         <div className="bg-white min-h-screen pt-32 pb-24">
             <div className="container">
-
                 {/* Header Section */}
                 <div className="max-w-4xl mb-20">
                     <motion.h4

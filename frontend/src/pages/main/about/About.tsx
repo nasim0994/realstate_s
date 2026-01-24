@@ -1,14 +1,9 @@
 import AnimationButton from "@/components/shared/AnimationButton";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Target, Eye, Quote } from "lucide-react";
+import { Target, Eye } from "lucide-react";
 import { useMemo, useRef } from "react";
 import parser from "html-react-parser";
 import { useGetAboutQuery } from "@/redux/features/about/aboutApi";
-import { useGetAllManagementQuery } from "@/redux/features/management/managementApi";
-import type { IManagement } from "@/interface/managementInterface";
-import { CONFIG } from "@/config";
-import { useGetAllTeamQuery } from "@/redux/features/team/teamApi";
-import type { ITeam } from "@/interface/teamInterface";
 
 const counters = [
     { label: "Years of Experience", value: "12+" },
@@ -41,14 +36,6 @@ export default function AboutPage() {
             description,
         };
     }, [about?.title, about?.description]);
-
-
-    const { data: managementData } = useGetAllManagementQuery({});
-    const managementList = managementData?.data || [];
-
-
-    const { data: teamData } = useGetAllTeamQuery({});
-    const teamMembers = teamData?.data || [];
 
     return (
         <main className="pt-10 bg-white">
@@ -161,74 +148,6 @@ export default function AboutPage() {
                     </div>
                 </div>
             </section>
-
-            {/* 3. Leadership Message Section */}
-            <section className="py-24 bg-white">
-                <div className="container space-y-32">
-                    {
-                        managementList?.map((member: IManagement) => <div key={member?._id} className="flex flex-col md:flex-row items-start gap-16">
-                            <div className="md:sticky top-26 w-full md:w-1/3 aspect-3/4 bg-gray-100 overflow-hidden">
-                                <img src={CONFIG.BASE_URL + member?.image} alt={member?.name} className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" loading="lazy" />
-                            </div>
-
-                            <div className="w-full md:w-2/3 relative">
-                                <Quote className="absolute -top-10 -left-10 w-20 h-20 text-gray-100 -z-10" />
-                                <h4 className="text-primary font-bold uppercase tracking-widest text-xs mb-4">
-                                    {member?.subTitle || `${member?.designation}'s Message`}
-                                </h4>
-                                <h2 className="text-3xl md:text-5xl font-bold mb-8 tracking-tighter italic">
-                                    {member?.title}
-                                </h2>
-
-                                <div>
-                                    {member?.message && parser(member?.message)}
-                                </div>
-                            </div>
-                        </div>)
-                    }
-                </div>
-            </section>
-
-            {/* 4. Team Section */}
-            {
-                teamMembers?.length > 0 && <section className="py-24 bg-gray-50 overflow-hidden">
-                    <div className="container ">
-                        <div className="text-center mb-16">
-                            <h2 className="text-4xl font-bold tracking-tight uppercase">Our Expertise Team</h2>
-                            <div className="w-20 h-1 bg-primary mx-auto mt-4" />
-                        </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                            {teamMembers?.map((member: ITeam) => (
-                                <div key={member?._id} className="group cursor-pointer">
-                                    <div className="relative overflow-hidden aspect-4/5 mb-4 bg-gray-200">
-                                        <img src={`${CONFIG.BASE_URL}${member?.image}`} className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500" alt={member?.name} loading="lazy" />
-                                    </div>
-                                    <h4 className="font-bold text-lg uppercase tracking-tight">{member?.name}</h4>
-                                    <p className="text-gray-400 text-xs uppercase tracking-widest mt-1">{member?.designation}</p>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-            }
-
-
-            {/* 5. Sister Concerns Section */}
-            {
-                about?.ourConcerns?.length > 0 && <section className="py-20 bg-white">
-                    <div className="container  text-center">
-                        <p className="text-[10px] uppercase font-bold tracking-[0.5em] text-gray-400 mb-12">Our Concerns</p>
-                        <div className="flex flex-wrap justify-center items-center gap-12 md:gap-24 opacity-50">
-                            {
-                                about?.ourConcerns?.map((concern: string, index: number) => (
-                                    <span key={index} className="text-2xl font-black text-black grayscale tracking-tighter uppercase">{concern}</span>
-                                ))
-                            }
-                        </div>
-                    </div>
-                </section>
-            }
-
         </main>
     );
 }

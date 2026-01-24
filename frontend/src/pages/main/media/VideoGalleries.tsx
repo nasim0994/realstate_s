@@ -25,18 +25,18 @@ const videoArchives = [
     },
 ];
 
-export default function VideoArchive() {
+export default function VideoGalleries() {
     return (
         <div className="min-h-screen bg-slate-50 py-20">
             <div className="container">
                 <div className="mb-10">
-                    <h1 className="text-3xl font-bold text-slate-900">Video Archive</h1>
+                    <h1 className="text-3xl font-bold text-slate-900">Video Galleries</h1>
                     <p className="text-slate-500 mt-2">Watch our latest events and project highlights</p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {videoArchives.map((video) => (
-                        <Link to={`/archives/video-archive/${video.id}`} key={video.id} className="group">
+                        <Link to={`/media/video-gallery/${video.id}`} key={video.id} className="group">
                             <div className="bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-sm transition-all hover:shadow-xl hover:-translate-y-1">
                                 {/* Thumbnail with Play Button */}
                                 <div className="relative aspect-video overflow-hidden">

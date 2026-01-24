@@ -45,7 +45,7 @@ export default function BlogForm() {
 
             if (res.data?.success) {
                 toast.success(isEditMode ? "Blog updated successfully!" : "Blog created successfully!");
-                navigate('/admin/archives/blogs/all');
+                navigate('/admin/media/blogs/all');
             } else {
                 toast.error(
                     Array.isArray(res?.error?.data?.error) &&
@@ -68,7 +68,7 @@ export default function BlogForm() {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
             <div className="flex items-center justify-between bg-white p-5 rounded-2xl border border-slate-200/60 shadow-sm">
                 <div className="flex items-center gap-4">
-                    <Link to="/admin/archives/blogs/all" className="p-2 hover:bg-slate-100 rounded-xl transition-all">
+                    <Link to="/admin/media/blogs/all" className="p-2 hover:bg-slate-100 rounded-xl transition-all">
                         <ArrowLeft size={20} />
                     </Link>
                     <h1 className="text-xl font-bold text-neutral">{isEditMode ? 'Edit Blog' : 'Add Blog'}</h1>

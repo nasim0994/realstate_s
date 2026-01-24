@@ -10,7 +10,7 @@ const videoList = [
     { id: '4', youtubeId: '761ae_KDg_Q', title: 'Client Feedback Session', duration: '03:15', date: 'Oct 20, 2023', desc: 'What our clients say about us.' },
 ];
 
-export default function VideoArchiveDetails() {
+export default function VideoGalleryDetails() {
     const [activeVideo, setActiveVideo] = useState(videoList[0]);
 
     return (
@@ -19,11 +19,11 @@ export default function VideoArchiveDetails() {
 
                 {/* Top Navigation */}
                 <div className="flex flex-wrap gap-5 items-center justify-between mb-8">
-                    <Link to="/video-archive" className="flex items-center gap-2 text-slate-500 hover:text-primary transition-colors font-semibold">
-                        <ChevronLeft size={20} /> Back to All Archives
+                    <Link to="/video-galleries" className="flex items-center gap-2 text-slate-500 hover:text-primary transition-colors font-semibold">
+                        <ChevronLeft size={20} /> Back to All Galleries
                     </Link>
                     <div className="px-4 py-1.5 bg-primary/10 text-primary rounded-full text-xs font-bold uppercase">
-                        Archive Series: {activeVideo.date.split(',')[1]}
+                        Gallery Series: {activeVideo.date.split(',')[1]}
                     </div>
                 </div>
 

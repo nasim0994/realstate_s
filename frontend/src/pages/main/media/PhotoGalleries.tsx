@@ -23,24 +23,24 @@ const archives = [
     },
 ];
 
-export default function PhotoArchive() {
+export default function PhotoGalleries() {
     return (
         <div className="min-h-screen bg-slate-50 py-20">
             <div className="container">
                 <div className="flex items-end justify-between mb-10">
                     <div>
-                        <h1 className="text-3xl font-bold text-neutral">Photo Archive</h1>
+                        <h1 className="text-3xl font-bold text-neutral">Photo Galleries</h1>
                         <p className="text-slate-500 mt-2">Relive our precious moments through photos</p>
                     </div>
                     <div className="hidden md:block text-sm font-medium text-slate-400">
-                        Total {archives.length} Archives
+                        Total {archives.length} Galleries
                     </div>
                 </div>
 
                 {/* Archive Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                     {archives.map((item) => (
-                        <Link to={`/archives/photo-archive/${item.id}`} key={item.id} className="group">
+                        <Link to={`/media/photo-gallery/${item.id}`} key={item.id} className="group">
                             <div className="relative overflow-hidden rounded-3xl bg-white border border-slate-200 shadow-sm transition-all hover:shadow-xl hover:-translate-y-1">
                                 {/* Thumbnail */}
                                 <div className="aspect-4/3 overflow-hidden">

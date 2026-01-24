@@ -2,16 +2,6 @@ import { lazy, Suspense } from "react";
 import DashboardLayoutSkeleton from "../components/shared/Skeleton/DashboardLayoutSkeleton";
 import { PrivateRoute } from "./PrivateRoute";
 import { Navigate } from "react-router-dom";
-import TeamCategory from "@/pages/admin/Team/TeamCategory";
-import AllAwards from "@/pages/admin/awards/AllAwards";
-import AwardsForm from "@/pages/admin/awards/AwardsForm";
-import AllMoreAbout from "@/pages/admin/About/moreAbout/AllMoreAbout";
-import MoreAboutForm from "@/pages/admin/About/moreAbout/MoreAboutForm";
-import AllConcerns from "@/pages/admin/About/concerns/AllConcerns";
-import ConcernsForm from "@/pages/admin/About/concerns/ConcernsForm";
-import AllAppointment from "@/pages/admin/AllAppointment";
-
-
 
 const AdminLayout = lazy(() => import("../layout/AdminLayout"));
 const Dashboard = lazy(() => import("../pages/admin/Dashboard"));
@@ -50,6 +40,16 @@ const ProjectForm = lazy(() => import("../pages/admin/Project/ProjectForm"));
 
 const AllRole = lazy(() => import("../pages/admin/Role/AllRole"));
 const AllUsers = lazy(() => import("../pages/admin/User/AllUsers"));
+
+const TeamCategory = lazy(() => import("../pages/admin/Team/TeamCategory"));
+const AllAwards = lazy(() => import("../pages/admin/awards/AllAwards"));
+const AwardsForm = lazy(() => import("../pages/admin/awards/AwardsForm"));
+const AllMoreAbout = lazy(() => import("../pages/admin/About/moreAbout/AllMoreAbout"));
+const MoreAboutForm = lazy(() => import("../pages/admin/About/moreAbout/MoreAboutForm"));
+const AllConcerns = lazy(() => import("../pages/admin/About/concerns/AllConcerns"));
+const ConcernsForm = lazy(() => import("../pages/admin/About/concerns/ConcernsForm"));
+const AllAppointment = lazy(() => import("../pages/admin/AllAppointment"));
+
 
 
 export const adminRoutes = {

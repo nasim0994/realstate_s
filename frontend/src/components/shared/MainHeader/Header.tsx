@@ -54,18 +54,19 @@ export default function Header({ mobileMenuOpen, setMobileMenuOpen }: { mobileMe
 
     const isHomePage = location.pathname === "/";
     const isProjectDetailsPage = location.pathname.startsWith("/project/");
+    const isPhotoArchiveDetailsPage = location.pathname.startsWith("/archives/photo-archive/");
 
     const { data } = useGetGeneralSettingQuery({});
     const logo = data?.data?.logo;
 
     useEffect(() => {
         const handleScroll = () => {
-            setScrolled(isHomePage || isProjectDetailsPage ? window.scrollY > 50 : true);
+            setScrolled(isHomePage || isProjectDetailsPage || isPhotoArchiveDetailsPage ? window.scrollY > 50 : true);
         };
         handleScroll();
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
-    }, [isHomePage, isProjectDetailsPage]);
+    }, [isHomePage, isProjectDetailsPage, isPhotoArchiveDetailsPage]);
 
     const toggleMobileDropdown = (idx: number) => {
         setOpenDropdownIdx(openDropdownIdx === idx ? null : idx);

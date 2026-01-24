@@ -5,21 +5,24 @@ import type { IProjectType } from '@/interface/projectTypeInterface';
 import { useAddProjectMutation, useGetProjectByIdQuery, useUpdateProjectMutation } from '@/redux/features/project/projectApi';
 import { useGetAllProjectTypeQuery } from '@/redux/features/projectType/projectTypeApi';
 import React, { useState, useEffect, useRef } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
+import JoditEditor from 'jodit-react';
+import { JODIT_CONFIG } from '@/config/joditConfig';
 
 const MAX_FILE_SIZE = 2 * 1024 * 1024;
 
 export default function ProjectForm() {
     const { id } = useParams();
+    const editor = useRef(null);
     const navigate = useNavigate();
     const thumbInputRef = useRef<HTMLInputElement>(null);
     const [thumbPreview, setThumbPreview] = useState<string>('');
     const [galleryPreviews, setGalleryPreviews] = useState<{ url: string; isFile: boolean; fileRef?: File }[]>([]);
     const [fileError, setFileError] = useState<string>('');
 
-    const { register, handleSubmit, setValue, reset } = useForm<IProject>({
+    const { register, handleSubmit, setValue, reset, control } = useForm<IProject>({
         defaultValues: { status: 'upcoming' }
     });
 
@@ -177,11 +180,10 @@ export default function ProjectForm() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 p-4 md:p-8">
-            <form onSubmit={handleSubmit(onFormSubmit)} className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
-
-                <div className="lg:col-span-2 space-y-6">
-                    <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <div className="min-h-screen bg-gray-50">
+            <form onSubmit={handleSubmit(onFormSubmit)} className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                <div className="lg:col-span-2 space-y-4">
+                    <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
                         <h2 className="text-xl font-bold mb-4 text-gray-700">Project Details</h2>
                         {fileError && <div className="bg-red-100 text-red-600 p-2 mb-4 rounded text-sm font-medium">{fileError}</div>}
 
@@ -189,9 +191,7 @@ export default function ProjectForm() {
                             <input type="text" {...register("title", { required: true })} placeholder="Project Title" />
                         </div>
 
-                        <textarea {...register("description")} rows={4} className="w-full p-3 border rounded-lg mb-4" placeholder="Description"></textarea>
-
-                        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                        <div className="mt-4 grid grid-cols-2 md:grid-cols-3 gap-3">
                             {['landArea', 'facing', 'storied', 'layout', 'aptSize'].map((field) => (
                                 <div key={field}>
                                     <label className="text-[10px] font-bold text-gray-400 uppercase">{field}</label>
@@ -205,7 +205,7 @@ export default function ProjectForm() {
                         </div>
                     </div>
 
-                    <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                    <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
                         <h2 className="text-lg font-bold mb-2 text-gray-700">Project Gallery</h2>
                         <p className="text-xs text-gray-400 mb-4 font-medium">Max size per image: 2MB</p>
 
@@ -225,10 +225,31 @@ export default function ProjectForm() {
                             ))}
                         </div>
                     </div>
+
+                    {/* Description */}
+                    <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+                        <label className="text-[10px] font-bold text-gray-400 uppercase" htmlFor="description">
+                            Description
+                        </label>
+                        <div className="rounded-xl overflow-hidden border border-slate-200">
+                            <Controller
+                                name="description"
+                                control={control}
+                                render={({ field }) => (
+                                    <JoditEditor
+                                        ref={editor}
+                                        config={JODIT_CONFIG}
+                                        value={field.value}
+                                        onBlur={(newContent) => field.onChange(newContent)}
+                                    />
+                                )}
+                            />
+                        </div>
+                    </div>
                 </div>
 
-                <div className="space-y-6">
-                    <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <div className="space-y-4">
+                    <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
                         <h2 className="text-lg font-bold mb-4 text-gray-700">Thumbnail (Max 2MB)</h2>
                         <div onClick={() => thumbInputRef.current?.click()}
                             className="relative h-48 w-full bg-gray-50 border-2 border-dashed border-gray-300 rounded-xl overflow-hidden flex items-center justify-center cursor-pointer hover:border-blue-400 transition">

@@ -13,6 +13,7 @@ const Contact = lazy(() => import("../pages/main/Contact"));
 const Blogs = lazy(() => import("../pages/main/Blogs"));
 const BlogDetails = lazy(() => import("../pages/main/BlogDetails"));
 const PrivacyPolicy = lazy(() => import("../pages/main/PrivacyPolicy"));
+const Appointment = lazy(() => import("../pages/main/Appointment"));
 
 export const mainRoutes = {
     path: "/",
@@ -31,5 +32,6 @@ export const mainRoutes = {
         { path: "/blogs", element: <Blogs /> },
         { path: "/blog/:slug", element: <BlogDetails /> },
         { path: "/privacy-policy", element: <PrivacyPolicy /> },
+        { path: "/appointment", element: <Appointment /> },
     ]
 }

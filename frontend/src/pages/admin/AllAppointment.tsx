@@ -6,6 +6,7 @@ import TableSkeleton from '@/components/shared/Skeleton/TableSkeleton';
 import { useDeleteAppointmentMutation, useGetAllAppointmentQuery } from '@/redux/features/appointment/appointmentApi';
 import type { IAppointment } from '@/interface/appointmentInterface';
 import AppointmentModal from '@/components/modules/admin/appointment/AppointmentModal';
+import { CONFIG } from '@/config';
 
 export default function AllAppointment() {
     const { data, isLoading } = useGetAllAppointmentQuery({});
@@ -35,7 +36,7 @@ export default function AllAppointment() {
     };
 
     return (
-        <div className="space-y-4 animate-in fade-in duration-500">
+        <div className="space-y-3 animate-in fade-in duration-500">
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-slate-200/60 shadow-sm">
                 <div className='flex items-start gap-2'>
@@ -90,7 +91,10 @@ export default function AllAppointment() {
                                     </td>
                                     <td>
                                         <div className="space-y-1">
-                                            <p className="text-sm font-semibold text-primary">{appointment?.project?.title || 'General Project'}</p>
+                                            <div className='flex items-center gap-2'>
+                                                <img src={CONFIG.BASE_URL + appointment?.project?.thumbnail || ""} alt={appointment?.project?.title || 'General Project'} loading='lazy' className='w-8 h-8 rounded-md object-cover' />
+                                                <p className="text-sm font-semibold text-primary">{appointment?.project?.title || 'General Project'}</p>
+                                            </div>
                                             <p className="text-xs text-slate-500">
                                                 {new Date(appointment?.date).toLocaleDateString()}
                                             </p>

@@ -9,12 +9,12 @@ export const addAppointmentService = async (data: IAppointment) => {
 };
 
 export const getAllAppointmentService = async () => {
-  const result = await Appointment.find({});
+  const result = await Appointment.find({}).populate('project');
   return result;
 };
 
 export const getSingleAppointmentService = async (id: string) => {
-  const result = await Appointment.findById(id);
+  const result = await Appointment.findById(id).populate('project');
   return result;
 };
 

@@ -21,6 +21,7 @@ import { projectRoute } from '../modules/project/projectRoute';
 import { teamCategoryRoute } from '../modules/teamCategory/teamCategoryRoute';
 import { concernsRoute } from '../modules/concerns/concernsRoute';
 import { awardsRoute } from '../modules/awards/awardsRoute';
+import { appointmentRoute } from '../modules/appointment/appointmentRoute';
 
 const moduleRoutes = [
   {
@@ -95,6 +96,11 @@ const moduleRoutes = [
   {
     path: '/message',
     route: messagesRoute,
+    permissionRoute: true,
+  },
+  {
+    path: '/appointment',
+    route: appointmentRoute,
     permissionRoute: true,
   },
   {

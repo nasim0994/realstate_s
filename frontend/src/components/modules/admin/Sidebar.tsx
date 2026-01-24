@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import {
-    LayoutDashboard, MessageSquare, Settings, X, Building2, ChevronDown, UserCog, ShieldCheck, Globe, Mail, Info, Search
+    LayoutDashboard, MessageSquare, Settings, X, Building2, ChevronDown, UserCog, ShieldCheck, Globe, Mail, Info, Search,
+    Calendar
 } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { useGetMessageCountQuery } from '@/redux/features/contactMessage/contactMessageApi';
@@ -53,6 +54,7 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
         { icon: Globe, label: 'Awards', href: "/admin/awards/all" },
         { icon: Globe, label: 'Contact Us', href: "/admin/contact-us" },
         { icon: Mail, label: 'Contact Message', href: "/admin/contact-message" },
+        { icon: Calendar, label: 'Appointments', href: "/admin/appointments/all" },
         {
             icon: Settings,
             label: 'Setting',

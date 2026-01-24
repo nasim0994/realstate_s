@@ -9,6 +9,7 @@ import AllMoreAbout from "@/pages/admin/About/moreAbout/AllMoreAbout";
 import MoreAboutForm from "@/pages/admin/About/moreAbout/MoreAboutForm";
 import AllConcerns from "@/pages/admin/About/concerns/AllConcerns";
 import ConcernsForm from "@/pages/admin/About/concerns/ConcernsForm";
+import AllAppointment from "@/pages/admin/AllAppointment";
 
 
 
@@ -220,14 +221,11 @@ export const adminRoutes = {
             element: <AwardsForm />
         },
 
-
-
-
-
-
-
-
-
+        // appointments
+        {
+            path: "appointments/all",
+            element: <AllAppointment />
+        },
 
 
 

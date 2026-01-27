@@ -13,7 +13,7 @@ const concerns: IConcerns[] = [
 
 export default function OurConcerns() {
     return (
-        <div className="min-h-screen bg-white py-20">
+        <div className="min-h-screen bg-white py-26">
             <div className="container">
 
                 {/* Header Section */}

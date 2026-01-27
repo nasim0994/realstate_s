@@ -56,7 +56,7 @@ export default function Projects() {
     };
 
     return (
-        <div className="bg-white min-h-screen py-24">
+        <div className="bg-white min-h-screen py-26">
             <div className="container">
                 {/* Header Section */}
                 <div className="max-w-4xl mb-6">
@@ -67,7 +67,7 @@ export default function Projects() {
                 </div>
 
                 {/* --- Filter UI --- */}
-                <div className="flex flex-col md:flex-row gap-6 items-start md:items-center justify-between py-6 border-y border-gray-100 mb-12">
+                <div className="flex flex-col md:flex-row gap-6 items-start md:items-center justify-between py-6 border-y border-gray-100 mb-8">
                     <div className="flex flex-wrap items-center gap-4 md:gap-8">
                         {/* Dropdown: Project Type */}
                         <div className="relative">
@@ -114,7 +114,7 @@ export default function Projects() {
                 {isLoading ? (
                     <div className="h-64 flex items-center justify-center">Loading Projects...</div>
                 ) : (
-                    <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
+                    <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14">
                         <AnimatePresence mode="popLayout">
                             {projects?.length > 0 ? projects?.map((project: IProject, index: number) => (
                                 <Link key={project._id} to={`/project/${project?.slug}`}>

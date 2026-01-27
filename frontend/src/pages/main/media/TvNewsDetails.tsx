@@ -1,6 +1,4 @@
-
-import { ChevronLeft, Share2, Youtube, Tv, Calendar, Info } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Share2, Youtube, Tv, Calendar, Info } from 'lucide-react';
 
 export default function TvNewsDetails() {
     const news = {
@@ -13,16 +11,11 @@ export default function TvNewsDetails() {
     };
 
     return (
-        <div className="min-h-screen bg-white">
-            <div className="max-w-5xl mx-auto px-6 py-12">
-
-                {/* Back Link */}
-                <Link to="/media/tv-news" className="inline-flex items-center gap-2 text-slate-500 hover:text-red-600 mb-8 font-bold transition-colors">
-                    <ChevronLeft size={20} /> Back to News Archive
-                </Link>
+        <div className="min-h-screen bg-white py-26">
+            <div className="container">
 
                 {/* Main Video Player */}
-                <div className="bg-slate-900 rounded-[2.5rem] overflow-hidden shadow-3xl border-8 border-slate-50 relative aspect-video">
+                <div className="md:w-2/3 mx-auto bg-slate-900 rounded-[2.5rem] overflow-hidden shadow-3xl border-8 border-slate-50 relative aspect-video">
                     <iframe
                         className="absolute inset-0 w-full h-full"
                         src={`https://www.youtube.com/embed/${news.youtubeId}?autoplay=0&rel=0`}

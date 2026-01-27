@@ -49,7 +49,7 @@ export default function Contact() {
             <div className="container">
 
                 {/* Header Section */}
-                <div className="max-w-4xl mb-20">
+                <div className="max-w-4xl mb-10">
                     <motion.h4
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -60,14 +60,14 @@ export default function Contact() {
                     <motion.h1
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="text-5xl md:text-8xl font-bold tracking-tighter leading-none"
+                        className="text-5xl md:text-7xl font-bold tracking-tighter leading-none"
                     >
                         {remainingTitle} <br />
                         <span className="text-outline">{lastTwoWords}</span>
                     </motion.h1>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-24">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-10">
 
                     {/* Left Side: Contact Info (4 Columns) */}
                     <div className="lg:col-span-4 space-y-12">

@@ -44,10 +44,10 @@ const blogs = [
 export default function Blogs() {
 
     return (
-        <div className="bg-white min-h-screen pt-32 pb-24">
+        <div className="bg-white min-h-screen py-26">
             <div className="container">
                 {/* Header Section */}
-                <div className="max-w-4xl mb-20">
+                <div className="max-w-4xl mb-10">
                     <motion.h4
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -58,7 +58,7 @@ export default function Blogs() {
                     <motion.h1
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="text-6xl md:text-8xl font-bold tracking-tighter leading-none"
+                        className="text-5xl md:text-7xl font-bold tracking-tighter leading-none"
                     >
                         Insights & <br />
                         <span className="text-outline text-white">Perspectives.</span>
@@ -66,7 +66,7 @@ export default function Blogs() {
                 </div>
 
                 {/* Featured Post (The first one) */}
-                <section className="mb-24">
+                <section className="mb-10">
                     <Link to={`/blog/${blogs[0].slug}`} className="group grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                         <div className="relative overflow-hidden aspect-16/10 bg-gray-100">
                             <img
@@ -93,7 +93,7 @@ export default function Blogs() {
                     </Link>
                 </section>
 
-                <hr className="border-gray-100 mb-24" />
+                <hr className="border-gray-100 mb-10" />
 
                 {/* Blog Grid (Remaining ones) */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-20">

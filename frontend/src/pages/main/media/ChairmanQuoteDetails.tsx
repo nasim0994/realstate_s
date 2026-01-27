@@ -12,7 +12,7 @@ export default function ChairmanQuoteDetails() {
     };
 
     return (
-        <div className="min-h-screen bg-white py-20">
+        <div className="min-h-screen bg-white py-26">
             <div className="container">
                 <Link to="/media/chairman-quote" className="inline-flex items-center gap-2 text-slate-400 hover:text-primary mb-8 font-bold transition-colors">
                     <ArrowLeft size={20} /> Back to Updates

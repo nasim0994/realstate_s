@@ -42,11 +42,11 @@ export default function Appointment() {
     };
 
     return (
-        <section className="min-h-screen bg-slate-50 py-20">
+        <section className="min-h-screen bg-slate-50 py-26">
             <div className="container">
                 {/* Header */}
                 <div className="text-center mb-6">
-                    <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight">Book an Appointment</h1>
+                    <h1 className="text-5xl font-extrabold tracking-tight">Book an Appointment</h1>
                     <p className="mt-4 text-lg text-slate-600">Fill out the form below and we'll get back to you shortly.</p>
                 </div>
 

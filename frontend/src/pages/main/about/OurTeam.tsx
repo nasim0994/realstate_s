@@ -19,11 +19,11 @@ export default function OurTeam() {
         : teamMembers.filter((member: ITeam) => member?.category?.name === activeCategory);
 
     return (
-        <section className="py-24 bg-white overflow-hidden">
+        <section className="py-26 bg-white overflow-hidden">
             <div className="container mx-auto px-6">
 
                 {/* Header Section */}
-                <div className="text-center mb-12">
+                <div className="text-center mb-6">
                     <h4 className="text-primary font-bold uppercase tracking-[0.4em] text-[10px] mb-3">Professional Minds</h4>
                     <h2 className="text-5xl md:text-6xl font-black tracking-tighter uppercase text-slate-900">
                         Our Expertise <span className="text-outline">Team</span>
@@ -31,7 +31,7 @@ export default function OurTeam() {
                 </div>
 
                 {/* Category Tabs */}
-                <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-16">
+                <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-10">
                     {categories.map((cat) => (
                         <button
                             key={cat}

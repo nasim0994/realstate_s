@@ -42,14 +42,15 @@ export default function OnlineNews() {
     };
 
     return (
-        <div className="min-h-screen bg-[#FDFDFD] py-20">
+        <div className="min-h-screen bg-[#FDFDFD] py-26">
             <div className="container">
-                <div className="mb-12 border-l-4 border-primary pl-6">
-                    <h1 className="text-4xl font-black text-slate-900 uppercase tracking-tight">Online Coverage</h1>
-                    <p className="text-slate-500 mt-2 font-medium">Digital mentions and viral news from social media and web portals.</p>
+                <div className="mb-8 border-l-4 border-primary pl-6">
+                    <h1 className="text-5xl sm:text-6xl font-black uppercase tracking-tight">
+                        Online <span className='text-outline'>Coverage</span>
+                    </h1>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     {onlineNews.map((item) => (
                         <div key={item.id} className="group relative bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden">
                             {/* Thumbnail */}

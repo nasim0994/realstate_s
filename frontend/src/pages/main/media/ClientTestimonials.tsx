@@ -35,20 +35,17 @@ export default function ClientTestimonials() {
     const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
 
     return (
-        <div className="min-h-screen py-20">
+        <div className="min-h-screen py-26">
             <div className="container">
 
                 {/* Header Section */}
-                <div className="text-center max-w-3xl mx-auto mb-16">
+                <div className="text-center max-w-3xl mx-auto mb-8">
                     <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-full text-xs font-bold uppercase tracking-widest mb-4">
                         <Star size={14} fill="currentColor" /> Success Stories
                     </div>
-                    <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6">
-                        What Our Clients Say
+                    <h1 className="text-5xl md:text-6xl font-extrabold mb-4">
+                        What Our <span className='text-outline'>Clients</span> Say
                     </h1>
-                    <p className="text-lg text-slate-600 leading-relaxed">
-                        Don't just take our word for it. Hear directly from the people we've worked with across various industries.
-                    </p>
                 </div>
 
                 {/* Testimonial Grid */}

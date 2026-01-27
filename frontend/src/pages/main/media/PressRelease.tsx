@@ -31,19 +31,16 @@ const pressReleases = [
 
 export default function PressRelease() {
     return (
-        <div className="min-h-screen bg-slate-50 py-20">
+        <div className="min-h-screen bg-slate-50 py-26">
             <div className="container">
                 {/* Section Header */}
-                <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+                <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
                     <div>
                         <div className="flex items-center gap-2 text-primary font-bold text-sm uppercase tracking-wider mb-2">
                             <Newspaper size={18} /> Media Coverage
                         </div>
-                        <h1 className="text-4xl font-black text-slate-900">Press Releases</h1>
+                        <h1 className="text-5xl sm:text-6xl font-black">Press Releases</h1>
                     </div>
-                    <p className="text-slate-500 max-w-md text-sm">
-                        Keep up with our latest news, features, and mentions in national and international print and digital media.
-                    </p>
                 </div>
 
                 {/* Grid Layout */}

@@ -33,7 +33,7 @@ const tvNews = [
 
 export default function TvNews() {
     return (
-        <div className="min-h-screen bg-slate-50 py-20">
+        <div className="min-h-screen bg-slate-50 py-26">
             <div className="container">
 
                 {/* Header Section */}

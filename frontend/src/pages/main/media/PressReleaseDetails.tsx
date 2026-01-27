@@ -13,7 +13,7 @@ export default function PressReleaseDetails() {
     };
 
     return (
-        <div className="min-h-screen bg-white py-20">
+        <div className="min-h-screen bg-white py-26">
             <div className="container">
 
                 {/* Breadcrumb / Back */}

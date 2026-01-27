@@ -17,7 +17,7 @@ export default function Awards() {
     }
 
     return (
-        <section className="py-20 bg-white overflow-hidden">
+        <section className="py-26 bg-white overflow-hidden">
             <div className="container">
 
                 {/* Header Section */}
@@ -32,7 +32,7 @@ export default function Awards() {
                     <motion.h1
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="text-5xl md:text-8xl font-black tracking-tighter leading-[0.9] text-slate-900"
+                        className="text-5xl md:text-7xl font-black tracking-tighter leading-[0.9]"
                     >
                         Honors & <br />
                         <span className="text-outline text-white">Achievements.</span>

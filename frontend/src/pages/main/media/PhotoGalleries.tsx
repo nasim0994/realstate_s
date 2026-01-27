@@ -25,12 +25,13 @@ const archives = [
 
 export default function PhotoGalleries() {
     return (
-        <div className="min-h-screen bg-slate-50 py-20">
+        <div className="min-h-screen bg-slate-50 py-26">
             <div className="container">
-                <div className="flex items-end justify-between mb-10">
+                <div className="flex items-end justify-between mb-6">
                     <div>
-                        <h1 className="text-3xl font-bold text-neutral">Photo Galleries</h1>
-                        <p className="text-slate-500 mt-2">Relive our precious moments through photos</p>
+                        <h1 className="text-5xl sm:text-6xl font-bold uppercase">
+                            Photo <span className='text-outline'>Galleries</span>
+                        </h1>
                     </div>
                     <div className="hidden md:block text-sm font-medium text-slate-400">
                         Total {archives.length} Galleries
@@ -38,7 +39,7 @@ export default function PhotoGalleries() {
                 </div>
 
                 {/* Archive Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     {archives.map((item) => (
                         <Link to={`/media/photo-gallery/${item.id}`} key={item.id} className="group">
                             <div className="relative overflow-hidden rounded-3xl bg-white border border-slate-200 shadow-sm transition-all hover:shadow-xl hover:-translate-y-1">

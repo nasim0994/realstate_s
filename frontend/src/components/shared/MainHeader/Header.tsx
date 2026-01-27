@@ -176,7 +176,7 @@ export default function Header({ mobileMenuOpen, setMobileMenuOpen }: { mobileMe
 
 
                         <div className="flex-1 overflow-y-auto p-8 overscroll-contain">
-                            <div className="flex flex-col gap-6">
+                            <div className="flex flex-col gap-5">
                                 {navLinks.map((link, i) => (
                                     <div key={i} className="flex flex-col">
                                         <div className="flex items-center justify-between group">
@@ -220,17 +220,15 @@ export default function Header({ mobileMenuOpen, setMobileMenuOpen }: { mobileMe
                                         <div className="h-px w-full mt-4" />
                                     </div>
                                 ))}
-                            </div>
-                        </div>
 
-                        <div className="shrink-0">
-                            <Link
-                                to="/appointment"
-                                onClick={() => setMobileMenuOpen(false)}
-                                className="block w-full bg-primary text-white py-5 text-xs font-black uppercase tracking-[0.3em] rounded-sm text-center shadow-lg"
-                            >
-                                Book Appointment
-                            </Link>
+                                <Link
+                                    to="/appointment"
+                                    onClick={() => setMobileMenuOpen(false)}
+                                    className="block w-full bg-primary text-white py-5 text-xs font-black uppercase tracking-[0.3em] rounded-sm text-center shadow-lg"
+                                >
+                                    Book Appointment
+                                </Link>
+                            </div>
                         </div>
                     </motion.aside>
                 )}

@@ -56,7 +56,7 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
             icon: Info,
             label: 'Media',
             children: [
-                { label: 'Chairman Quote', href: '/admin/media/chairman-quote' },
+                { label: 'Chairman Quote', href: '/admin/media/chairman-quote/all' },
                 { label: 'Photo Galleries', href: '/admin/media/photo' },
                 { label: 'Video Galleries', href: '/admin/media/video' },
                 { label: 'Happy Clients', href: '/admin/media/happy-clients' },

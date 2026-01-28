@@ -5,12 +5,16 @@ import toast from 'react-hot-toast';
 import type { TResponse } from '@/interface/globalInterface';
 import { API_URL } from '@/config';
 import TableSkeleton from '@/components/shared/Skeleton/TableSkeleton';
+import Pagination from '@/components/shared/Pagination';
+import { useState } from 'react';
 
 export default function AllBlogs() {
-    const { data, isLoading } = useGetAllBlogsQuery({});
+    const [page, setPage] = useState(1);
+    const { data, isLoading } = useGetAllBlogsQuery({ page, limit: 10 });
+    const blogs = data?.data || [];
+
     const [deleteBlog] = useDeleteBlogMutation();
     const [toggleStatus] = useToggleBlogStatusMutation();
-    const blogs = data?.data || [];
 
     const handleToggleStatus = async (id: string) => {
         try {
@@ -44,7 +48,6 @@ export default function AllBlogs() {
             }
         }
     };
-
 
 
     return (
@@ -111,6 +114,13 @@ export default function AllBlogs() {
                     </tbody>
                 </table>
             </div>
+
+
+            <Pagination
+                currentPage={page}
+                totalPages={data?.meta?.pages || 1}
+                onPageChange={(p) => setPage(p)}
+            />
         </div>
     );
 }

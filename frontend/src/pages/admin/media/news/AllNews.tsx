@@ -4,13 +4,20 @@ import { Link } from 'react-router-dom';
 import { useDeleteNewsMutation, useGetAllNewsQuery } from '@/redux/features/media/newsApi';
 import TableSkeleton from '@/components/shared/Skeleton/TableSkeleton';
 import { CONFIG } from '@/config';
+import Pagination from '@/components/shared/Pagination';
 
 export default function AllNews() {
     const [selectedType, setSelectedType] = useState('all');
-    const { data: newsData, isLoading } = useGetAllNewsQuery(selectedType !== 'all' ? { type: selectedType } : {});
+    const [page, setPage] = useState(1);
+
+    const { data, isLoading } = useGetAllNewsQuery({
+        type: selectedType !== 'all' ? selectedType : undefined,
+        page,
+        limit: 10
+    });
     const [deleteNews] = useDeleteNewsMutation();
 
-    const newsList = newsData?.data || [];
+    const newsList = data?.data || [];
     const newsTypes = ['all', 'press', 'online', 'tv'];
 
     return (
@@ -88,6 +95,13 @@ export default function AllNews() {
                     </tbody>
                 </table>
             </div>
+
+
+            <Pagination
+                currentPage={page}
+                totalPages={data?.meta?.pages || 1}
+                onPageChange={(p) => setPage(p)}
+            />
         </div>
     );
 }

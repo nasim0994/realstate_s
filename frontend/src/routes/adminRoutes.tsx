@@ -6,6 +6,10 @@ import AllConcernProducts from "@/pages/admin/About/concerns/AllConcernProducts"
 import ConcernProductForm from "@/pages/admin/About/concerns/ConcernProductForm";
 import AllNews from "@/pages/admin/media/news/AllNews";
 import NewsForm from "@/pages/admin/media/news/NewsForm";
+import AllBlogs from "@/pages/admin/media/blog/AllBlogs";
+import BlogForm from "@/pages/admin/media/blog/BlogsForm";
+import AllChairmanQuotes from "@/pages/admin/media/chairmanQuote/AllChairmanQuotes";
+import ChairmanQuoteForm from "@/pages/admin/media/chairmanQuote/ChairmanQuoteForm";
 
 const AdminLayout = lazy(() => import("../layout/AdminLayout"));
 const Dashboard = lazy(() => import("../pages/admin/Dashboard"));
@@ -35,8 +39,7 @@ const UpdatePassword = lazy(() => import("../pages/admin/Profile/UpdatePassword"
 const SeoSettings = lazy(() => import("../pages/admin/Seo"));
 const ContactMessage = lazy(() => import("../pages/admin/ContactMessage"));
 
-const AllBlogs = lazy(() => import("../pages/admin/blog/AllBlogs"));
-const BlogForm = lazy(() => import("../pages/admin/blog/BlogsForm"));
+
 
 const AllProjectType = lazy(() => import("../pages/admin/Project/AllProjectType"));
 const AllProjects = lazy(() => import("../pages/admin/Project/AllProjects"));
@@ -90,25 +93,6 @@ export const adminRoutes = {
         {
             path: "projects/edit/:id",
             element: <ProjectForm />
-        },
-        // blogs
-        {
-            path: "archives",
-            children: [
-                // blog
-                {
-                    path: "blogs/all",
-                    element: <AllBlogs />
-                },
-                {
-                    path: "blogs/add",
-                    element: <BlogForm />
-                },
-                {
-                    path: "blogs/edit/:id",
-                    element: <BlogForm />
-                },
-            ]
         },
 
         {
@@ -241,6 +225,34 @@ export const adminRoutes = {
                 {
                     path: "news/edit/:id",
                     element: <NewsForm />
+                },
+
+                // blog
+                {
+                    path: "blogs/all",
+                    element: <AllBlogs />
+                },
+                {
+                    path: "blogs/add",
+                    element: <BlogForm />
+                },
+                {
+                    path: "blogs/edit/:id",
+                    element: <BlogForm />
+                },
+
+                // chairman quote
+                {
+                    path: "chairman-quote/all",
+                    element: <AllChairmanQuotes />
+                },
+                {
+                    path: "chairman-quote/add",
+                    element: <ChairmanQuoteForm />
+                },
+                {
+                    path: "chairman-quote/edit/:id",
+                    element: <ChairmanQuoteForm />
                 },
             ]
         },

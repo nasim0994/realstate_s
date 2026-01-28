@@ -14,6 +14,8 @@ import AllPhotoGallery from "@/pages/admin/media/photoGallery/AllPhotoGallery";
 import PhotoGalleryForm from "@/pages/admin/media/photoGallery/PhotoGalleryForm";
 import AllVideoGallery from "@/pages/admin/media/videoGallery/AllVideoGallery";
 import VideoGalleryForm from "@/pages/admin/media/videoGallery/VideoGalleryForm";
+import AllHappyClients from "@/pages/admin/media/happyClient/AllHappyClients";
+import HappyClientForm from "@/pages/admin/media/happyClient/HappyClientForm";
 
 const AdminLayout = lazy(() => import("../layout/AdminLayout"));
 const Dashboard = lazy(() => import("../pages/admin/Dashboard"));
@@ -285,6 +287,20 @@ export const adminRoutes = {
                 {
                     path: "video-gallery/edit/:id",
                     element: <VideoGalleryForm />
+                },
+
+                // review
+                {
+                    path: "review/all",
+                    element: <AllHappyClients />
+                },
+                {
+                    path: "review/add",
+                    element: <HappyClientForm />
+                },
+                {
+                    path: "review/edit/:id",
+                    element: <HappyClientForm />
                 },
             ]
         },

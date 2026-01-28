@@ -29,6 +29,7 @@ import { tvNewsRoute } from '../modules/media/tvNews/tvNewsRoute';
 import { newsRoute } from '../modules/media/news/newsRoute';
 import { photoGalleryRoute } from '../modules/media/photoGallery/photoGalleryRoute';
 import { videoGalleryRoute } from '../modules/media/videoGallery/videoGalleryRoute';
+import { happyClientRoute } from '../modules/media/happyClients/happyClientRoute';
 
 const moduleRoutes = [
   {
@@ -109,6 +110,11 @@ const moduleRoutes = [
   {
     path: '/video-gallery',
     route: videoGalleryRoute,
+    permissionRoute: true,
+  },
+  {
+    path: '/happy-client',
+    route: happyClientRoute,
     permissionRoute: true,
   },
   {

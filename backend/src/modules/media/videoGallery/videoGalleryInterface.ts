@@ -4,5 +4,5 @@ export type IVideoGallery = {
   image: string;
   description: string;
   date?: string;
-  videoLinks?: string[];
+  videoLinks: string[];
 };

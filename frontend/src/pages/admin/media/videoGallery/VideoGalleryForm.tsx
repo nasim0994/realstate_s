@@ -1,16 +1,19 @@
-import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useEffect, useRef, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Upload, X, Save, ArrowLeft, Loader2, Link as LinkIcon, PlusCircle } from 'lucide-react';
 import { useAddVideoGalleryMutation, useGetVideoGalleryByIdQuery, useUpdateVideoGalleryMutation } from '@/redux/features/media/videoGalleryApi';
 import { CONFIG } from '@/config';
 import toast from 'react-hot-toast';
 import type { TResponse } from '@/interface/globalInterface';
+import JoditEditor from 'jodit-react';
+import { JODIT_CONFIG } from '@/config/joditConfig';
 
 export default function VideoGalleryForm() {
     const { id } = useParams();
     const navigate = useNavigate();
     const isEditMode = !!id;
+    const editor = useRef(null);
 
     const galleryKey = id ?? '__new__';
 
@@ -23,7 +26,7 @@ export default function VideoGalleryForm() {
     const [addVideoGallery, { isLoading: isCreating }] = useAddVideoGalleryMutation();
     const [updateVideoGallery, { isLoading: isUpdating }] = useUpdateVideoGalleryMutation();
 
-    const { register, handleSubmit, reset, setValue } = useForm();
+    const { register, handleSubmit, reset, setValue, control } = useForm();
 
     const localPreview = localPreviewByKey[galleryKey] ?? null;
     const hideRemotePreview = isEditMode && !!(id && clearedRemotePreviewById[id]);
@@ -132,7 +135,20 @@ export default function VideoGalleryForm() {
                         </div>
                         <div className="space-y-2">
                             <label className="text-sm font-bold text-slate-700">Description</label>
-                            <textarea {...register('description')} rows={3} className="admin_input py-3" placeholder="Short summary..." />
+                            <div className="rounded-xl overflow-hidden border border-slate-200">
+                                <Controller
+                                    name="description"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <JoditEditor
+                                            ref={editor}
+                                            config={JODIT_CONFIG}
+                                            value={field.value}
+                                            onBlur={(newContent) => field.onChange(newContent)}
+                                        />
+                                    )}
+                                />
+                            </div>
                         </div>
                     </div>
 

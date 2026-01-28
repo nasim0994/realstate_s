@@ -4,6 +4,8 @@ import { PrivateRoute } from "./PrivateRoute";
 import { Navigate } from "react-router-dom";
 import AllConcernProducts from "@/pages/admin/About/concerns/AllConcernProducts";
 import ConcernProductForm from "@/pages/admin/About/concerns/ConcernProductForm";
+import AllNews from "@/pages/admin/media/news/AllNews";
+import NewsForm from "@/pages/admin/media/news/NewsForm";
 
 const AdminLayout = lazy(() => import("../layout/AdminLayout"));
 const Dashboard = lazy(() => import("../pages/admin/Dashboard"));
@@ -222,6 +224,27 @@ export const adminRoutes = {
                 },
             ]
         },
+
+        // media
+        {
+            path: "media",
+            children: [
+                // news
+                {
+                    path: "news/all",
+                    element: <AllNews />
+                },
+                {
+                    path: "news/add",
+                    element: <NewsForm />
+                },
+                {
+                    path: "news/edit/:id",
+                    element: <NewsForm />
+                },
+            ]
+        },
+
 
         // awards
         {

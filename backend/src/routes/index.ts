@@ -23,6 +23,10 @@ import { concernsRoute } from '../modules/concerns/concernsRoute';
 import { awardsRoute } from '../modules/awards/awardsRoute';
 import { appointmentRoute } from '../modules/appointment/appointmentRoute';
 import { concernProductRoute } from '../modules/concernProduct/concernProductRoute';
+import { chairmanQuoteRoute } from '../modules/media/chairmanQuote/chairmanQuoteRoute';
+import { pressReleaseRoute } from '../modules/media/pressRelease/pressReleaseRoute';
+import { tvNewsRoute } from '../modules/media/tvNews/tvNewsRoute';
+import { newsRoute } from '../modules/media/news/newsRoute';
 
 const moduleRoutes = [
   {
@@ -89,6 +93,18 @@ const moduleRoutes = [
     route: teamRoute,
     permissionRoute: true,
   },
+  // media routes
+  {
+    path: '/chairman-quote',
+    route: chairmanQuoteRoute,
+    permissionRoute: true,
+  },
+  {
+    path: '/news',
+    route: newsRoute,
+    permissionRoute: true,
+  },
+  // awards routes
   {
     path: '/awards',
     route: awardsRoute,

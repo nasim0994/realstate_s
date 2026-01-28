@@ -1,4 +1,4 @@
-import { ChevronLeft, Share2, Download, Calendar, Tag } from 'lucide-react';
+import { ChevronLeft, Share2, Calendar, Tag } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 
@@ -33,9 +33,6 @@ export default function PressReleaseDetails() {
                             />
                         </div>
                         <div className="mt-4 flex justify-center gap-4">
-                            <button className="flex items-center gap-2 px-6 py-3 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800 transition-all text-sm">
-                                <Download size={18} /> Download Clipping
-                            </button>
                             <button className="flex items-center gap-2 px-6 py-3 border border-slate-200 rounded-xl font-bold hover:bg-slate-50 transition-all text-sm">
                                 <Share2 size={18} /> Share News
                             </button>

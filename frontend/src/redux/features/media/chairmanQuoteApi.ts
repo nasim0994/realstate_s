@@ -18,13 +18,6 @@ export const chairmanQuoteApi = baseApi.injectEndpoints({
       }),
       providesTags: ["chairmanQuote"],
     }),
-    getChairmanQuoteCount: builder.query({
-      query: () => ({
-        url: "/chairman-quote/count",
-        method: "GET",
-      }),
-      providesTags: ["chairmanQuote"],
-    }),
     getChairmanQuoteById: builder.query({
       query: (id) => ({
         url: `/chairman-quote/${id}`,
@@ -64,5 +57,4 @@ export const {
   useGetChairmanQuoteBySlugQuery,
   useUpdateChairmanQuoteMutation,
   useDeleteChairmanQuoteMutation,
-  useGetChairmanQuoteCountQuery,
 } = chairmanQuoteApi;

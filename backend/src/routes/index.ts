@@ -27,6 +27,7 @@ import { chairmanQuoteRoute } from '../modules/media/chairmanQuote/chairmanQuote
 import { pressReleaseRoute } from '../modules/media/pressRelease/pressReleaseRoute';
 import { tvNewsRoute } from '../modules/media/tvNews/tvNewsRoute';
 import { newsRoute } from '../modules/media/news/newsRoute';
+import { photoGalleryRoute } from '../modules/media/photoGallery/photoGalleryRoute';
 
 const moduleRoutes = [
   {
@@ -97,6 +98,11 @@ const moduleRoutes = [
   {
     path: '/chairman-quote',
     route: chairmanQuoteRoute,
+    permissionRoute: true,
+  },
+  {
+    path: '/photo-gallery',
+    route: photoGalleryRoute,
     permissionRoute: true,
   },
   {

@@ -42,5 +42,6 @@ export const baseApi = createApi({
     "concernProduct",
     "news",
     "chairmanQuote",
+    "photoGallery",
   ],
 });

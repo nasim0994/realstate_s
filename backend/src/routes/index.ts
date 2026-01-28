@@ -22,6 +22,7 @@ import { teamCategoryRoute } from '../modules/teamCategory/teamCategoryRoute';
 import { concernsRoute } from '../modules/concerns/concernsRoute';
 import { awardsRoute } from '../modules/awards/awardsRoute';
 import { appointmentRoute } from '../modules/appointment/appointmentRoute';
+import { concernProductRoute } from '../modules/concernProduct/concernProductRoute';
 
 const moduleRoutes = [
   {
@@ -66,6 +67,11 @@ const moduleRoutes = [
   {
     path: '/concerns',
     route: concernsRoute,
+    permissionRoute: true,
+  },
+  {
+    path: '/concern-product',
+    route: concernProductRoute,
     permissionRoute: true,
   },
   {

@@ -2,6 +2,8 @@ import { lazy, Suspense } from "react";
 import DashboardLayoutSkeleton from "../components/shared/Skeleton/DashboardLayoutSkeleton";
 import { PrivateRoute } from "./PrivateRoute";
 import { Navigate } from "react-router-dom";
+import AllConcernProducts from "@/pages/admin/About/concerns/AllConcernProducts";
+import ConcernProductForm from "@/pages/admin/About/concerns/ConcernProductForm";
 
 const AdminLayout = lazy(() => import("../layout/AdminLayout"));
 const Dashboard = lazy(() => import("../pages/admin/Dashboard"));
@@ -171,6 +173,20 @@ export const adminRoutes = {
                 {
                     path: "concerns/edit/:id",
                     element: <ConcernsForm />
+                },
+
+                // concern products
+                {
+                    path: "concerns/product/all",
+                    element: <AllConcernProducts />
+                },
+                {
+                    path: "concerns/product/add",
+                    element: <ConcernProductForm />
+                },
+                {
+                    path: "concerns/product/edit/:id",
+                    element: <ConcernProductForm />
                 },
 
                 // team

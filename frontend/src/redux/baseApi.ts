@@ -39,5 +39,6 @@ export const baseApi = createApi({
     "awards",
     "concerns",
     "appointment",
+    "concernProduct",
   ],
 });

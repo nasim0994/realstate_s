@@ -43,5 +43,6 @@ export const baseApi = createApi({
     "news",
     "chairmanQuote",
     "photoGallery",
+    "videoGallery",
   ],
 });

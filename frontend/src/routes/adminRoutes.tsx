@@ -12,6 +12,8 @@ import AllChairmanQuotes from "@/pages/admin/media/chairmanQuote/AllChairmanQuot
 import ChairmanQuoteForm from "@/pages/admin/media/chairmanQuote/ChairmanQuoteForm";
 import AllPhotoGallery from "@/pages/admin/media/photoGallery/AllPhotoGallery";
 import PhotoGalleryForm from "@/pages/admin/media/photoGallery/PhotoGalleryForm";
+import AllVideoGallery from "@/pages/admin/media/videoGallery/AllVideoGallery";
+import VideoGalleryForm from "@/pages/admin/media/videoGallery/VideoGalleryForm";
 
 const AdminLayout = lazy(() => import("../layout/AdminLayout"));
 const Dashboard = lazy(() => import("../pages/admin/Dashboard"));
@@ -269,6 +271,20 @@ export const adminRoutes = {
                 {
                     path: "gallery/edit/:id",
                     element: <PhotoGalleryForm />
+                },
+
+                // video gallery
+                {
+                    path: "video-gallery/all",
+                    element: <AllVideoGallery />
+                },
+                {
+                    path: "video-gallery/add",
+                    element: <VideoGalleryForm />
+                },
+                {
+                    path: "video-gallery/edit/:id",
+                    element: <VideoGalleryForm />
                 },
             ]
         },

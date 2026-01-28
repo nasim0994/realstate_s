@@ -5,6 +5,8 @@ import { useDeleteNewsMutation, useGetAllNewsQuery } from '@/redux/features/medi
 import TableSkeleton from '@/components/shared/Skeleton/TableSkeleton';
 import { CONFIG } from '@/config';
 import Pagination from '@/components/shared/Pagination';
+import type { TResponse } from '@/interface/globalInterface';
+import toast from 'react-hot-toast';
 
 export default function AllNews() {
     const [selectedType, setSelectedType] = useState('all');
@@ -15,10 +17,27 @@ export default function AllNews() {
         page,
         limit: 10
     });
-    const [deleteNews] = useDeleteNewsMutation();
 
     const newsList = data?.data || [];
     const newsTypes = ['all', 'press', 'online', 'tv'];
+
+    const [deleteNews] = useDeleteNewsMutation();
+    const handleDelete = async (id: string) => {
+        if (window.confirm("Permanent delete this News?")) {
+            const res = await deleteNews(id) as TResponse;
+            if (res?.data?.success) {
+                toast.success(res.data.message || "News deleted successfully");
+            } else {
+                toast.error(
+                    Array.isArray(res?.error?.data?.error) && res?.error?.data?.error.length > 0
+                        ? `${res?.error?.data?.error[0]?.path || ""} ${res?.error?.data?.error[0]?.message || ""}`.trim()
+                        : res?.error?.data?.message || "Something went wrong!"
+                );
+                console.log(res);
+
+            }
+        }
+    };
 
     return (
         <div className="space-y-2 animate-in fade-in duration-500">
@@ -85,7 +104,7 @@ export default function AllNews() {
                                         <Link to={`/admin/media/news/edit/${item?._id}`} className="p-2 hover:bg-blue-50 text-slate-400 hover:text-blue-600 rounded-lg transition-all">
                                             <Edit size={16} />
                                         </Link>
-                                        <button onClick={() => deleteNews(item?._id)} className="p-2 hover:bg-red-50 text-slate-400 hover:text-red-600 rounded-lg transition-all">
+                                        <button onClick={() => handleDelete(item?._id)} className="p-2 hover:bg-red-50 text-slate-400 hover:text-red-600 rounded-lg transition-all">
                                             <Trash2 size={16} />
                                         </button>
                                     </div>

@@ -28,6 +28,7 @@ import { pressReleaseRoute } from '../modules/media/pressRelease/pressReleaseRou
 import { tvNewsRoute } from '../modules/media/tvNews/tvNewsRoute';
 import { newsRoute } from '../modules/media/news/newsRoute';
 import { photoGalleryRoute } from '../modules/media/photoGallery/photoGalleryRoute';
+import { videoGalleryRoute } from '../modules/media/videoGallery/videoGalleryRoute';
 
 const moduleRoutes = [
   {
@@ -103,6 +104,11 @@ const moduleRoutes = [
   {
     path: '/photo-gallery',
     route: photoGalleryRoute,
+    permissionRoute: true,
+  },
+  {
+    path: '/video-gallery',
+    route: videoGalleryRoute,
     permissionRoute: true,
   },
   {

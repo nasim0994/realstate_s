@@ -6,6 +6,8 @@ import { useDeleteChairmanQuoteMutation, useGetAllChairmanQuoteQuery } from '@/r
 import type { IChairmanQuote } from '@/interface/chairmanQuoteInterface';
 import { useState } from 'react';
 import Pagination from '@/components/shared/Pagination';
+import type { TResponse } from '@/interface/globalInterface';
+import toast from 'react-hot-toast';
 
 export default function AllChairmanQuotes() {
     const [page, setPage] = useState(1);
@@ -13,6 +15,22 @@ export default function AllChairmanQuotes() {
     const quotes = data?.data || [];
 
     const [deleteChairmanQuote] = useDeleteChairmanQuoteMutation();
+    const handleDelete = async (id: string) => {
+        if (window.confirm("Permanent delete this Quote?")) {
+            const res = await deleteChairmanQuote(id) as TResponse;
+            if (res?.data?.success) {
+                toast.success(res.data.message || "Quote deleted successfully");
+            } else {
+                toast.error(
+                    Array.isArray(res?.error?.data?.error) && res?.error?.data?.error.length > 0
+                        ? `${res?.error?.data?.error[0]?.path || ""} ${res?.error?.data?.error[0]?.message || ""}`.trim()
+                        : res?.error?.data?.message || "Something went wrong!"
+                );
+                console.log(res);
+
+            }
+        }
+    };
 
     return (
         <div className="space-y-4 animate-in fade-in duration-500">
@@ -65,7 +83,7 @@ export default function AllChairmanQuotes() {
                                         <Link to={`/admin/media/chairman-quote/edit/${item?._id}`} className="p-2 hover:bg-blue-50 text-slate-400 hover:text-blue-600 rounded-lg transition-all">
                                             <Edit size={16} />
                                         </Link>
-                                        <button onClick={() => deleteChairmanQuote(item?._id)} className="p-2 hover:bg-red-50 text-slate-400 hover:text-red-600 rounded-lg transition-all">
+                                        <button onClick={() => handleDelete(item?._id)} className="p-2 hover:bg-red-50 text-slate-400 hover:text-red-600 rounded-lg transition-all">
                                             <Trash2 size={16} />
                                         </button>
                                     </div>
